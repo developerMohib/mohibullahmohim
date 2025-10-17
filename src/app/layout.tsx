@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { lato, rubik, saira } from "@/font";
+import QueryProvider from "@/provider/QueryProvider";
 
 
 export const metadata: Metadata = {
@@ -51,7 +52,9 @@ export default function RootLayout({
       <body
         className={`${lato.variable} ${rubik.variable} ${saira.variable} antialiased`}
       >
-        <main>{children}</main>
+        <QueryProvider>
+          <main>{children}</main>
+        </QueryProvider>
       </body>
     </html>
   );
