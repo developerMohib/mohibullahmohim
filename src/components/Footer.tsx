@@ -13,7 +13,7 @@ const Footer = () => {
   useEffect(() => {
     setIsMounted(true);
     setCurrentTime(new Date());
-    
+
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
@@ -55,24 +55,13 @@ const Footer = () => {
   // Format time safely for SSR
   const formatTime = (date: Date | null) => {
     if (!date) return '--:--:-- --';
-    
+
     return date.toLocaleTimeString('en-US', {
       hour12: true,
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
       timeZoneName: 'short'
-    });
-  };
-
-  const formatDate = (date: Date | null) => {
-    if (!date) return 'Loading...';
-    
-    return date.toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
     });
   };
 
@@ -85,7 +74,7 @@ const Footer = () => {
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          
+
           {/* Brand & Time Section */}
           <div className="lg:col-span-1">
             <motion.div
@@ -96,11 +85,11 @@ const Footer = () => {
               <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
                 Mohibullah Mohim
               </h3>
-              
+
               {/* Dynamic Time Display */}
               <div className="mb-6">
-                
-                <div className="text-sm text-gray-500 mt-1">                  
+
+                <div className="text-sm text-gray-500 mt-1">
                   <p>To businesses and entrepreneurs bring their digital ideas to life by building full-stack web applications with the MERN stack. My service covers everything from UI/UX design implementation with React to creating secure server infrastructure, ensuring you get a complete, high-performance product that engages users and drives growth.</p>
                 </div>
               </div>
@@ -122,7 +111,7 @@ const Footer = () => {
                     >
                       {social.icon}
                     </motion.a>
-                    
+
                     {/* Tooltip */}
                     <div className="
                       absolute -top-12 left-1/2 transform -translate-x-1/2
@@ -208,7 +197,7 @@ const Footer = () => {
               <p className="text-gray-400 mb-4 text-sm">
                 Get the latest updates and insights delivered to your inbox.
               </p>
-              
+
               {isSubscribed ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -243,7 +232,7 @@ const Footer = () => {
                   </motion.button>
                 </form>
               )}
-              
+
               <div className="mt-4 text-xs text-gray-500">
                 No spam. Unsubscribe at any time.
               </div>
@@ -259,7 +248,7 @@ const Footer = () => {
             <div className="text-gray-400 text-sm">
               © {getCurrentYear()} Mohibullah Mohim. All rights reserved.
             </div>
-            
+
             {/* Additional mini navigation */}
             <div className="flex items-center space-x-6 text-sm">
               <a href="/sitemap" className="text-gray-400 hover:text-white transition-colors duration-200">
