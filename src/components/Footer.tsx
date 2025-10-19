@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const Footer = () => {
-  const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -12,10 +11,8 @@ const Footer = () => {
   // Initialize with client-side only
   useEffect(() => {
     setIsMounted(true);
-    setCurrentTime(new Date());
 
     const timer = setInterval(() => {
-      setCurrentTime(new Date());
     }, 1000);
 
     return () => clearInterval(timer);
@@ -52,18 +49,6 @@ const Footer = () => {
     { name: 'Instagram', href: 'https://instagram.com', icon: '📷' },
   ];
 
-  // Format time safely for SSR
-  const formatTime = (date: Date | null) => {
-    if (!date) return '--:--:-- --';
-
-    return date.toLocaleTimeString('en-US', {
-      hour12: true,
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      timeZoneName: 'short'
-    });
-  };
 
   const getCurrentYear = () => {
     return isMounted ? new Date().getFullYear() : '2024';
