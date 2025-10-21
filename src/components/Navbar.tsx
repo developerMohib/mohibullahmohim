@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import Image from 'next/image';
+import { ModeToggle } from './ThemeController';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -83,9 +84,9 @@ const Navbar = () => {
             initial="hidden"
             animate="visible"
             variants={navVariants}
-            className="bg-black shadow-lg sticky top-0 z-50"
+            className="shadow-lg sticky top-0 z-50"
         >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     {/* Logo */}
                     <div className="flex items-center">
