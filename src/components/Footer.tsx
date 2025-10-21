@@ -55,12 +55,12 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-mmBlack text-white border-t border-gray-800">
+    <footer className="border-t border-gray-800">
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <div className="px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
 
-          {/* Brand & Time Section */}
+          {/* Brand Section */}
           <div className="lg:col-span-1">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -74,7 +74,7 @@ const Footer = () => {
               {/* Dynamic Time Display */}
               <div className="mb-6">
 
-                <div className="text-sm text-gray-500 mt-1">
+                <div className="text-sm text-gray-400 mt-1">
                   <p>To businesses and entrepreneurs bring their digital ideas to life by building full-stack web applications with the MERN stack. My service covers everything from UI/UX design implementation with React to creating secure server infrastructure, ensuring you get a complete, high-performance product that engages users and drives growth.</p>
                 </div>
               </div>
@@ -121,8 +121,9 @@ const Footer = () => {
             </motion.div>
           </div>
 
-          {/* Navigation Links */}
-          <div>
+        <div className='grid grid-cols-2'>
+            {/* Navigation Links */}
+          <div className='grid-cols-1'>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -137,7 +138,7 @@ const Footer = () => {
                       whileHover={{ x: 5 }}
                       className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center group"
                     >
-                      <span className="w-1 h-1 bg-white rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      <span className="w-1 h-1 bg-red-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                       {link.name}
                     </motion.a>
                   </li>
@@ -147,7 +148,7 @@ const Footer = () => {
           </div>
 
           {/* Legal Links */}
-          <div>
+          <div className='grid-cols-1'>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -162,7 +163,7 @@ const Footer = () => {
                       whileHover={{ x: 5 }}
                       className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center group"
                     >
-                      <span className="w-1 h-1 bg-white rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      <span className="w-1 h-1 bg-red-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                       {link.name}
                     </motion.a>
                   </li>
@@ -170,6 +171,10 @@ const Footer = () => {
               </ul>
             </motion.div>
           </div>
+
+
+        </div>
+
 
           {/* Newsletter Subscription */}
           <div>
