@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { lato, rubik, saira } from "@/font";
 import QueryProvider from "@/provider/QueryProvider";
-
+import { ThemeProvider } from "@/components/theme-provider";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Mohibullah Mohim | Full Stack Developer",
@@ -48,13 +49,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="dark">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${lato.variable} ${rubik.variable} ${saira.variable} antialiased`}
       >
-        <QueryProvider>
-          <main>{children}</main>
-        </QueryProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          <QueryProvider>
+            <main>{children}</main>
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
