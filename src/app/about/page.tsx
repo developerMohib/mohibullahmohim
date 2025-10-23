@@ -250,7 +250,7 @@ const AboutPage = () => {
                 <div className="flex items-center mb-12">
                   <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent flex-1 mr-6" />
                   <div className="text-center">
-                    <h2 className="text-2xl md:text-3xl font-bold capitalize text-white whitespace-nowrap bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                    <h2 className="text-2xl md:text-3xl font-bold capitalize text-white whitespace-nowrap bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text">
                       {category.category}
                     </h2>
                     <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mt-2"></div>

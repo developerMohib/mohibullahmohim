@@ -4,6 +4,7 @@ import { lato, rubik, saira } from "@/font";
 import QueryProvider from "@/provider/QueryProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/Navbar";
+import AppLoader from "@/components/AppLoader";
 
 export const metadata: Metadata = {
   title: "Mohibullah Mohim | Full Stack Developer",
@@ -59,6 +60,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <AppLoader />
           <Navbar />
           <QueryProvider>
             <main>{children}</main>
