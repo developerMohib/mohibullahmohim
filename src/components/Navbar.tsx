@@ -5,16 +5,21 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import Image from 'next/image';
-import { ModeToggle } from './ThemeController';
+import SolutionsMegaMenu from './Megamenu';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
 
+
     const navigation = [
         { name: 'Home', href: '/' },
         { name: 'About', href: '/about' },
-        { name: 'Services', href: '/services' },
+        {
+            name: 'Solutions',
+            component: SolutionsMegaMenu
+        },
+        { name: 'Support', href: '/support' },
         { name: 'Blogs', href: '/blogs' },
     ];
 
@@ -86,7 +91,7 @@ const Navbar = () => {
             variants={navVariants}
             className="shadow-lg sticky top-0 z-50"
         >
-            <div className="px-4 sm:px-6 lg:px-8">
+            <div className="px-4 sm:px-6 lg:px-8 bg-mmWhite shadow">
                 <div className="flex justify-between h-16">
                     {/* Logo */}
                     <div className="flex items-center">
@@ -96,18 +101,29 @@ const Navbar = () => {
                         >
                             <Link href="/" className="flex-shrink-0 flex items-center">
                                 <motion.div
-                                    className="h-9 w-9 flex items-center justify-center"
+                                    className="h-9 w-8 flex items-center justify-center"
                                     whileHover={{
                                         rotate: 360,
                                         transition: { duration: 0.6 }
                                     }}
                                 >
-                                    <span className="">
-                                        <Image src={'https://res.cloudinary.com/dnfjdkspi/image/upload/v1761074250/MOHIBULLAH_wpw6wv.png'} alt='Mohibullah Mohim' width={500} height={500} />
+                                    <span>
+                                        <Image
+                                            src={'https://res.cloudinary.com/dnfjdkspi/image/upload/v1761074250/MOHIBULLAH_wpw6wv.png'}
+                                            alt='Mohibullah Mohim'
+                                            width={36}
+                                            height={36}
+                                        />
                                     </span>
                                 </motion.div>
-                                <span className="font-semibold text-gray-800">
-                                    <Image className='h-7 w-auto' src={'https://res.cloudinary.com/dnfjdkspi/image/upload/v1761074250/MOHIBULLAH-MOHIM_vdk1vp.png'} width={500} height={500} alt='Mohibullah Mohim' />
+                                <span>
+                                    <Image
+                                        className='h-6 w-auto md:h-7'
+                                        src={'https://res.cloudinary.com/dnfjdkspi/image/upload/v1761074250/MOHIBULLAH-MOHIM_vdk1vp.png'}
+                                        width={150}
+                                        height={28}
+                                        alt='Mohibullah Mohim'
+                                    />
                                 </span>
                             </Link>
                         </motion.div>
@@ -115,38 +131,53 @@ const Navbar = () => {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-1">
-                        {navigation.map((item, index) => (
-                            <motion.div
-                                key={item.name}
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 + 0.3 }}
-                            >
-                                <Link
-                                    href={item.href}
-                                    className="relative px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-                                >
-                                    <motion.span
-                                        className={`relative z-10 ${isActive(item.href)
-                                                ? 'text-blue-600'
-                                                : 'text-gray-600 hover:text-blue-600'
-                                            }`}
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
+                        {navigation?.map((item, index) => {
+                            if (item.component) {
+                                const Component = item.component;
+                                return (
+                                    <motion.div
+                                        key={item.name}
+                                        initial={{ opacity: 0, y: -20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: index * 0.1 + 0.3 }}
                                     >
-                                        {item.name}
-                                    </motion.span>
+                                        <Component />
+                                    </motion.div>
+                                );
+                            }
+                            return (
+                                <motion.div
+                                    key={item.name}
+                                    initial={{ opacity: 0, y: -20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: index * 0.1 + 0.3 }}
+                                >
+                                    <Link
+                                        href={item.href}
+                                        className="relative px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                                    >
+                                        <motion.span
+                                            className={`relative z-10 ${isActive(item.href)
+                                                ? 'text-mmWhite'
+                                                : 'text-mmBlack hover:text-mmBlack/70'
+                                                }`}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            {item.name}
+                                        </motion.span>
 
-                                    {isActive(item.href) && (
-                                        <motion.div
-                                            className="absolute inset-0 bg-blue-100 rounded-md"
-                                            layoutId="activeBackground"
-                                            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                                        />
-                                    )}
-                                </Link>
-                            </motion.div>
-                        ))}
+                                        {isActive(item.href) && (
+                                            <motion.div
+                                                className="absolute inset-0 bg-blue-100 rounded-md"
+                                                layoutId="activeBackground"
+                                                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                                            />
+                                        )}
+                                    </Link>
+                                </motion.div>
+                            );
+                        })}
                     </div>
 
                     {/* CTA Button - Desktop */}
@@ -160,7 +191,7 @@ const Navbar = () => {
                             whileTap={{ scale: 0.95 }}
                             transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                         >
-                            <Link href={'/contact'}> Hire Me</Link>
+                            <Link href={'/contact'}>Hire Me</Link>
                         </motion.button>
                     </div>
 
@@ -219,8 +250,8 @@ const Navbar = () => {
                             exit="closed"
                             className="md:hidden overflow-hidden"
                         >
-                            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-                                {navigation.map((item, i) => (
+                            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-300 border-t">
+                                {navigation?.map((item, i) => (
                                     <motion.div
                                         key={item.name}
                                         variants={menuItemVariants}
@@ -230,8 +261,10 @@ const Navbar = () => {
                                         custom={i}
                                     >
                                         <Link
-                                            href={item.href}
-                                            className={`block px-3 py-3 rounded-md text-base font-medium transition-colors duration-200 ${isActive(item.href)
+                                            href={item.component ? '/solutions' : item.href} // Provide fallback href
+                                            className={`block px-3 py-3 rounded-md text-base font-medium transition-colors duration-200 ${
+                                                // Only check isActive if href exists
+                                                item.href && isActive(item.href)
                                                     ? 'text-blue-600 bg-blue-50 border-l-4 border-blue-600'
                                                     : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50'
                                                 }`}
@@ -260,7 +293,7 @@ const Navbar = () => {
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
                                     >
-                                        <Link href={'/contact'}> Hire Me</Link>
+                                        <Link href={'/contact'}>Hire Me</Link>
                                     </motion.button>
                                 </motion.div>
                             </div>
