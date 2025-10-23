@@ -191,46 +191,6 @@ const Support = () => {
     setIsSubmitting(false);
   };
 
-
-  const supportServicesCard = [
-    {
-      icon: '🔧',
-      title: 'Technical Support',
-      description: 'Get help with technical issues, bugs, and system maintenance',
-      features: [
-        'Bug fixes and troubleshooting',
-        'Performance optimization',
-        'Security updates',
-        'Server maintenance'
-      ],
-      responseTime: 'Within 12 hours'
-    },
-    {
-      icon: '💬',
-      title: 'Consultation',
-      description: 'Expert advice on your projects and technical decisions',
-      features: [
-        'Architecture review',
-        'Code quality assessment',
-        'Technology stack guidance',
-        'Best practices consultation'
-      ],
-      responseTime: 'Within 48 hours'
-    },
-    {
-      icon: '🚀',
-      title: 'Emergency Support',
-      description: 'Urgent assistance for critical issues affecting your business',
-      features: [
-        'Priority response',
-        'Direct communication',
-        'Immediate troubleshooting',
-        'Rapid deployment'
-      ],
-      responseTime: 'Within 4 hours'
-    }
-  ];
-
   const contactMethods = [
     {
       icon: '📧',
@@ -254,29 +214,6 @@ const Support = () => {
       action: '/contact'
     }
   ];
-
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5
-      }
-    }
-  };
-
 
 
   return (
@@ -324,15 +261,15 @@ const Support = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {category.services.map((service) => (
-                    <Card key={service.title} className="hover:shadow-lg transition-all duration-300 border-blue-100">
+                    <Card key={service.title} className="hover:shadow-lg duration-300 rounded-2xl shadow-lg p-6 transition-shadow border border-gray-100 bg-transparent">
                       <CardHeader>
-                        <CardTitle className="text-lg">{service.title}</CardTitle>
-                        <CardDescription>{service.description}</CardDescription>
+                        <CardTitle className="text-lg text-white">{service.title}</CardTitle>
+                        <CardDescription className='text-gray-400'>{service.description}</CardDescription>
                       </CardHeader>
                       <CardContent>
                         <ul className="space-y-2">
                           {service.details.map((detail, index) => (
-                            <li key={index} className="flex items-center text-sm text-gray-600">
+                            <li key={index} className="flex items-center text-sm text-gray-400">
                               <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-3" />
                               {detail}
                             </li>
@@ -365,7 +302,7 @@ const Support = () => {
           </TabsContent>
 
           {/* Pricing Tab */}
-          <TabsContent value="pricing">
+          <TabsContent value="pricing" className="space-y-12 md:mt-16 mt-10">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {supportTiers.map((tier, index) => (
                 <motion.div
@@ -420,7 +357,7 @@ const Support = () => {
           </TabsContent>
 
           {/* Contact Tab */}
-          <TabsContent value="contact">
+          <TabsContent value="contact" className="space-y-12 md:mt-16 mt-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
               {/* Contact Form */}
               <motion.div
@@ -428,26 +365,26 @@ const Support = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <Card>
+                <Card className="hover:shadow-lg duration-300 rounded-2xl shadow-lg p-6 transition-shadow border border-gray-100 bg-transparent">
                   <CardHeader>
-                    <CardTitle>Get Immediate Support</CardTitle>
-                    <CardDescription>
+                    <CardTitle className='text-white'>Get Immediate Support</CardTitle>
+                    <CardDescription className='text-white'>
                       Describe your issue and I&apos;ll get back to you within hours.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <div className="space-y-2">
-                        <Label htmlFor="name">Name</Label>
-                        <Input id="name" placeholder="Your name" required />
+                        <Label className='text-white' htmlFor="name">Name</Label>
+                        <Input id="name" placeholder="Your name" required className='text-white'/>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="your.email@example.com" required />
+                        <Label className='text-white' htmlFor="email">Email</Label>
+                        <Input id="email" type="email" placeholder="your.email@example.com" className='text-white' required />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="urgency">Urgency Level</Label>
-                        <select id="urgency" className="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        <Label className='text-white' htmlFor="urgency">Urgency Level</Label>
+                        <select id="urgency" className="w-full px-3 py-2 border border-gray-300 rounded-md text-white bg-black">
                           <option>Low - General inquiry</option>
                           <option>Medium - Need help soon</option>
                           <option>High - Affecting users</option>
@@ -455,15 +392,15 @@ const Support = () => {
                         </select>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="description">Issue Description</Label>
+                        <Label className='text-white' htmlFor="description">Issue Description</Label>
                         <Textarea
                           id="description"
-                          placeholder="Please describe your issue in detail, including error messages and any relevant context..."
+                          placeholder="Please describe your issue in detail, including error messages and any relevant context..." className='text-white'
                           rows={6}
                           required
                         />
                       </div>
-                      <Button type="submit" className="w-full" disabled={isSubmitting}>
+                      <Button type="submit" className="w-full bg-white text-black hover:bg-white/70 cursor-pointer" disabled={isSubmitting}>
                         {isSubmitting ? (
                           <>
                             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
@@ -485,30 +422,30 @@ const Support = () => {
                 transition={{ duration: 0.6 }}
                 className="space-y-6"
               >
-                <Card>
+                <Card className='bg-transparent'>
                   <CardHeader>
-                    <CardTitle>Quick Support Channels</CardTitle>
+                    <CardTitle className='text-white'>Quick Support Channels</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-center p-3 border rounded-lg">
                       <div className="text-2xl mr-4">📧</div>
                       <div>
-                        <div className="font-semibold">Email Support</div>
-                        <div className="text-sm text-gray-600">support@mohibullah.dev</div>
+                        <div className="font-semibold text-white">Email Support</div>
+                        <div className="text-sm text-gray-400">mohibullahmohim2020@gmail.com</div>
                       </div>
                     </div>
                     <div className="flex items-center p-3 border rounded-lg">
                       <div className="text-2xl mr-4">💬</div>
                       <div>
-                        <div className="font-semibold">Live Chat</div>
-                        <div className="text-sm text-gray-600">Available for Professional & Enterprise plans</div>
+                        <div className="font-semibold text-white">Live Chat</div>
+                        <div className="text-sm text-gray-400">Available for Professional & Enterprise plans</div>
                       </div>
                     </div>
                     <div className="flex items-center p-3 border rounded-lg">
                       <div className="text-2xl mr-4">📞</div>
                       <div>
-                        <div className="font-semibold">Emergency Call</div>
-                        <div className="text-sm text-gray-600">24/7 for Enterprise clients</div>
+                        <div className="font-semibold text-white">Emergency Call</div>
+                        <div className="text-sm text-gray-400">24/7 for Enterprise clients</div>
                       </div>
                     </div>
                   </CardContent>
@@ -519,59 +456,12 @@ const Support = () => {
           </TabsContent>
         </Tabs>
 
-        {/* Support Services */}
-        <motion.section
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="mb-16"
-        >
-          <h2 className="text-3xl font-bold text-center md:mb-12 md:mt-24 my-12">
-            Support Services
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {supportServicesCard.map((service) => (
-              <motion.div
-                key={service.title}
-                variants={itemVariants}
-                className="rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 border border-gray-100"
-              >
-                <div className="text-4xl mb-4">{service.icon}</div>
-                <h3 className="text-xl font-bold mb-3">
-                  {service.title}
-                </h3>
-                <p className="mb-4">
-                  {service.description}
-                </p>
-                <div className="mb-4">
-                  <h4 className="font-semibold mb-2">Includes:</h4>
-                  <ul className="space-y-1">
-                    {service.features.map((feature) => (
-                      <li key={feature} className="flex items-center text-gray-400">
-                        <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="bg-blue-50 rounded-lg p-3">
-                  <p className="text-sm text-blue-800">
-                    <strong>Response Time:</strong> {service.responseTime}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
-
         {/* Stats Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
+          className="md:mt-12 mt-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
         >
           <div>
             <div className="text-2xl md:text-3xl font-bold text-blue-600">24/7</div>
@@ -592,7 +482,7 @@ const Support = () => {
         </motion.div>
       </div>
 
-      <div className="py-12">
+      <div className="md:py-11 py-7">
         <div className="px-4 sm:px-6 lg:px-8">
 
           {/* Contact Methods */}
