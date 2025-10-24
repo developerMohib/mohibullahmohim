@@ -15,6 +15,9 @@ import {
     CheckCircle2,
     Users,
     Award,
+    Download,
+    Code,
+    MapPin,
 } from 'lucide-react';
 import { services } from '@/fakedata/service';
 import { processSteps } from '@/fakedata/process';
@@ -24,14 +27,34 @@ import Link from 'next/link';
 import Testimonial from './Testimonial';
 
 const HomePage = () => {
-   // Stats Data
+    // Stats Data
     const stats = [
         { number: "50+", label: "Projects Completed", icon: Award },
         { number: "100%", label: "Client Satisfaction", icon: Star },
         { number: "3+", label: "Years Experience", icon: Clock },
         { number: "24/7", label: "Support Available", icon: Users }
     ];
+ 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    };
 
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                duration: 0.5
+            }
+        }
+    };
 
     // const toggleVideo = () => {
     //     if (videoRef.current) {
@@ -46,6 +69,87 @@ const HomePage = () => {
 
     return (
         <div className="overflow-hidden">
+            {/* Hero Section */}
+            <motion.section
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
+            >
+                {/* Background Effects */}
+                <div className="absolute inset-0">
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent"></div>
+                    <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+                </div>
+
+                <div className="relative max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        {/* Text Content */}
+                        <motion.div
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            className="space-y-6"
+                        >
+                            <motion.div variants={itemVariants}>
+                                <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm bg-blue-500/20 text-blue-300 border-blue-500/30">
+                                    Full Stack Developer
+                                </Badge>
+                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                                    Crafting Digital
+                                    <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"> Experiences</span>
+                                    That Matter
+                                </h1>
+                            </motion.div>
+
+                            <motion.p variants={itemVariants} className="text-xl text-gray-300 leading-relaxed">
+                                I specialize in building modern, scalable web applications with cutting-edge technologies.
+                                With a passion for clean code and user-centric design, I transform ideas into powerful digital solutions.
+                            </motion.p>
+
+                            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
+                                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                                    <Mail className="w-5 h-5 mr-2" />
+                                    Get In Touch
+                                </Button>
+                                <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-800 px-8 py-3 rounded-xl font-semibold transition-all duration-300">
+                                    <Download className="w-5 h-5 mr-2" />
+                                    Download CV
+                                </Button>
+                            </motion.div>
+
+                        </motion.div>
+
+                        {/* Profile Image/Graphic */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="relative"
+                        >
+                            <div className="relative w-80 h-80 mx-auto">
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl rotate-6 scale-105"></div>
+                                <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl shadow-2xl flex items-center justify-center">
+                                    <div className="text-center p-8">
+                                        <div className="w-24 h-24 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                            <Code className="w-12 h-12 text-white" />
+                                        </div>
+                                        <h3 className="text-xl font-bold text-white mb-2">Mohibullah Mohim</h3>
+                                        <p className="text-gray-400 text-sm">Full Stack Developer</p>
+                                        <div className="flex items-center justify-center mt-3 text-gray-500 text-sm">
+                                            <MapPin className="w-4 h-4 mr-1" />
+                                            Available Worldwide
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </motion.section>
+
+
             {/* Hero Banner Section */}
             <section className="relative flex items-center justify-center overflow-hidden">
 
