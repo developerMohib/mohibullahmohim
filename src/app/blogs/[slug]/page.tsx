@@ -10,8 +10,11 @@ interface BlogDetailPageProps {
   };
 }
 
-export default function BlogDetailPage({ params }: BlogDetailPageProps) {
-  const post = blogPosts.find(post => post.slug === params.slug);
+export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
+  // Await the params in Next.js 14+
+  const { slug } = await params;
+  
+  const post = blogPosts.find(post => post.slug === slug);
   
   if (!post) {
     notFound();
