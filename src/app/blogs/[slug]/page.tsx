@@ -11,14 +11,14 @@ interface BlogDetailPageProps {
 }
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
-  // Await the params in Next.js 14+
-  const { slug } = await params;
-  
-  const post = blogPosts.find(post => post.slug === slug);
-  
+  const { slug } = params;
+
+  const post = blogPosts.find((post) => post.slug === slug);
+
   if (!post) {
     notFound();
   }
+
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -67,7 +67,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
             <p className="text-xl text-gray-600 leading-relaxed mb-8">
               {post.excerpt}
             </p>
-            
+
             <div className="bg-gray-50 rounded-lg p-6 mb-8">
               <h2 className="text-2xl font-bold mb-4">What You&apos;ll Learn</h2>
               <ul className="space-y-2">
@@ -81,7 +81,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
             {/* Main content would go here */}
             <div className="space-y-6">
               <p>{post.content}</p>
-              
+
               <h2>Deep Dive into the Technology</h2>
               <p>
                 This technology represents a significant advancement in how we approach modern web development.
