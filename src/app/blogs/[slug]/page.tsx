@@ -4,13 +4,12 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { blogPosts } from '@/fakedata/blogs';
 
-interface BlogDetailPageProps {
-  params: {
-    slug: string;
-  };
-}
 
-export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
+export default async function BlogDetailPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { slug } = params;
 
   const post = blogPosts.find((post) => post.slug === slug);
