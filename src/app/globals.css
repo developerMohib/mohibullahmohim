@@ -5,9 +5,6 @@
 
 :root {
   /* My white Theme color combination */
-  --color-mmblack: #111111;
-  --color-mmgray: #555555;
-  --color-mmwhite: #ffffff;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -96,23 +93,7 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    /* My Black Theme color combination */
-    --background: #000000;
-    --foreground: #ffffff;
 
-    /* Text sort out */
-    --color-mmblack: #f5f5f5;
-    --color-mmgray: #b2b3b5;
-    --color-mmwhite: #000000;
-    
-    /* Navbar dark theme */
-    --navbar-background: oklch(0.145 0 0 / 0.8);
-    --navbar-foreground: oklch(0.985 0 0);
-    --navbar-border: oklch(1 0 0 / 0.1);
-  }
-}
 
 .dark {
   --background: oklch(0.145 0 0);
