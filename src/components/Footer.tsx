@@ -45,11 +45,11 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { name: 'LinkedIn', href: 'https://linkedin.com', icon: Linkedin },
-    { name: 'Facebook', href: 'https://facebook.com', icon: Facebook },
-    { name: 'GitHub', href: 'https://github.com', icon: Github },
-    { name: 'Twitter', href: 'https://twitter.com', icon: Twitter },
-    { name: 'Instagram', href: 'https://instagram.com', icon: Instagram },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/mohibullah-mohim', icon: Linkedin },
+    { name: 'Facebook', href: 'https://www.facebook.com/mohibullah.jubileean', icon: Facebook },
+    { name: 'GitHub', href: 'https://github.com/developerMohib', icon: Github },
+    { name: 'Twitter', href: 'https://twitter.com/Mohib333', icon: Twitter },
+    { name: 'Instagram', href: 'https://instagram.com/mohib_the_maziest', icon: Instagram },
   ];
 
 
