@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { Facebook, Github, Linkedin, Twitter, Instagram } from "lucide-react";
 import { motion } from 'framer-motion';
+import Logo from './common/Logo';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -43,10 +45,11 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { name: 'GitHub', href: 'https://github.com', icon: '🐱' },
-    { name: 'Twitter', href: 'https://twitter.com', icon: '🐦' },
-    { name: 'LinkedIn', href: 'https://linkedin.com', icon: '💼' },
-    { name: 'Instagram', href: 'https://instagram.com', icon: '📷' },
+    { name: 'LinkedIn', href: 'https://linkedin.com', icon: Linkedin },
+    { name: 'Facebook', href: 'https://facebook.com', icon: Facebook },
+    { name: 'GitHub', href: 'https://github.com', icon: Github },
+    { name: 'Twitter', href: 'https://twitter.com', icon: Twitter },
+    { name: 'Instagram', href: 'https://instagram.com', icon: Instagram },
   ];
 
 
@@ -60,16 +63,24 @@ const Footer = () => {
       <div className="px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
 
+
           {/* Brand Section */}
           <div className="lg:col-span-1">
+            <Logo />
+            <motion.h1
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="text-3xl font-bold mb-6 tracking-wide"
+            >
+              developer<span className="text-blue-500">Mohib</span>
+            </motion.h1>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                Mohibullah Mohim
-              </h3>
+
 
               {/* Dynamic Time Display */}
               <div className="mb-6">
@@ -80,100 +91,104 @@ const Footer = () => {
               </div>
 
               {/* Social Links with Tooltips */}
+
+
               <div className="flex space-x-4 relative">
-                {socialLinks.map((social) => (
-                  <motion.div
-                    key={social.name}
-                    className="relative group"
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <motion.a
-                      href={social.href}
-                      className="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center text-lg hover:bg-gray-200 transition-colors duration-200"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                {socialLinks.map((social) => {
+                  const Icon = social.icon;
+                  return (
+                    <motion.div
+                      key={social.name}
+                      className="relative group"
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      {social.icon}
-                    </motion.a>
+                      <motion.a
+                        href={social.href}
+                        className="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center text-lg hover:bg-gray-200 transition-colors duration-200"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Icon size={18} />
+                      </motion.a>
 
-                    {/* Tooltip */}
-                    <div className="
-                      absolute -top-12 left-1/2 transform -translate-x-1/2
-                      bg-white text-black text-xs font-semibold px-3 py-2 
-                      rounded-lg shadow-xl border border-gray-200
-                      opacity-0 group-hover:opacity-100
-                      transition-all duration-300 ease-out
-                      pointer-events-none
-                      whitespace-nowrap
-                      z-50
-                      after:content-[''] after:absolute after:top-full after:left-1/2
-                      after:-translate-x-1/2 after:border-4 after:border-transparent
-                      after:border-t-white
-                    ">
-                      {social.name}
-                      {/* Tooltip arrow */}
-                      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rotate-45" />
-                    </div>
-                  </motion.div>
-                ))}
+                      {/* Tooltip */}
+                      <div className="
+          absolute -top-12 left-1/2 transform -translate-x-1/2
+          bg-white text-black text-xs font-semibold px-3 py-2 
+          rounded-lg shadow-xl border border-gray-200
+          opacity-0 group-hover:opacity-100
+          transition-all duration-300 ease-out
+          pointer-events-none
+          whitespace-nowrap
+          z-50
+        ">
+                        {social.name}
+
+                        {/* Tooltip arrow */}
+                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rotate-45" />
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
+
             </motion.div>
           </div>
 
-        <div className='grid grid-cols-2'>
+          <div className='grid grid-cols-2'>
             {/* Navigation Links */}
-          <div className='grid-cols-1'>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <h4 className="text-lg font-semibold mb-4 text-gray-300">Navigation</h4>
-              <ul className="space-y-3">
-                {navigationLinks.map((link) => (
-                  <li key={link.name}>
-                    <motion.a
-                      href={link.href}
-                      whileHover={{ x: 5 }}
-                      className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center group"
-                    >
-                      <span className="w-1 h-1 bg-red-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                      {link.name}
-                    </motion.a>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+            <div className='grid-cols-1'>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                <h4 className="text-lg font-semibold mb-4 text-gray-300">Navigation</h4>
+                <ul className="space-y-3">
+                  {navigationLinks.map((link) => (
+                    <li key={link.name}>
+                      <motion.a
+                        href={link.href}
+                        whileHover={{ x: 5 }}
+                        className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center group"
+                      >
+                        <span className="w-1 h-1 bg-red-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                        {link.name}
+                      </motion.a>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+
+            {/* Legal Links */}
+            <div className='grid-cols-1'>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <h4 className="text-lg font-semibold mb-4 text-gray-300">Legal</h4>
+                <ul className="space-y-3">
+                  {legalLinks.map((link) => (
+                    <li key={link.name}>
+                      <motion.a
+                        href={link.href}
+                        whileHover={{ x: 5 }}
+                        className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center group"
+                      >
+                        <span className="w-1 h-1 bg-red-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                        {link.name}
+                      </motion.a>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+
+
           </div>
-
-          {/* Legal Links */}
-          <div className='grid-cols-1'>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h4 className="text-lg font-semibold mb-4 text-gray-300">Legal</h4>
-              <ul className="space-y-3">
-                {legalLinks.map((link) => (
-                  <li key={link.name}>
-                    <motion.a
-                      href={link.href}
-                      whileHover={{ x: 5 }}
-                      className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center group"
-                    >
-                      <span className="w-1 h-1 bg-red-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                      {link.name}
-                    </motion.a>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </div>
-
-
-        </div>
 
 
           {/* Newsletter Subscription */}
