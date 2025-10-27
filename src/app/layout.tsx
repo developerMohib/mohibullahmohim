@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { lato, rubik, saira } from "@/font";
 import QueryProvider from "@/provider/QueryProvider";
-import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/Navbar";
 import AppLoader from "@/components/AppLoader";
+import BackToTop from "@/components/BackToTop";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Mohibullah Mohim | Full Stack Developer",
@@ -65,6 +66,7 @@ export default function RootLayout({
           <QueryProvider>
             <main>{children}</main>
           </QueryProvider>
+          <BackToTop />
         </ThemeProvider>
       </body>
     </html>

@@ -56,25 +56,14 @@ const HomePage = () => {
         }
     };
 
-    // const toggleVideo = () => {
-    //     if (videoRef.current) {
-    //         if (isPlaying) {
-    //             videoRef.current.pause();
-    //         } else {
-    //             videoRef.current.play();
-    //         }
-    //         setIsPlaying(!isPlaying);
-    //     }
-    // };
-
     return (
-        <div className="overflow-hidden">
+        <div className="overflow-hidden bg-white dark:bg-gray-900">
             {/* Hero Section */}
             <motion.section
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
+                className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20"
             >
                 {/* Background Effects */}
                 <div className="absolute inset-0">
@@ -83,7 +72,7 @@ const HomePage = () => {
                     <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
                 </div>
 
-                <div className="relative max-w-7xl mx-auto">
+                <div className="relative">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         {/* Text Content */}
                         <motion.div
@@ -93,17 +82,17 @@ const HomePage = () => {
                             className="space-y-6"
                         >
                             <motion.div variants={itemVariants}>
-                                <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm bg-blue-500/20 text-blue-300 border-blue-500/30">
+                                <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-500/30">
                                     Full Stack Developer
                                 </Badge>
-                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
                                     Crafting Digital
-                                    <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"> Experiences</span>
+                                    <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500 bg-clip-text text-transparent"> Experiences</span>
                                     That Matter
                                 </h1>
                             </motion.div>
 
-                            <motion.p variants={itemVariants} className="text-xl text-gray-300 leading-relaxed">
+                            <motion.p variants={itemVariants} className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
                                 I specialize in building modern, scalable web applications with cutting-edge technologies.
                                 With a passion for clean code and user-centric design, I transform ideas into powerful digital solutions.
                             </motion.p>
@@ -113,12 +102,11 @@ const HomePage = () => {
                                     <Mail className="w-5 h-5 mr-2" />
                                     Get In Touch
                                 </Button>
-                                <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-800 px-8 py-3 rounded-xl font-semibold transition-all duration-300">
+                                <Button variant="outline" className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 px-8 py-3 rounded-xl font-semibold transition-all duration-300">
                                     <Download className="w-5 h-5 mr-2" />
                                     Download CV
                                 </Button>
                             </motion.div>
-
                         </motion.div>
 
                         {/* Profile Image/Graphic */}
@@ -130,14 +118,14 @@ const HomePage = () => {
                         >
                             <div className="relative w-80 h-80 mx-auto">
                                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl rotate-6 scale-105"></div>
-                                <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl shadow-2xl flex items-center justify-center">
+                                <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-3xl shadow-2xl flex items-center justify-center border border-gray-200 dark:border-gray-700">
                                     <div className="text-center p-8">
-                                        <div className="w-24 h-24 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                        <div className="w-24 h-24 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center">
                                             <Code className="w-12 h-12 text-white" />
                                         </div>
-                                        <h3 className="text-xl font-bold text-white mb-2">Mohibullah Mohim</h3>
-                                        <p className="text-gray-400 text-sm">Full Stack Developer</p>
-                                        <div className="flex items-center justify-center mt-3 text-gray-500 text-sm">
+                                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Mohibullah Mohim</h3>
+                                        <p className="text-gray-600 dark:text-gray-400 text-sm">Full Stack Developer</p>
+                                        <div className="flex items-center justify-center mt-3 text-gray-500 dark:text-gray-500 text-sm">
                                             <MapPin className="w-4 h-4 mr-1" />
                                             Available Worldwide
                                         </div>
@@ -149,9 +137,8 @@ const HomePage = () => {
                 </div>
             </motion.section>
 
-
             {/* Hero Banner Section */}
-            <section className="relative flex items-center justify-center overflow-hidden">
+            <section className="relative flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 py-20">
 
                 {/* Enhanced Background Effects */}
                 <div className="absolute inset-0">
@@ -161,28 +148,22 @@ const HomePage = () => {
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-cyan-400/20 to-blue-500/20 rounded-full blur-3xl opacity-30 animate-ping" style={{ animationDuration: '3s' }}></div>
 
                     {/* Grid overlay */}
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]"></div>
-
-                    {/* Subtle noise texture */}
-                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9Ii4wMiIvPjwvc3ZnPg==')] opacity-30"></div>
-
-                    {/* Animated gradient border */}
-                    <div className="absolute inset-0 border-2 border-transparent bg-gradient-to-r from-blue-500/10 via-transparent to-purple-500/10 rounded-lg animate-gradient-x"></div>
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]"></div>
                 </div>
 
-                <div className="relative px-4 sm:px-6 lg:px-8 text-center md:mt-16 mt-10 z-10">
+                <div className="relative px-4 sm:px-6 lg:px-8 text-center z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                         className="space-y-8"
                     >
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white leading-tight">
                             Transforming Ideas Into
-                            <span className="bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent"> Digital Reality</span>
+                            <span className="bg-gradient-to-r from-blue-600 to-green-600 dark:from-blue-400 dark:to-green-400 bg-clip-text text-transparent"> Digital Reality</span>
                         </h1>
 
-                        <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                        <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
                             I craft high-performance web applications with cutting-edge technologies.
                             Let&apos;s build something extraordinary together.
                         </p>
@@ -192,7 +173,7 @@ const HomePage = () => {
                                 Start Your Project
                                 <ArrowRight className="ml-2 w-5 h-5" />
                             </Button>
-                            <Button size="lg" variant="outline" className="px-8 py-4 text-lg border-2 border-gray-600 text-white hover:bg-gray-800 hover:border-gray-400 rounded-xl transition-all duration-300">
+                            <Button size="lg" variant="outline" className="px-8 py-4 text-lg border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-400 dark:hover:border-gray-400 rounded-xl transition-all duration-300">
                                 <Play className="mr-2 w-5 h-5" />
                                 Watch Demo
                             </Button>
@@ -208,9 +189,9 @@ const HomePage = () => {
                             {stats.map((stat, index) => {
                                 const Icon = stat.icon;
                                 return (
-                                    <div key={index} className="text-center backdrop-blur-sm bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-all duration-300">
-                                        <div className="text-2xl md:text-3xl font-bold text-white mb-2">{stat.number}</div>
-                                        <div className="flex items-center justify-center text-gray-300 text-sm">
+                                    <div key={index} className="text-center backdrop-blur-sm bg-white/50 dark:bg-white/5 p-4 rounded-xl border border-gray-200 dark:border-white/10 hover:bg-white/70 dark:hover:bg-white/10 transition-all duration-300">
+                                        <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">{stat.number}</div>
+                                        <div className="flex items-center justify-center text-gray-600 dark:text-gray-300 text-sm">
                                             <Icon className="w-4 h-4 mr-1" />
                                             {stat.label}
                                         </div>
@@ -226,7 +207,7 @@ const HomePage = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1, duration: 0.6 }}
-                    className="absolute md:bottom-28 bottom-8 left-1/2 transform -translate-x-1/2"
+                    className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
                 >
                     <div className="animate-bounce">
                         <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
@@ -237,7 +218,7 @@ const HomePage = () => {
             </section>
 
             {/* Services Section */}
-            <section className="py-20 px-4 sm:px-6 lg:px-8">
+            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800/50">
                 <div>
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -245,13 +226,13 @@ const HomePage = () => {
                         transition={{ duration: 0.6 }}
                         className="text-center mb-16"
                     >
-                        <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm">
+                        <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300">
                             What I Offer
                         </Badge>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-300 mb-4">
+                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-300 mb-4">
                             Comprehensive <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Development</span> Services
                         </h2>
-                        <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                             End-to-end web development solutions tailored to your business needs
                         </p>
                     </motion.div>
@@ -267,18 +248,18 @@ const HomePage = () => {
                                     transition={{ duration: 0.6, delay: index * 0.1 }}
                                     whileHover={{ y: -5 }}
                                 >
-                                    <Card className="hover:shadow-xl transition-all duration-300 border-0 h-full">
+                                    <Card className="hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 h-full">
                                         <CardHeader className="text-center pb-4">
                                             <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                                                 <Icon className="w-8 h-8 text-white" />
                                             </div>
-                                            <CardTitle className="text-xl">{service.title}</CardTitle>
+                                            <CardTitle className="text-xl text-gray-900 dark:text-white">{service.title}</CardTitle>
                                         </CardHeader>
                                         <CardContent className="text-center">
-                                            <CardDescription className="text-gray-400 mb-4">
+                                            <CardDescription className="text-gray-600 dark:text-gray-400 mb-4">
                                                 {service.description}
                                             </CardDescription>
-                                            <ul className="space-y-2 text-sm text-gray-400">
+                                            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                                                 {service.features.map((feature, featureIndex) => (
                                                     <li key={featureIndex} className="flex items-center">
                                                         <CheckCircle2 className="w-4 h-4 text-green-500 mr-2" />
@@ -296,7 +277,7 @@ const HomePage = () => {
             </section>
 
             {/* Process Section */}
-            <section className="py-16 px-4 sm:px-6 lg:px-8">
+            <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
                 <div>
                     {/* Section Header */}
                     <motion.div
@@ -305,16 +286,16 @@ const HomePage = () => {
                         transition={{ duration: 0.6 }}
                         className="text-center mb-16"
                     >
-                        <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm">
+                        <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300">
                             My Process
                         </Badge>
-                        <h2 className="text-3xl sm:text-4xl font-bold text-gray-300 mb-4">
+                        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-300 mb-4">
                             How I{" "}
                             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                                 Work
                             </span>
                         </h2>
-                        <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-2">
+                        <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-2">
                             A structured approach to ensure quality, efficiency, and outstanding
                             results
                         </p>
@@ -343,7 +324,7 @@ const HomePage = () => {
                                             className={`w-full lg:w-1/2 ${isEven ? "lg:pr-12" : "lg:pl-12"
                                                 }`}
                                         >
-                                            <Card className="hover:shadow-xl transition-all duration-300 border-0 bg-white/10 md:my-3">
+                                            <Card className="hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 md:my-3">
                                                 <CardHeader className="p-6">
                                                     <div className="flex items-center mb-4">
                                                         <div
@@ -351,11 +332,11 @@ const HomePage = () => {
                                                         >
                                                             <Icon className="w-6 h-6 text-white" />
                                                         </div>
-                                                        <CardTitle className="text-lg sm:text-xl">
+                                                        <CardTitle className="text-lg sm:text-xl text-gray-900 dark:text-white">
                                                             Step {step.step}
                                                         </CardTitle>
                                                     </div>
-                                                    <CardTitle className="text-xl sm:text-2xl mb-2">
+                                                    <CardTitle className="text-xl sm:text-2xl mb-2 text-gray-900 dark:text-white">
                                                         {step.title}
                                                     </CardTitle>
                                                     <CardDescription className="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
@@ -384,23 +365,22 @@ const HomePage = () => {
                 </div>
             </section>
 
-
             {/* Projects Section */}
-            <section className="py-20 px-4 sm:px-6 lg:px-8">
-                <div >
+            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800/50">
+                <div>
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                         className="text-center mb-16"
                     >
-                        <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm">
+                        <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300">
                             My Work
                         </Badge>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-300 mb-4">
+                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-300 mb-4">
                             Featured <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Projects</span>
                         </h2>
-                        <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                             A showcase of my latest work and innovative solutions
                         </p>
                     </motion.div>
@@ -415,27 +395,27 @@ const HomePage = () => {
                                 whileHover={{ y: -5 }}
                                 className="group"
                             >
-                                <Card className="hover:shadow-xl transition-all duration-300 border-0 overflow-hidden">
+                                <Card className="hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden">
                                     <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-6xl">
                                         {project.image}
                                     </div>
                                     <CardHeader>
                                         <div className="flex items-start justify-between mb-2">
-                                            <CardTitle className="text-xl">{project.title}</CardTitle>
+                                            <CardTitle className="text-xl text-gray-900 dark:text-white">{project.title}</CardTitle>
                                             {project.featured && (
-                                                <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+                                                <Badge variant="secondary" className="bg-yellow-100 dark:bg-yellow-500/20 text-yellow-800 dark:text-yellow-300">
                                                     Featured
                                                 </Badge>
                                             )}
                                         </div>
-                                        <CardDescription className="text-gray-600">
+                                        <CardDescription className="text-gray-600 dark:text-gray-400">
                                             {project.description}
                                         </CardDescription>
                                     </CardHeader>
                                     <CardContent>
                                         <div className="flex flex-wrap gap-2 mb-4">
                                             {project.tags.map((tag, tagIndex) => (
-                                                <Badge key={tagIndex} variant="outline" className="text-xs">
+                                                <Badge key={tagIndex} variant="outline" className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
                                                     {tag}
                                                 </Badge>
                                             ))}
@@ -447,7 +427,7 @@ const HomePage = () => {
                                                 </Button>
                                             </Link>
                                             <Link href={'/'}>
-                                                <Button size="sm" variant="outline" className="flex-1">
+                                                <Button size="sm" variant="outline" className="flex-1 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300">
                                                     GitHub
                                                 </Button>
                                             </Link>
@@ -464,7 +444,7 @@ const HomePage = () => {
                         transition={{ duration: 0.6, delay: 0.4 }}
                         className="text-center mt-12"
                     >
-                        <Button size="lg" variant="outline" className="px-8 py-3 cursor-pointer">
+                        <Button size="lg" variant="outline" className="px-8 py-3 cursor-pointer border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300">
                             View All Projects
                             <ArrowRight className="ml-2 w-4 h-4" />
                         </Button>
@@ -474,8 +454,9 @@ const HomePage = () => {
 
             {/* Testimonials Slider Section */}
             <Testimonial />
+            
             {/* FAQ Section */}
-            <section className="py-20 px-4 sm:px-6 lg:px-8">
+            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
                 <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -483,13 +464,13 @@ const HomePage = () => {
                         transition={{ duration: 0.6 }}
                         className="text-center mb-16"
                     >
-                        <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm">
+                        <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300">
                             FAQ
                         </Badge>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-300 mb-4">
+                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-300 mb-4">
                             Frequently Asked <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Questions</span>
                         </h2>
-                        <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                             Get answers to common questions about my services and process
                         </p>
                     </motion.div>
@@ -502,11 +483,11 @@ const HomePage = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: index * 0.1 }}
                             >
-                                <AccordionItem value={`item-${index}`} className="border-t border-gray-200 rounded-lg px-6 hover:border-gray-300 transition-colors">
-                                    <AccordionTrigger className="text-lg font-semibold hover:no-underline py-6">
+                                <AccordionItem value={`item-${index}`} className="border-t border-gray-200 dark:border-gray-700 rounded-lg px-6 hover:border-gray-300 dark:hover:border-gray-600 transition-colors bg-white dark:bg-gray-800">
+                                    <AccordionTrigger className="text-lg font-semibold hover:no-underline py-6 text-gray-900 dark:text-gray-300">
                                         {faq.question}
                                     </AccordionTrigger>
-                                    <AccordionContent className="text-gray-600 text-lg pb-6">
+                                    <AccordionContent className="text-gray-600 dark:text-gray-400 text-lg pb-6">
                                         {faq.answer}
                                     </AccordionContent>
                                 </AccordionItem>
