@@ -9,7 +9,7 @@ const SolutionsMegaMenu = () => {
       items: [
         { name: 'Web Apps', href: '/solutions/web-apps' },
         { name: 'Mobile Apps', href: '/solutions/mobile-apps' },
-        { name: 'API Development', href: '/solutions/api' },
+        { name: 'API Development', href: '/solutions/api-development' },
       ]
     },
     {

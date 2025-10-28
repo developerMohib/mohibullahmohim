@@ -34,7 +34,7 @@ const HomePage = () => {
         { number: "3+", label: "Years Experience", icon: Clock },
         { number: "24/7", label: "Support Available", icon: Users }
     ];
- 
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -56,6 +56,55 @@ const HomePage = () => {
         }
     };
 
+
+    // Floating particles animation
+    const floatingParticles = Array.from({ length: 15 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        delay: Math.random() * 5,
+        duration: 3 + Math.random() * 4
+    }));
+
+    const movingOrbs = [
+        {
+            id: 1,
+            startX: -100,
+            startY: 20,
+            endX: 100,
+            endY: 80,
+            duration: 25,
+            size: 'w-96 h-96',
+            color: 'from-blue-500/10 to-purple-600/10'
+        },
+        {
+            id: 2,
+            startX: 120,
+            startY: 60,
+            endX: -20,
+            endY: 10,
+            duration: 30,
+            size: 'w-80 h-80',
+            color: 'from-purple-500/10 to-pink-600/10'
+        },
+        {
+            id: 3,
+            startX: 50,
+            startY: 90,
+            endX: 50,
+            endY: -10,
+            duration: 20,
+            size: 'w-64 h-64',
+            color: 'from-cyan-400/10 to-blue-500/10'
+        }
+    ];
+    // Code-like streaming animation
+    const codeStreams = Array.from({ length: 8 }, (_, i) => ({
+        id: i,
+        delay: i * 0.5,
+        duration: 2 + Math.random() * 2
+    }));
+
     return (
         <div className="overflow-hidden bg-white dark:bg-gray-900">
             {/* Hero Section */}
@@ -63,13 +112,87 @@ const HomePage = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20"
+                className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 min-h-screen flex items-center"
             >
-                {/* Background Effects */}
-                <div className="absolute inset-0">
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent"></div>
-                    <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"></div>
-                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+                {/* Animated Background Elements */}
+                <div className="absolute inset-0 overflow-hidden">
+                    {/* Moving Gradient Orbs */}
+                    {movingOrbs.map((orb) => (
+                        <motion.div
+                            key={orb.id}
+                            className={`absolute ${orb.size} bg-gradient-to-r ${orb.color} rounded-full blur-3xl`}
+                            animate={{
+                                x: [`${orb.startX}vw`, `${orb.endX}vw`],
+                                y: [`${orb.startY}vh`, `${orb.endY}vh`],
+                            }}
+                            transition={{
+                                duration: orb.duration,
+                                repeat: Infinity,
+                                repeatType: "reverse",
+                                ease: "easeInOut"
+                            }}
+                        />
+                    ))}
+
+                    {/* Floating Particles */}
+                    {floatingParticles.map((particle) => (
+                        <motion.div
+                            key={particle.id}
+                            className="absolute w-2 h-2 bg-blue-400/30 rounded-full"
+                            style={{
+                                left: `${particle.x}%`,
+                                top: `${particle.y}%`,
+                            }}
+                            animate={{
+                                y: [0, -30, 0],
+                                x: [0, 10, 0],
+                                opacity: [0.3, 0.8, 0.3],
+                            }}
+                            transition={{
+                                duration: particle.duration,
+                                repeat: Infinity,
+                                delay: particle.delay,
+                                ease: "easeInOut"
+                            }}
+                        />
+                    ))}
+
+                    {/* Animated Grid */}
+                    <motion.div
+                        className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(147,197,253,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(147,197,253,0.05)_1px,transparent_1px)] bg-[size:64px_64px]"
+                        animate={{
+                            backgroundPosition: ['0% 0%', '100% 100%'],
+                        }}
+                        transition={{
+                            duration: 20,
+                            repeat: Infinity,
+                            ease: "linear"
+                        }}
+                    />
+
+                    {/* Code-like Streaming Lines */}
+                    {codeStreams.map((stream) => (
+                        <motion.div
+                            key={stream.id}
+                            className="absolute h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent"
+                            style={{
+                                left: `${stream.id * 12}%`,
+                                top: '20%',
+                                width: '2px',
+                                height: '100px',
+                            }}
+                            animate={{
+                                y: [-100, 400],
+                                opacity: [0, 1, 0],
+                            }}
+                            transition={{
+                                duration: stream.duration,
+                                repeat: Infinity,
+                                delay: stream.delay,
+                                ease: "linear"
+                            }}
+                        />
+                    ))}
                 </div>
 
                 <div className="relative">
@@ -117,12 +240,25 @@ const HomePage = () => {
                             className="relative"
                         >
                             <div className="relative w-80 h-80 mx-auto">
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl rotate-6 scale-105"></div>
-                                <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-3xl shadow-2xl flex items-center justify-center border border-gray-200 dark:border-gray-700">
+                                {/* Animated background rings */}
+                                <motion.div
+                                    className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl"
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                                />
+                                <motion.div
+                                    className="absolute inset-2 bg-gradient-to-br from-white to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-3xl shadow-2xl flex items-center justify-center border border-gray-200 dark:border-gray-700"
+                                    whileHover={{ scale: 1.02 }}
+                                    transition={{ type: "spring", stiffness: 300 }}
+                                >
                                     <div className="text-center p-8">
-                                        <div className="w-24 h-24 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                        <motion.div
+                                            className="w-24 h-24 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center"
+                                            animate={{ rotate: [0, 360] }}
+                                            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                                        >
                                             <Code className="w-12 h-12 text-white" />
-                                        </div>
+                                        </motion.div>
                                         <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Mohibullah Mohim</h3>
                                         <p className="text-gray-600 dark:text-gray-400 text-sm">Full Stack Developer</p>
                                         <div className="flex items-center justify-center mt-3 text-gray-500 dark:text-gray-500 text-sm">
@@ -130,7 +266,7 @@ const HomePage = () => {
                                             Available Worldwide
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
                             </div>
                         </motion.div>
                     </div>
@@ -138,17 +274,73 @@ const HomePage = () => {
             </motion.section>
 
             {/* Hero Banner Section */}
-            <section className="relative flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 py-20">
+            <section className="relative flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 py-20 min-h-[80vh]">
 
                 {/* Enhanced Background Effects */}
-                <div className="absolute inset-0">
-                    {/* Animated gradient orbs */}
-                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-full blur-3xl opacity-40 animate-pulse"></div>
-                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-pink-600/20 rounded-full blur-3xl opacity-40 animate-pulse" style={{ animationDelay: '1s' }}></div>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-cyan-400/20 to-blue-500/20 rounded-full blur-3xl opacity-30 animate-ping" style={{ animationDuration: '3s' }}></div>
+                <div className="absolute inset-0 overflow-hidden">
+                    {/* Moving orbs with different paths */}
+                    <motion.div
+                        className="absolute w-96 h-96 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-full blur-3xl"
+                        animate={{
+                            x: ['-10%', '110%', '-10%'],
+                            y: ['20%', '60%', '20%'],
+                        }}
+                        transition={{
+                            duration: 25,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                    />
+                    <motion.div
+                        className="absolute w-96 h-96 bg-gradient-to-r from-purple-500/20 to-pink-600/20 rounded-full blur-3xl"
+                        animate={{
+                            x: ['110%', '-10%', '110%'],
+                            y: ['60%', '20%', '60%'],
+                        }}
+                        transition={{
+                            duration: 30,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: 5
+                        }}
+                    />
 
-                    {/* Grid overlay */}
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]"></div>
+                    {/* Binary rain effect */}
+                    {Array.from({ length: 20 }, (_, i) => (
+                        <motion.div
+                            key={i}
+                            className="absolute text-green-400/30 font-mono text-sm"
+                            style={{
+                                left: `${Math.random() * 100}%`,
+                            }}
+                            animate={{
+                                y: [-100, 600],
+                                opacity: [0, 1, 0],
+                            }}
+                            transition={{
+                                duration: 3 + Math.random() * 4,
+                                repeat: Infinity,
+                                delay: Math.random() * 5,
+                                ease: "linear"
+                            }}
+                        >
+                            {Math.random() > 0.5 ? '1' : '0'}
+                        </motion.div>
+                    ))}
+
+                    {/* Pulsing grid */}
+                    <motion.div
+                        className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]"
+                        animate={{
+                            scale: [1, 1.1, 1],
+                            opacity: [0.3, 0.6, 0.3],
+                        }}
+                        transition={{
+                            duration: 8,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                    />
                 </div>
 
                 <div className="relative px-4 sm:px-6 lg:px-8 text-center z-10">
@@ -189,13 +381,18 @@ const HomePage = () => {
                             {stats.map((stat, index) => {
                                 const Icon = stat.icon;
                                 return (
-                                    <div key={index} className="text-center backdrop-blur-sm bg-white/50 dark:bg-white/5 p-4 rounded-xl border border-gray-200 dark:border-white/10 hover:bg-white/70 dark:hover:bg-white/10 transition-all duration-300">
+                                    <motion.div
+                                        key={index}
+                                        className="text-center backdrop-blur-sm bg-white/50 dark:bg-white/5 p-4 rounded-xl border border-gray-200 dark:border-white/10 hover:bg-white/70 dark:hover:bg-white/10 transition-all duration-300"
+                                        whileHover={{ scale: 1.05, y: -5 }}
+                                        transition={{ type: "spring", stiffness: 300 }}
+                                    >
                                         <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">{stat.number}</div>
                                         <div className="flex items-center justify-center text-gray-600 dark:text-gray-300 text-sm">
                                             <Icon className="w-4 h-4 mr-1" />
                                             {stat.label}
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 );
                             })}
                         </motion.div>
@@ -211,7 +408,11 @@ const HomePage = () => {
                 >
                     <div className="animate-bounce">
                         <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
-                            <div className="w-1 h-3 bg-gray-400 rounded-full mt-2"></div>
+                            <motion.div
+                                className="w-1 h-3 bg-gray-400 rounded-full mt-2"
+                                animate={{ y: [0, 12, 0] }}
+                                transition={{ duration: 1.5, repeat: Infinity }}
+                            />
                         </div>
                     </div>
                 </motion.div>
@@ -275,6 +476,7 @@ const HomePage = () => {
                     </div>
                 </div>
             </section>
+
 
             {/* Process Section */}
             <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
@@ -454,7 +656,7 @@ const HomePage = () => {
 
             {/* Testimonials Slider Section */}
             <Testimonial />
-            
+
             {/* FAQ Section */}
             <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
                 <div className="max-w-4xl mx-auto">

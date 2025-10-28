@@ -2,8 +2,41 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 
 const SolutionsPage = () => {
+    const { theme } = useTheme();
+
+    // Helper functions for theme-based styling
+    const getBackgroundColor = () => {
+        return theme === 'light' ? 'bg-gray-50' : 'bg-gray-900';
+    };
+
+    const getTextColor = (type: 'primary' | 'secondary' = 'primary') => {
+        if (type === 'primary') {
+            return theme === 'light' ? 'text-gray-900' : 'text-white';
+        }
+        return theme === 'light' ? 'text-gray-600' : 'text-gray-400';
+    };
+
+    const getCardStyle = () => {
+        return theme === 'light' 
+            ? 'bg-white shadow-lg hover:shadow-xl' 
+            : 'bg-gray-800 shadow-lg hover:shadow-xl';
+    };
+
+    const getFeatureBadgeStyle = () => {
+        return theme === 'light' 
+            ? 'bg-blue-100 text-blue-800' 
+            : 'bg-blue-500/20 text-blue-300';
+    };
+
+    const getCTAStyle = () => {
+        return theme === 'light'
+            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+            : 'bg-gradient-to-r from-blue-700 to-purple-700 text-white';
+    };
+
     const solutions = [
         {
             category: 'Web Development',
@@ -107,7 +140,7 @@ const SolutionsPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12">
+        <div className={`min-h-screen py-12 ${getBackgroundColor()}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <motion.div
@@ -116,10 +149,10 @@ const SolutionsPage = () => {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                    <h1 className={`text-4xl font-bold mb-4 ${getTextColor('primary')}`}>
                         My Solutions & Services
                     </h1>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                    <p className={`text-xl max-w-3xl mx-auto ${getTextColor('secondary')}`}>
                         Comprehensive web development services tailored to your business needs.
                         From concept to deployment, I deliver high-quality solutions.
                     </p>
@@ -136,10 +169,10 @@ const SolutionsPage = () => {
                         <motion.div
                             key={section.category}
                             variants={itemVariants}
-                            className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                            className={`rounded-2xl overflow-hidden hover:shadow-xl transition-shadow duration-300 ${getCardStyle()}`}
                         >
                             {/* Section Header */}
-                            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6">
+                            <div className={`p-6 ${getCTAStyle()}`}>
                                 <div className="flex items-center space-x-3">
                                     <span className="text-2xl">{section.icon}</span>
                                     <h2 className="text-2xl font-bold text-white">
@@ -158,17 +191,17 @@ const SolutionsPage = () => {
                                         transition={{ delay: (sectionIndex * 0.3) + (serviceIndex * 0.1) + 0.5 }}
                                         className="border-l-4 border-blue-500 pl-4"
                                     >
-                                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                                        <h3 className={`text-lg font-semibold mb-2 ${getTextColor('primary')}`}>
                                             {service.title}
                                         </h3>
-                                        <p className="text-gray-600 mb-3">
+                                        <p className={`mb-3 ${getTextColor('secondary')}`}>
                                             {service.description}
                                         </p>
                                         <div className="flex flex-wrap gap-2 mb-4">
                                             {service.features.map((feature) => (
                                                 <span
                                                     key={feature}
-                                                    className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+                                                    className={`px-3 py-1 text-sm rounded-full ${getFeatureBadgeStyle()}`}
                                                 >
                                                     {feature}
                                                 </span>
@@ -200,7 +233,7 @@ const SolutionsPage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1, duration: 0.6 }}
-                    className="text-center mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white"
+                    className={`text-center mt-16 rounded-2xl p-8 ${getCTAStyle()}`}
                 >
                     <h2 className="text-3xl font-bold mb-4">
                         Ready to Start Your Project?
