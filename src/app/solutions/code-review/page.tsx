@@ -2,8 +2,8 @@ import Link from 'next/link';
 import React from 'react';
 
 const page = () => {
-    return (
-        <section>
+  return (
+    <section>
       {/* Section 1 */}
       <div className="py-20 animate-[cbounce_4s_ease-in-out_infinite] z-10 flex flex-col justify-end items-center">
         <h1
@@ -25,7 +25,7 @@ const page = () => {
         </Link>
       </div>
     </section>
-    );
+  );
 };
 
 export default page;

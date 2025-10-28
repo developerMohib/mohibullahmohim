@@ -2,10 +2,10 @@
 
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { Smartphone, Zap, Shield, Download, Code, Users, Battery, Wifi } from 'lucide-react';
+import { Server, Shield, Zap, Database, Cloud, Code, Cpu, GitBranch } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-const MobileAppsPage = () => {
+const APIDevelopmentPage = () => {
     const { theme } = useTheme();
     const [mounted, setMounted] = useState(false);
 
@@ -33,76 +33,82 @@ const MobileAppsPage = () => {
 
     const features = [
         {
-            icon: Smartphone,
-            title: 'Cross-Platform Apps',
-            description: 'Single codebase for iOS and Android using React Native and Flutter'
-        },
-        {
-            icon: Zap,
-            title: 'Native Performance',
-            description: 'Smooth animations and fast performance that feels truly native'
+            icon: Server,
+            title: 'RESTful APIs',
+            description: 'Clean, well-documented REST APIs following industry best practices'
         },
         {
             icon: Shield,
-            title: 'App Store Ready',
-            description: 'Compliant with Apple App Store and Google Play Store guidelines'
+            title: 'Secure Endpoints',
+            description: 'Authentication, authorization, and protection against common vulnerabilities'
         },
         {
-            icon: Download,
-            title: 'Offline Capability',
-            description: 'Functionality that works even without internet connection'
+            icon: Zap,
+            title: 'High Performance',
+            description: 'Optimized APIs with fast response times and efficient data handling'
         },
         {
-            icon: Users,
-            title: 'User Experience',
-            description: 'Intuitive interfaces designed for mobile-first interactions'
+            icon: Database,
+            title: 'Database Integration',
+            description: 'Seamless integration with SQL and NoSQL databases'
         },
         {
-            icon: Battery,
-            title: 'Optimized Performance',
-            description: 'Efficient battery usage and optimized resource consumption'
+            icon: Cloud,
+            title: 'Cloud Ready',
+            description: 'Deployment to AWS, Azure, Google Cloud, and other platforms'
+        },
+        {
+            icon: GitBranch,
+            title: 'Microservices',
+            description: 'Scalable microservices architecture for complex applications'
         }
     ];
 
     const technologies = [
-        { name: 'React Native', color: 'from-blue-500 to-cyan-500' },
-        { name: 'Flutter', color: 'from-blue-400 to-indigo-500' },
-        { name: 'TypeScript', color: 'from-blue-600 to-blue-800' },
-        { name: 'Firebase', color: 'from-yellow-500 to-orange-500' },
-        { name: 'Redux', color: 'from-purple-500 to-pink-500' },
-        { name: 'GraphQL', color: 'from-pink-500 to-rose-500' }
+        { name: 'Node.js/Express', color: 'from-green-500 to-emerald-500' },
+        { name: 'Python/FastAPI', color: 'from-green-600 to-teal-500' },
+        { name: 'GraphQL', color: 'from-pink-500 to-rose-500' },
+        { name: 'PostgreSQL', color: 'from-blue-700 to-indigo-600' },
+        { name: 'MongoDB', color: 'from-green-600 to-lime-500' },
+        { name: 'Redis', color: 'from-red-500 to-orange-500' },
+        { name: 'Docker', color: 'from-blue-500 to-cyan-500' },
+        { name: 'AWS Lambda', color: 'from-orange-500 to-yellow-500' }
     ];
 
-    const appTypes = [
-        {
-            icon: Wifi,
-            title: 'Progressive Web Apps',
-            description: 'Web apps that work like native apps with offline functionality'
-        },
+    const apiTypes = [
         {
             icon: Code,
-            title: 'Hybrid Apps',
-            description: 'Cross-platform solutions with access to native device features'
+            title: 'REST APIs',
+            description: 'Standard RESTful interfaces with JSON responses and proper HTTP methods'
         },
         {
-            icon: Download,
-            title: 'Native Apps',
-            description: 'Platform-specific apps for maximum performance and integration'
+            icon: Cpu,
+            title: 'GraphQL APIs',
+            description: 'Flexible querying with single endpoints and efficient data fetching'
+        },
+        {
+            icon: Cloud,
+            title: 'Serverless APIs',
+            description: 'Scalable serverless functions with pay-per-use pricing'
         }
     ];
 
     const capabilities = [
-        'Push Notifications',
-        'Camera Integration',
-        'GPS & Location Services',
-        'Biometric Authentication',
-        'Offline Data Sync',
-        'Payment Gateway Integration',
-        'Social Media Integration',
-        'Real-time Updates'
+        'Authentication & Authorization',
+        'Rate Limiting',
+        'Input Validation',
+        'Error Handling',
+        'API Versioning',
+        'WebSocket Support',
+        'File Upload/Download',
+        'Real-time Updates',
+        'Webhook Integration',
+        'API Documentation',
+        'Testing & Debugging',
+        'Monitoring & Logging'
     ];
 
-    // Animation variants
+    // Corrected Animation variants with proper TypeScript types
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -174,7 +180,7 @@ const MobileAppsPage = () => {
         }
     };
 
-    // Continuous animations
+    // Standalone animations (not variants) for continuous animations
     const floatingAnimation = {
         y: [0, -10, 0],
         transition: {
@@ -195,19 +201,9 @@ const MobileAppsPage = () => {
         }
     };
 
-    const bounceAnimation = {
-        y: [0, -15, 0],
-        transition: {
-            duration: 2,
-            repeat: Infinity,
-            repeatType: "reverse" as const,
-            ease: "easeInOut" as const
-        }
-    };
-
     const bgElement1Animation = {
-        y: [0, -25, 0],
-        opacity: [0.2, 0.5, 0.2],
+        y: [0, -20, 0],
+        opacity: [0.2, 0.4, 0.2],
         transition: {
             duration: 4,
             repeat: Infinity,
@@ -217,7 +213,7 @@ const MobileAppsPage = () => {
     };
 
     const bgElement2Animation = {
-        y: [0, 35, 0],
+        y: [0, 30, 0],
         opacity: [0.3, 0.1, 0.3],
         transition: {
             duration: 5,
@@ -244,8 +240,8 @@ const MobileAppsPage = () => {
                         animate={pulseAnimation}
                         className="inline-block mb-4"
                     >
-                        <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto">
-                            <Smartphone className="w-10 h-10 text-white" />
+                        <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto">
+                            <Server className="w-10 h-10 text-white" />
                         </div>
                     </motion.div>
                     
@@ -253,15 +249,15 @@ const MobileAppsPage = () => {
                         variants={fadeInUp}
                         className={`text-4xl md:text-5xl font-bold mb-4 ${getTextColor('primary')}`}
                     >
-                        Mobile Applications
+                        API Development
                     </motion.h1>
                     
                     <motion.p 
                         variants={fadeInUp}
                         className={`text-xl max-w-2xl mx-auto ${getTextColor('secondary')}`}
                     >
-                        High-performance mobile apps built with modern frameworks, 
-                        delivering native-like experiences across all platforms.
+                        Robust, scalable, and secure API solutions that power modern applications 
+                        and enable seamless data exchange.
                     </motion.p>
                 </motion.div>
 
@@ -289,13 +285,13 @@ const MobileAppsPage = () => {
                             >
                                 <motion.div
                                     animate={floatingAnimation}
-                                    className="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center mb-4 group-hover:from-green-600 group-hover:to-blue-600 transition-colors"
+                                    className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4 group-hover:from-purple-600 group-hover:to-pink-600 transition-colors"
                                 >
                                     <Icon className="w-6 h-6 text-white" />
                                 </motion.div>
                                 <motion.h3 
                                     className={`text-lg font-semibold mb-2 ${getTextColor('primary')}`}
-                                    whileHover={{ color: theme === 'light' ? '#059669' : '#34d399' }}
+                                    whileHover={{ color: theme === 'light' ? '#7c3aed' : '#a78bfa' }}
                                 >
                                     {feature.title}
                                 </motion.h3>
@@ -311,7 +307,7 @@ const MobileAppsPage = () => {
                     })}
                 </motion.div>
 
-                {/* App Types Section with enhanced animations */}
+                {/* API Types Section with staggered animations */}
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
@@ -323,18 +319,18 @@ const MobileAppsPage = () => {
                         variants={fadeInUp}
                         className={`text-2xl md:text-3xl font-bold text-center mb-12 ${getTextColor('primary')}`}
                     >
-                        App Development Approaches
+                        API Architecture Styles
                     </motion.h2>
                     
                     <motion.div 
                         variants={staggerChildren}
                         className="grid grid-cols-1 md:grid-cols-3 gap-8"
                     >
-                        {appTypes.map((appType) => {
-                            const Icon = appType.icon;
+                        {apiTypes.map((apiType) => {
+                            const Icon = apiType.icon;
                             return (
                                 <motion.div
-                                    key={appType.title}
+                                    key={apiType.title}
                                     variants={itemVariants}
                                     whileHover={{ 
                                         y: -5,
@@ -343,8 +339,9 @@ const MobileAppsPage = () => {
                                     className={`p-6 rounded-xl text-center ${getCardStyle()} hover:shadow-xl transition-all duration-300 cursor-pointer`}
                                 >
                                     <motion.div
-                                        animate={bounceAnimation}
-                                        className="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4"
+                                        whileHover={{ rotate: 360 }}
+                                        transition={{ duration: 0.6 }}
+                                        className="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4"
                                     >
                                         <Icon className="w-8 h-8 text-white" />
                                     </motion.div>
@@ -352,14 +349,14 @@ const MobileAppsPage = () => {
                                         className={`text-xl font-semibold mb-3 ${getTextColor('primary')}`}
                                         whileHover={{ scale: 1.05 }}
                                     >
-                                        {appType.title}
+                                        {apiType.title}
                                     </motion.h3>
                                     <motion.p 
                                         className={getTextColor('secondary')}
                                         initial={{ opacity: 0.8 }}
                                         whileHover={{ opacity: 1 }}
                                     >
-                                        {appType.description}
+                                        {apiType.description}
                                     </motion.p>
                                 </motion.div>
                             );
@@ -367,7 +364,7 @@ const MobileAppsPage = () => {
                     </motion.div>
                 </motion.div>
 
-                {/* Technologies Section with enhanced animations */}
+                {/* Technologies Section with wave animation */}
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
@@ -379,7 +376,7 @@ const MobileAppsPage = () => {
                         variants={fadeInUp}
                         className={`text-2xl md:text-3xl font-bold mb-8 ${getTextColor('primary')}`}
                     >
-                        Mobile Technologies
+                        Technologies & Tools
                     </motion.h2>
                     
                     <motion.div 
@@ -404,7 +401,7 @@ const MobileAppsPage = () => {
                     </motion.div>
                 </motion.div>
 
-                {/* Capabilities Section with enhanced animations */}
+                {/* Capabilities Section with list animations */}
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
@@ -416,12 +413,12 @@ const MobileAppsPage = () => {
                         variants={fadeInUp}
                         className={`text-2xl md:text-3xl font-bold text-center mb-8 ${getTextColor('primary')}`}
                     >
-                        Mobile Capabilities
+                        API Capabilities
                     </motion.h2>
                     
                     <motion.div 
                         variants={staggerChildren}
-                        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
                     >
                         {capabilities.map((capability) => (
                             <motion.div
@@ -435,10 +432,10 @@ const MobileAppsPage = () => {
                             >
                                 <motion.div
                                     whileHover={{ scale: 1.5 }}
-                                    className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 group-hover:bg-blue-500 transition-colors"
+                                    className="w-2 h-2 bg-purple-500 rounded-full flex-shrink-0 group-hover:bg-pink-500 transition-colors"
                                 />
                                 <motion.span 
-                                    className={`${getTextColor('primary')} group-hover:text-green-500 transition-colors`}
+                                    className={`${getTextColor('primary')} group-hover:text-purple-500 transition-colors`}
                                     whileHover={{ scale: 1.02 }}
                                 >
                                     {capability}
@@ -451,15 +448,15 @@ const MobileAppsPage = () => {
                 {/* Floating decorative elements */}
                 <motion.div
                     animate={bgElement1Animation}
-                    className="fixed top-1/4 left-10 w-4 h-4 bg-green-300 rounded-full opacity-20 pointer-events-none"
+                    className="fixed top-1/4 left-10 w-4 h-4 bg-purple-300 rounded-full opacity-20 pointer-events-none"
                 />
                 <motion.div
                     animate={bgElement2Animation}
-                    className="fixed bottom-1/4 right-10 w-6 h-6 bg-blue-300 rounded-full opacity-30 pointer-events-none"
+                    className="fixed bottom-1/4 right-10 w-6 h-6 bg-pink-300 rounded-full opacity-30 pointer-events-none"
                 />
             </div>
         </div>
     );
 };
 
-export default MobileAppsPage;
+export default APIDevelopmentPage;
