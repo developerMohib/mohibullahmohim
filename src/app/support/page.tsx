@@ -248,12 +248,11 @@ const Support = () => {
     }
   ];
 
-  const getCTABackground = () => {
-    return theme === 'light'
-      ? 'bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20'
-      : 'bg-gradient-to-r from-slate-900 to-slate-800 border border-gray-700';
-  };
-
+ const getCTAStyle = () => {
+        return theme === 'light'
+            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+            : 'bg-gradient-to-r from-blue-700 to-purple-700 text-white';
+    };
   return (
     <div className={`py-12 ${getBackgroundColor()} min-h-screen`}>
       <div className="px-4 sm:px-6 lg:px-8">
@@ -584,7 +583,7 @@ const Support = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.2, duration: 0.6 }}
-            className={`text-center rounded-2xl p-8 ${getTextColor('primary')} ${getCTABackground()}`}
+            className={`text-center rounded-2xl p-8 ${getCTAStyle()}`}
           >
             <h2 className="text-3xl font-bold mb-4">
               Need Immediate Assistance?
