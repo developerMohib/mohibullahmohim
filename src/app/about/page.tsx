@@ -6,9 +6,10 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, Code, Server, Palette, Database } from "lucide-react";
+import { useTheme } from "next-themes";
 
 const AboutPage = () => {
-
+  const { theme } = useTheme();
 
   const services = [
     {
@@ -37,7 +38,6 @@ const AboutPage = () => {
     },
   ];
 
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -58,8 +58,43 @@ const AboutPage = () => {
       }
     }
   };
+
+  // Background classes based on theme
+  const getBackgroundClass = () => {
+    switch (theme) {
+      case 'dark':
+        return "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900";
+      case 'light':
+        return "bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50";
+      default:
+        return "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 dark:from-gray-50 dark:via-gray-100 dark:to-gray-50";
+    }
+  };
+
+  // Text color classes based on theme
+  const getTextColor = (type: 'primary' | 'secondary' = 'primary') => {
+    if (type === 'primary') {
+      return theme === 'light' ? 'text-gray-900' : 'text-white';
+    }
+    return theme === 'light' ? 'text-gray-600' : 'text-gray-400';
+  };
+
+  // Card background classes based on theme
+  const getCardBackground = () => {
+    return theme === 'light' 
+      ? "bg-white/80 border-gray-200 backdrop-blur-sm hover:bg-white/90" 
+      : "bg-gray-800/50 border-gray-700 backdrop-blur-sm hover:bg-gray-800/70";
+  };
+
+  // CTA section background based on theme
+  const getCTABackground = () => {
+    return theme === 'light'
+      ? "bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20"
+      : "bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20";
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className={`min-h-screen ${getBackgroundClass()}`}>
 
       {/* Services Section */}
       <motion.section
@@ -75,10 +110,10 @@ const AboutPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className={`text-3xl md:text-4xl font-bold ${getTextColor('primary')} mb-4`}>
               Expertise with <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Developing</span>
             </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            <p className={`text-xl ${getTextColor('secondary')} max-w-3xl mx-auto`}>
               Comprehensive web development services tailored to bring your vision to life
             </p>
           </motion.div>
@@ -95,13 +130,13 @@ const AboutPage = () => {
                   whileHover={{ y: -5 }}
                   className="group"
                 >
-                  <Card className="bg-gray-800/50 border-gray-700 backdrop-blur-sm hover:bg-gray-800/70 transition-all duration-300 h-full">
+                  <Card className={`${getCardBackground()} transition-all duration-300 h-full`}>
                     <CardContent className="p-6 text-center">
                       <div className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
                         <Icon className="w-8 h-8 text-white" />
                       </div>
-                      <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
-                      <p className="text-gray-400 leading-relaxed">{service.description}</p>
+                      <h3 className={`text-xl font-bold ${getTextColor('primary')} mb-3`}>{service.title}</h3>
+                      <p className={`${getTextColor('secondary')} leading-relaxed`}>{service.description}</p>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -111,7 +146,7 @@ const AboutPage = () => {
         </div>
       </motion.section>
 
-      {/* Skills Section - Your Existing Code Enhanced */}
+      {/* Skills Section */}
       <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -125,10 +160,10 @@ const AboutPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className={`text-3xl md:text-4xl font-bold ${getTextColor('primary')} mb-4`}>
               Technical <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Expertise</span>
             </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            <p className={`text-xl ${getTextColor('secondary')} max-w-3xl mx-auto`}>
               Mastery across the modern web development stack and cutting-edge technologies
             </p>
           </motion.div>
@@ -148,14 +183,14 @@ const AboutPage = () => {
               >
                 {/* Enhanced Category Header */}
                 <div className="flex items-center mb-12">
-                  <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent flex-1 mr-6" />
+                  <div className={`h-px bg-gradient-to-r from-transparent ${theme === 'light' ? 'via-gray-300' : 'via-gray-600'} to-transparent flex-1 mr-6`} />
                   <div className="text-center">
-                    <h2 className="text-2xl md:text-3xl font-bold capitalize text-white whitespace-nowrap bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text">
+                    <h2 className={`text-2xl md:text-3xl font-bold capitalize ${getTextColor('primary')} whitespace-nowrap bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text`}>
                       {category.category}
                     </h2>
                     <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mt-2"></div>
                   </div>
-                  <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent flex-1 ml-6" />
+                  <div className={`h-px bg-gradient-to-r from-transparent ${theme === 'light' ? 'via-gray-300' : 'via-gray-600'} to-transparent flex-1 ml-6`} />
                 </div>
 
                 {/* Enhanced Skills Grid */}
@@ -186,16 +221,18 @@ const AboutPage = () => {
 
                       {/* Enhanced Skill Card */}
                       <div
-                        className="
+                        className={`
                           relative
-                          bg-gradient-to-br from-gray-800 to-gray-900 
-                          p-4 rounded-2xl shadow-lg border border-gray-700/50
-                          hover:shadow-2xl hover:from-gray-700 hover:to-gray-800 
-                          hover:border-gray-600/50
+                          ${theme === 'light' 
+                            ? 'bg-gradient-to-br from-white to-gray-100 border-gray-300/50 hover:from-gray-100 hover:to-gray-200 hover:border-gray-400/50' 
+                            : 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700/50 hover:from-gray-700 hover:to-gray-800 hover:border-gray-600/50'
+                          }
+                          p-4 rounded-2xl shadow-lg border
+                          hover:shadow-2xl
                           transition-all duration-300 ease-out
                           w-full max-w-[100px]
                           group-hover/skill:rotate-3
-                        "
+                        `}
                       >
                         <Image
                           width={64}
@@ -222,20 +259,25 @@ const AboutPage = () => {
                       </div>
 
                       {/* Skill Name */}
-                      <p className="
-                        text-sm font-medium mt-3 capitalize text-gray-200
+                      <p className={`
+                        text-sm font-medium mt-3 capitalize
                         transition-all duration-300 ease-out
-                        group-hover/skill:text-white group-hover/skill:font-semibold
-                      ">
+                        group-hover/skill:font-semibold
+                        ${theme === 'light' 
+                          ? 'text-gray-700 group-hover/skill:text-gray-900' 
+                          : 'text-gray-200 group-hover/skill:text-white'
+                        }
+                      `}>
                         {skill.name}
                       </p>
 
                       {/* Enhanced Tooltip */}
                       <div
-                        className="
+                        className={`
                           absolute -top-12 left-1/2 transform -translate-x-1/2
-                          bg-gray-900 text-white text-xs font-medium px-3 py-2 
-                          rounded-lg shadow-xl border border-gray-700
+                          ${theme === 'light' ? 'bg-white text-gray-900 border-gray-300' : 'bg-gray-900 text-white border-gray-700'}
+                          text-xs font-medium px-3 py-2 
+                          rounded-lg shadow-xl border
                           opacity-0 group-hover/skill:opacity-100
                           transition-all duration-300 ease-out
                           pointer-events-none
@@ -243,8 +285,12 @@ const AboutPage = () => {
                           z-20
                           after:content-[''] after:absolute after:top-full after:left-1/2
                           after:-translate-x-1/2 after:border-4 after:border-transparent
-                          after:border-t-gray-900 capitalize
-                        "
+                          ${theme === 'light' 
+                            ? 'after:border-t-white' 
+                            : 'after:border-t-gray-900'
+                          }
+                          capitalize
+                        `}
                       >
                         {skill.name}
                         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-lg" />
@@ -270,12 +316,12 @@ const AboutPage = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-3xl p-12 backdrop-blur-sm"
+            className={`${getCTABackground()} rounded-3xl p-12 backdrop-blur-sm`}
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className={`text-3xl md:text-4xl font-bold ${getTextColor('primary')} mb-4`}>
               Ready to Bring Your Idea to Life?
             </h2>
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            <p className={`text-xl ${getTextColor('secondary')} mb-8 max-w-2xl mx-auto`}>
               Let&apos;s collaborate to create something extraordinary. Your vision, my expertise - together we can build the future.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -283,7 +329,13 @@ const AboutPage = () => {
                 <Mail className="w-5 h-5 mr-2" />
                 Start a Project
               </Button>
-              <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-800 px-8 py-3 rounded-xl font-semibold text-lg transition-all duration-300">
+              <Button 
+                variant="outline" 
+                className={`${theme === 'light' 
+                  ? 'border-gray-400 text-gray-700 hover:bg-gray-200' 
+                  : 'border-gray-600 text-gray-300 hover:bg-gray-800'
+                } px-8 py-3 rounded-xl font-semibold text-lg transition-all duration-300`}
+              >
                 View My Work
               </Button>
             </div>

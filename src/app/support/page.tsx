@@ -11,11 +11,44 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 
 const Support = () => {
   const [activeTab, setActiveTab] = useState('services');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { theme } = useTheme();
 
+  // Helper functions for theme-based styling
+  const getBackgroundColor = () => {
+    return theme === 'light' ? 'bg-gray-50' : 'bg-gray-900';
+  };
+
+  const getTextColor = (type: 'primary' | 'secondary' = 'primary') => {
+    if (type === 'primary') {
+      return theme === 'light' ? 'text-gray-900' : 'text-white';
+    }
+    return theme === 'light' ? 'text-gray-600' : 'text-gray-400';
+  };
+
+  const getCardStyle = () => {
+    return theme === 'light' 
+      ? 'bg-white border-gray-200 shadow-md hover:shadow-lg' 
+      : 'bg-gray-800/50 border-gray-700 backdrop-blur-sm hover:bg-gray-800/70';
+  };
+
+  const getBorderColor = () => {
+    return theme === 'light' ? 'border-gray-200' : 'border-gray-700';
+  };
+
+  const getInputStyle = () => {
+    return theme === 'light' 
+      ? 'bg-white border-gray-300 text-gray-900 placeholder-gray-500' 
+      : 'bg-gray-800 border-gray-600 text-white placeholder-gray-400';
+  };
+
+  const getTabsListStyle = () => {
+    return theme === 'light' ? 'bg-gray-200' : 'bg-gray-800';
+  };
 
   const supportTiers = [
     {
@@ -25,7 +58,7 @@ const Support = () => {
       period: '/month',
       description: 'Essential support for small projects',
       features: [
-        'Email support (48h response)',
+        'Email support (4h response)',
         'Bug fixes & minor updates',
         'Security patches',
         'Basic performance optimization',
@@ -42,7 +75,7 @@ const Support = () => {
       period: '/month',
       description: 'Comprehensive support for growing businesses',
       features: [
-        'Priority email support (24h response)',
+        'Priority email support (2h response)',
         'Live chat during business hours',
         'Unlimited bug fixes',
         'Performance optimization',
@@ -159,7 +192,7 @@ const Support = () => {
   const faqs = [
     {
       question: 'What is your typical response time for support requests?',
-      answer: 'Response times vary by plan: Basic (48 hours), Professional (24 hours), Enterprise (2-4 hours for emergencies). Most critical issues are addressed immediately, and complex matters are typically resolved within 24 hours of the initial response.'
+      answer: 'Response times vary by plan: Basic (12 hours), Professional (24 hours), Enterprise (2-4 hours for emergencies). Most critical issues are addressed immediately, and complex matters are typically resolved within 24 hours of the initial response.'
     },
     {
       question: 'Do you provide support for existing projects you didn\'t build?',
@@ -215,9 +248,13 @@ const Support = () => {
     }
   ];
 
-
+ const getCTAStyle = () => {
+        return theme === 'light'
+            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+            : 'bg-gradient-to-r from-blue-700 to-purple-700 text-white';
+    };
   return (
-    <div className="py-12">
+    <div className={`py-12 ${getBackgroundColor()} min-h-screen`}>
       <div className="px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -232,7 +269,7 @@ const Support = () => {
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Expert Technical Support
           </h1>
-          <p className="text-xl text-mmGray/60 max-w-3xl mx-auto leading-relaxed">
+          <p className={`text-xl ${getTextColor('secondary')} max-w-3xl mx-auto leading-relaxed`}>
             Comprehensive developer support services to keep your applications running smoothly,
             securely, and efficiently. From emergency fixes to strategic consulting.
           </p>
@@ -240,7 +277,7 @@ const Support = () => {
 
         {/* Main Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-          <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto bg-gray-800">
+          <TabsList className={`grid w-full grid-cols-3 max-w-2xl mx-auto ${getTabsListStyle()}`}>
             <TabsTrigger value="services" className="text-sm md:text-base data-[state=active]:bg-blue-500 data-[state=active]:text-white transition-colors">Support Services</TabsTrigger>
             <TabsTrigger value="pricing" className="text-sm md:text-base data-[state=active]:bg-green-500 data-[state=active]:text-white transition-colors">Support Plans</TabsTrigger>
             <TabsTrigger value="contact" className="text-sm md:text-base data-[state=active]:bg-purple-500 data-[state=active]:text-white transition-colors">Get Support</TabsTrigger>
@@ -257,19 +294,19 @@ const Support = () => {
               >
                 <div className="text-center mb-8">
                   <div className="text-3xl mb-2">{category.icon}</div>
-                  <h2 className="text-2xl md:text-3xl font-bold">{category.category}</h2>
+                  <h2 className={`text-2xl md:text-3xl font-bold ${getTextColor('primary')}`}>{category.category}</h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {category.services.map((service) => (
-                    <Card key={service.title} className="hover:shadow-lg duration-300 rounded-2xl shadow-lg p-6 transition-shadow border border-gray-100 bg-transparent">
+                    <Card key={service.title} className={`hover:shadow-lg duration-300 rounded-2xl p-6 transition-shadow ${getCardStyle()}`}>
                       <CardHeader>
-                        <CardTitle className="text-lg text-white">{service.title}</CardTitle>
-                        <CardDescription className='text-gray-400'>{service.description}</CardDescription>
+                        <CardTitle className={`text-lg ${getTextColor('primary')}`}>{service.title}</CardTitle>
+                        <CardDescription className={getTextColor('secondary')}>{service.description}</CardDescription>
                       </CardHeader>
                       <CardContent>
                         <ul className="space-y-2">
                           {service.details.map((detail, index) => (
-                            <li key={index} className="flex items-center text-sm text-gray-400">
+                            <li key={index} className={`flex items-center text-sm ${getTextColor('secondary')}`}>
                               <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-3" />
                               {detail}
                             </li>
@@ -289,7 +326,7 @@ const Support = () => {
               transition={{ delay: 0.6 }}
               className="text-center"
             >
-              <h3 className="text-2xl font-bold mb-6">Supported Technologies</h3>
+              <h3 className={`text-2xl font-bold mb-6 ${getTextColor('primary')}`}>Supported Technologies</h3>
               <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
                 {technologies.map((tech) => (
                   <Badge key={tech.name} variant="outline" className="px-4 py-2 text-sm">
@@ -319,15 +356,15 @@ const Support = () => {
                       </Badge>
                     </div>
                   )}
-                  <Card className={`h-full ${tier.popular ? 'border-blue-300 shadow-xl' : ''}`}>
+                  <Card className={`h-full ${tier.popular ? 'border-blue-300 shadow-xl' : ''} ${getCardStyle()}`}>
                     <CardHeader className="text-center pb-4">
                       <div className="text-3xl mb-2">{tier.icon}</div>
-                      <CardTitle className="text-2xl">{tier.tier}</CardTitle>
+                      <CardTitle className={`text-2xl ${getTextColor('primary')}`}>{tier.tier}</CardTitle>
                       <div className="flex items-baseline justify-center mt-2">
-                        <span className="text-3xl font-bold">{tier.price}</span>
-                        <span className="text-gray-600 ml-1">{tier.period}</span>
+                        <span className={`text-3xl font-bold ${getTextColor('primary')}`}>{tier.price}</span>
+                        <span className={getTextColor('secondary')}>{tier.period}</span>
                       </div>
-                      <CardDescription>{tier.description}</CardDescription>
+                      <CardDescription className={getTextColor('secondary')}>{tier.description}</CardDescription>
                       <Badge variant="secondary" className="mt-2">
                         {tier.bestFor}
                       </Badge>
@@ -335,7 +372,7 @@ const Support = () => {
                     <CardContent className="space-y-4">
                       <ul className="space-y-3">
                         {tier.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-center text-sm">
+                          <li key={featureIndex} className={`flex items-center text-sm ${getTextColor('secondary')}`}>
                             <svg className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
@@ -365,26 +402,26 @@ const Support = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <Card className="hover:shadow-lg duration-300 rounded-2xl shadow-lg p-6 transition-shadow border border-gray-100 bg-transparent">
+                <Card className={`hover:shadow-lg duration-300 rounded-2xl p-6 transition-shadow ${getCardStyle()}`}>
                   <CardHeader>
-                    <CardTitle className='text-white'>Get Immediate Support</CardTitle>
-                    <CardDescription className='text-white'>
+                    <CardTitle className={getTextColor('primary')}>Get Immediate Support</CardTitle>
+                    <CardDescription className={getTextColor('secondary')}>
                       Describe your issue and I&apos;ll get back to you within hours.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <div className="space-y-2">
-                        <Label className='text-white' htmlFor="name">Name</Label>
-                        <Input id="name" placeholder="Your name" required className='text-white'/>
+                        <Label className={getTextColor('primary')} htmlFor="name">Name</Label>
+                        <Input id="name" placeholder="Your name" required className={getInputStyle()}/>
                       </div>
                       <div className="space-y-2">
-                        <Label className='text-white' htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="your.email@example.com" className='text-white' required />
+                        <Label className={getTextColor('primary')} htmlFor="email">Email</Label>
+                        <Input id="email" type="email" placeholder="your.email@example.com" className={getInputStyle()} required />
                       </div>
                       <div className="space-y-2">
-                        <Label className='text-white' htmlFor="urgency">Urgency Level</Label>
-                        <select id="urgency" className="w-full px-3 py-2 border border-gray-300 rounded-md text-white bg-black">
+                        <Label className={getTextColor('primary')} htmlFor="urgency">Urgency Level</Label>
+                        <select id="urgency" className={`w-full px-3 py-2 border rounded-md ${getInputStyle()}`}>
                           <option>Low - General inquiry</option>
                           <option>Medium - Need help soon</option>
                           <option>High - Affecting users</option>
@@ -392,15 +429,20 @@ const Support = () => {
                         </select>
                       </div>
                       <div className="space-y-2">
-                        <Label className='text-white' htmlFor="description">Issue Description</Label>
+                        <Label className={getTextColor('primary')} htmlFor="description">Issue Description</Label>
                         <Textarea
                           id="description"
-                          placeholder="Please describe your issue in detail, including error messages and any relevant context..." className='text-white'
+                          placeholder="Please describe your issue in detail, including error messages and any relevant context..."
+                          className={getInputStyle()}
                           rows={6}
                           required
                         />
                       </div>
-                      <Button type="submit" className="w-full bg-white text-black hover:bg-white/70 cursor-pointer" disabled={isSubmitting}>
+                      <Button type="submit" className={`w-full ${
+                        theme === 'light' 
+                          ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                          : 'bg-white text-black hover:bg-white/70'
+                      } cursor-pointer`} disabled={isSubmitting}>
                         {isSubmitting ? (
                           <>
                             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
@@ -422,35 +464,22 @@ const Support = () => {
                 transition={{ duration: 0.6 }}
                 className="space-y-6"
               >
-                <Card className='bg-transparent'>
+                <Card className={getCardStyle()}>
                   <CardHeader>
-                    <CardTitle className='text-white'>Quick Support Channels</CardTitle>
+                    <CardTitle className={getTextColor('primary')}>Quick Support Channels</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex items-center p-3 border rounded-lg">
-                      <div className="text-2xl mr-4">📧</div>
-                      <div>
-                        <div className="font-semibold text-white">Email Support</div>
-                        <div className="text-sm text-gray-400">mohibullahmohim2020@gmail.com</div>
+                    {contactMethods.map((method, index) => (
+                      <div key={index} className={`flex items-center p-3 border rounded-lg ${getBorderColor()}`}>
+                        <div className="text-2xl mr-4">{method.icon}</div>
+                        <div>
+                          <div className={`font-semibold ${getTextColor('primary')}`}>{method.title}</div>
+                          <div className={`text-sm ${getTextColor('secondary')}`}>{method.details}</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-center p-3 border rounded-lg">
-                      <div className="text-2xl mr-4">💬</div>
-                      <div>
-                        <div className="font-semibold text-white">Live Chat</div>
-                        <div className="text-sm text-gray-400">Available for Professional & Enterprise plans</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center p-3 border rounded-lg">
-                      <div className="text-2xl mr-4">📞</div>
-                      <div>
-                        <div className="font-semibold text-white">Emergency Call</div>
-                        <div className="text-sm text-gray-400">24/7 for Enterprise clients</div>
-                      </div>
-                    </div>
+                    ))}
                   </CardContent>
                 </Card>
-
               </motion.div>
             </div>
           </TabsContent>
@@ -463,22 +492,17 @@ const Support = () => {
           transition={{ delay: 0.8, duration: 0.6 }}
           className="md:mt-12 mt-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
         >
-          <div>
-            <div className="text-2xl md:text-3xl font-bold text-blue-600">24/7</div>
-            <div className="text-gray-600">Emergency Support</div>
-          </div>
-          <div>
-            <div className="text-2xl md:text-3xl font-bold text-blue-600">99.9%</div>
-            <div className="text-gray-600">Uptime Guarantee</div>
-          </div>
-          <div>
-            <div className="text-2xl md:text-3xl font-bold text-blue-600">2h</div>
-            <div className="text-gray-600">Avg. Response Time</div>
-          </div>
-          <div>
-            <div className="text-2xl md:text-3xl font-bold text-blue-600">50+</div>
-            <div className="text-gray-600">Projects Supported</div>
-          </div>
+          {[
+            { value: '24/7', label: 'Emergency Support' },
+            { value: '99.9%', label: 'Uptime Guarantee' },
+            { value: '1h', label: 'Avg. Response Time' },
+            { value: '50+', label: 'Projects Supported' }
+          ].map((stat, index) => (
+            <div key={index}>
+              <div className="text-2xl md:text-3xl font-bold text-blue-600">{stat.value}</div>
+              <div className={getTextColor('secondary')}>{stat.label}</div>
+            </div>
+          ))}
         </motion.div>
       </div>
 
@@ -492,7 +516,7 @@ const Support = () => {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="mb-16"
           >
-            <h2 className="text-3xl font-bold text-center md:mt-16 my-12">
+            <h2 className={`text-3xl font-bold text-center md:mt-16 my-12 ${getTextColor('primary')}`}>
               Get In Touch
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -502,13 +526,13 @@ const Support = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 + (index * 0.1), duration: 0.5 }}
-                  className="rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+                  className={`rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow duration-300 ${getCardStyle()}`}
                 >
                   <div className="text-3xl mb-3">{method.icon}</div>
-                  <h3 className="text-lg font-bold mb-2">
+                  <h3 className={`text-lg font-bold mb-2 ${getTextColor('primary')}`}>
                     {method.title}
                   </h3>
-                  <p className="text-gray-600 mb-3 text-sm">
+                  <p className={`${getTextColor('secondary')} mb-3 text-sm`}>
                     {method.description}
                   </p>
                   <p className="text-blue-600 font-medium mb-4">
@@ -533,18 +557,18 @@ const Support = () => {
             transition={{ delay: 0.8, duration: 0.6 }}
             className="mb-16"
           >
-            <h2 className="text-3xl font-bold text-center md:mt-20 my-12">
+            <h2 className={`text-3xl font-bold text-center md:mt-20 my-12 ${getTextColor('primary')}`}>
               Frequently Asked Questions
             </h2>
-            <Card className="max-w-4xl mx-auto space-y-4" >
+            <Card className={`max-w-4xl mx-auto ${getCardStyle()}`}>
               <CardContent>
                 <Accordion type="single" collapsible className="w-full">
                   {faqs.map((faq, index) => (
                     <AccordionItem key={index} value={`item-${index}`}>
-                      <AccordionTrigger className="text-left">
+                      <AccordionTrigger className={`text-left ${getTextColor('primary')}`}>
                         {faq.question}
                       </AccordionTrigger>
-                      <AccordionContent>
+                      <AccordionContent className={getTextColor('secondary')}>
                         {faq.answer}
                       </AccordionContent>
                     </AccordionItem>
@@ -559,7 +583,7 @@ const Support = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.2, duration: 0.6 }}
-            className="text-center bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-8 text-white"
+            className={`text-center rounded-2xl p-8 ${getCTAStyle()}`}
           >
             <h2 className="text-3xl font-bold mb-4">
               Need Immediate Assistance?
@@ -585,7 +609,7 @@ const Support = () => {
               >
                 <Link
                   href="/contact"
-                  className="inline-flex items-center px-6 py-3 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white hover:text-red-600 transition-colors duration-200"
+                  className={`inline-flex items-center px-6 py-3 bg-transparent border-2 border-white ${getTextColor('primary')} font-bold rounded-lg hover:bg-white hover:text-red-600 transition-colors duration-200`}
                 >
                   📞 Schedule Call
                 </Link>
