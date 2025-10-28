@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { Code, Smartphone, Zap, Shield, Cloud, Users, Cpu, GitBranch } from 'lucide-react';
+import { Code, Smartphone, Zap, Shield, Cloud, Users, Cpu } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const WebAppsPage = () => {
