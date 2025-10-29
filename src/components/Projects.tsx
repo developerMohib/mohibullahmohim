@@ -1,11 +1,11 @@
 'use client';
 import { motion } from 'framer-motion';
 import { Badge } from './ui/badge';
-import { projects } from '@/fakedata/projects';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { ArrowRight } from 'lucide-react';
+import { projectsData } from '@/fakedata/projects';
 
 const Projects = () => {
     return (
@@ -29,7 +29,7 @@ const Projects = () => {
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {projects.map((project, index) => (
+                    {projectsData.map((project, index) => (
                         <motion.div
                             key={project.id}
                             initial={{ opacity: 0, y: 30 }}
@@ -57,7 +57,7 @@ const Projects = () => {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="flex flex-wrap gap-2 mb-4">
-                                        {project.tags.map((tag, tagIndex) => (
+                                        {project.technologies.map((tag, tagIndex) => (
                                             <Badge key={tagIndex} variant="outline" className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
                                                 {tag}
                                             </Badge>
