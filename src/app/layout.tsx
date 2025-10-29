@@ -5,7 +5,8 @@ import QueryProvider from "@/provider/QueryProvider";
 import Navbar from "@/components/Navbar";
 import AppLoader from "@/components/AppLoader";
 import BackToTop from "@/components/BackToTop";
-import { ThemeProvider } from "@/components/theme-provider";
+import { FloatingParticles } from "@/components/animation/FloatingParticles";
+import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
   title: "Mohibullah Mohim | Full Stack Developer",
@@ -57,7 +58,7 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
@@ -65,6 +66,7 @@ export default function RootLayout({
           <Navbar />
           <QueryProvider>
             <main>{children}</main>
+            <FloatingParticles />
           </QueryProvider>
           <BackToTop />
         </ThemeProvider>

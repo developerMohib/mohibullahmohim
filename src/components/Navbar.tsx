@@ -164,7 +164,7 @@ const Navbar = () => {
                             whileTap={{ scale: 0.95 }}
                             transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                         >
-                            <Link href={'/contact'}>Hire Me</Link>
+                            <Link href={'/contact'}>Let&apos;s Talk</Link>
                         </motion.button>
                         <ModeToggle />
                     </div>
@@ -267,7 +267,7 @@ const Navbar = () => {
                                         whileTap={{ scale: 0.98 }}
                                     >
                                         <Link href={'/contact'} onClick={() => setIsOpen(false)}>
-                                            Hire Me
+                                            Let&apos;s Talk
                                         </Link>
                                     </motion.button>
                                 </motion.div>
