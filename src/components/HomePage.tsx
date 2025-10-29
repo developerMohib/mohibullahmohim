@@ -10,7 +10,6 @@ import {
     Play,
     Star,
     Mail,
-    Phone,
     Clock,
     CheckCircle2,
     Users,
@@ -20,11 +19,14 @@ import {
     MapPin,
 } from 'lucide-react';
 import { services } from '@/fakedata/service';
-import { processSteps } from '@/fakedata/process';
-import { projects } from '@/fakedata/projects';
 import { myfaqs } from '@/fakedata/faqs';
-import Link from 'next/link';
 import Testimonial from './Testimonial';
+import Projects from './Projects';
+import ContactSection from './ContactSection';
+import { processSteps } from '@/fakedata/process';
+import { FloatingParticles } from './animation/FloatingParticles';
+import { CodeStreams } from './animation/CodeStreams';
+import { BinaryRain } from './animation/BinaryRain';
 
 const HomePage = () => {
     // Stats Data
@@ -57,14 +59,6 @@ const HomePage = () => {
     };
 
 
-    // Floating particles animation
-    const floatingParticles = Array.from({ length: 15 }, (_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        delay: Math.random() * 5,
-        duration: 3 + Math.random() * 4
-    }));
 
     const movingOrbs = [
         {
@@ -99,11 +93,7 @@ const HomePage = () => {
         }
     ];
     // Code-like streaming animation
-    const codeStreams = Array.from({ length: 8 }, (_, i) => ({
-        id: i,
-        delay: i * 0.5,
-        duration: 2 + Math.random() * 2
-    }));
+
 
     return (
         <div className="overflow-hidden bg-white dark:bg-gray-900">
@@ -134,30 +124,10 @@ const HomePage = () => {
                         />
                     ))}
 
-                    {/* Floating Particles */}
-                    {floatingParticles.map((particle) => (
-                        <motion.div
-                            key={particle.id}
-                            className="absolute w-2 h-2 bg-blue-400/30 rounded-full"
-                            style={{
-                                left: `${particle.x}%`,
-                                top: `${particle.y}%`,
-                            }}
-                            animate={{
-                                y: [0, -30, 0],
-                                x: [0, 10, 0],
-                                opacity: [0.3, 0.8, 0.3],
-                            }}
-                            transition={{
-                                duration: particle.duration,
-                                repeat: Infinity,
-                                delay: particle.delay,
-                                ease: "easeInOut"
-                            }}
-                        />
-                    ))}
+                    {/* Floating Particles Animation*/}
+                    <FloatingParticles />
 
-                    {/* Animated Grid */}
+                    {/* Animated Grid - This is fine */}
                     <motion.div
                         className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.1)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(147,197,253,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(147,197,253,0.05)_1px,transparent_1px)] bg-[size:64px_64px]"
                         animate={{
@@ -170,29 +140,8 @@ const HomePage = () => {
                         }}
                     />
 
-                    {/* Code-like Streaming Lines */}
-                    {codeStreams.map((stream) => (
-                        <motion.div
-                            key={stream.id}
-                            className="absolute h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent"
-                            style={{
-                                left: `${stream.id * 12}%`,
-                                top: '20%',
-                                width: '2px',
-                                height: '100px',
-                            }}
-                            animate={{
-                                y: [-100, 400],
-                                opacity: [0, 1, 0],
-                            }}
-                            transition={{
-                                duration: stream.duration,
-                                repeat: Infinity,
-                                delay: stream.delay,
-                                ease: "linear"
-                            }}
-                        />
-                    ))}
+                    {/* Code-like Streaming Lines Animation*/}
+                    <CodeStreams />
                 </div>
 
                 <div className="relative">
@@ -305,28 +254,8 @@ const HomePage = () => {
                         }}
                     />
 
-                    {/* Binary rain effect */}
-                    {Array.from({ length: 20 }, (_, i) => (
-                        <motion.div
-                            key={i}
-                            className="absolute text-green-400/30 font-mono text-sm"
-                            style={{
-                                left: `${Math.random() * 100}%`,
-                            }}
-                            animate={{
-                                y: [-100, 600],
-                                opacity: [0, 1, 0],
-                            }}
-                            transition={{
-                                duration: 3 + Math.random() * 4,
-                                repeat: Infinity,
-                                delay: Math.random() * 5,
-                                ease: "linear"
-                            }}
-                        >
-                            {Math.random() > 0.5 ? '1' : '0'}
-                        </motion.div>
-                    ))}
+                    {/* Binary rain effect Animation*/}
+                    <BinaryRain />
 
                     {/* Pulsing grid */}
                     <motion.div
@@ -568,91 +497,7 @@ const HomePage = () => {
             </section>
 
             {/* Projects Section */}
-            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800/50">
-                <div>
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-center mb-16"
-                    >
-                        <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300">
-                            My Work
-                        </Badge>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-300 mb-4">
-                            Featured <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Projects</span>
-                        </h2>
-                        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                            A showcase of my latest work and innovative solutions
-                        </p>
-                    </motion.div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {projects.map((project, index) => (
-                            <motion.div
-                                key={project.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: index * 0.1 }}
-                                whileHover={{ y: -5 }}
-                                className="group"
-                            >
-                                <Card className="hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden">
-                                    <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-6xl">
-                                        {project.image}
-                                    </div>
-                                    <CardHeader>
-                                        <div className="flex items-start justify-between mb-2">
-                                            <CardTitle className="text-xl text-gray-900 dark:text-white">{project.title}</CardTitle>
-                                            {project.featured && (
-                                                <Badge variant="secondary" className="bg-yellow-100 dark:bg-yellow-500/20 text-yellow-800 dark:text-yellow-300">
-                                                    Featured
-                                                </Badge>
-                                            )}
-                                        </div>
-                                        <CardDescription className="text-gray-600 dark:text-gray-400">
-                                            {project.description}
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="flex flex-wrap gap-2 mb-4">
-                                            {project.tags.map((tag, tagIndex) => (
-                                                <Badge key={tagIndex} variant="outline" className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-                                                    {tag}
-                                                </Badge>
-                                            ))}
-                                        </div>
-                                        <div className="flex gap-2">
-                                            <Link href={'/'}>
-                                                <Button size="sm" className="flex-1">
-                                                    Live Demo
-                                                </Button>
-                                            </Link>
-                                            <Link href={'/'}>
-                                                <Button size="sm" variant="outline" className="flex-1 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300">
-                                                    GitHub
-                                                </Button>
-                                            </Link>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                        className="text-center mt-12"
-                    >
-                        <Button size="lg" variant="outline" className="px-8 py-3 cursor-pointer border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300">
-                            View All Projects
-                            <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
-                    </motion.div>
-                </div>
-            </section>
+            <Projects />
 
             {/* Testimonials Slider Section */}
             <Testimonial />
@@ -700,33 +545,7 @@ const HomePage = () => {
             </section>
 
             {/* CTA Section */}
-            <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-purple-600">
-                <div className="max-w-4xl mx-auto text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-white"
-                    >
-                        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                            Ready to Start Your Project?
-                        </h2>
-                        <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-                            Let&apos;s discuss your ideas and turn them into reality. Get in touch for a free consultation.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-xl font-semibold">
-                                <Mail className="w-5 h-5 mr-2" />
-                                Get Free Quote
-                            </Button>
-                            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 rounded-xl font-semibold">
-                                <Phone className="w-5 h-5 mr-2" />
-                                Schedule Call
-                            </Button>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
+            <ContactSection />
         </div>
     );
 };
