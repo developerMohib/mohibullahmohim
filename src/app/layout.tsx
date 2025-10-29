@@ -7,6 +7,7 @@ import AppLoader from "@/components/AppLoader";
 import BackToTop from "@/components/BackToTop";
 import { FloatingParticles } from "@/components/animation/FloatingParticles";
 import { ThemeProvider } from "next-themes";
+import { ModalProvider } from "@/provider/ModalProvider";
 
 export const metadata: Metadata = {
   title: "Mohibullah Mohim | Full Stack Developer",
@@ -65,8 +66,10 @@ export default function RootLayout({
           <AppLoader />
           <Navbar />
           <QueryProvider>
-            <main>{children}</main>
-            <FloatingParticles />
+            <ModalProvider>
+              <main>{children}</main>
+              <FloatingParticles />
+            </ModalProvider>
           </QueryProvider>
           <BackToTop />
         </ThemeProvider>
