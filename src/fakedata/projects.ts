@@ -1,41 +1,8 @@
-export const projects = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    description:
-      "Full-stack e-commerce solution with React, Node.js, and MongoDB",
-    image: "🛒",
-    tags: ["React", "Node.js", "MongoDB", "Stripe"],
-    liveLink: "#",
-    githubLink: "#",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Task Management App",
-    description: "Real-time collaborative task management application",
-    image: "📋",
-    tags: ["Next.js", "Socket.io", "PostgreSQL", "Tailwind"],
-    liveLink: "#",
-    githubLink: "#",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "Weather Dashboard",
-    description: "Beautiful weather application with advanced analytics",
-    image: "🌤️",
-    tags: ["React", "Chart.js", "API Integration", "PWA"],
-    liveLink: "#",
-    githubLink: "#",
-    featured: false,
-  },
-];
-
 export const projectsData = [
   {
     id: 1,
     title: "E-Commerce Platform",
+    slug: "e-commerce-platform",
     description:
       "A full-stack e-commerce solution with real-time inventory, payment processing, and admin dashboard.",
     image: "/api/placeholder/600/400",
@@ -55,6 +22,7 @@ export const projectsData = [
   {
     id: 2,
     title: "Task Management App",
+    slug: "task-management-app",
     description:
       "Collaborative task management application with real-time updates, drag-drop functionality, and team collaboration features.",
     image: "/api/placeholder/600/400",
@@ -72,6 +40,7 @@ export const projectsData = [
   {
     id: 3,
     title: "Weather Dashboard",
+    slug: "weather-dashboard",
     description:
       "Real-time weather forecasting application with beautiful data visualizations and location-based services.",
     image: "/api/placeholder/600/400",
@@ -89,6 +58,7 @@ export const projectsData = [
   {
     id: 4,
     title: "Mobile Fitness App",
+    slug: "mobile-fitness-app",
     description:
       "Cross-platform fitness tracking application with workout plans, progress tracking, and social features.",
     image: "/api/placeholder/600/400",
@@ -106,6 +76,7 @@ export const projectsData = [
   {
     id: 5,
     title: "AI Content Generator",
+    slug: "ai-content-generator",
     description:
       "AI-powered content generation tool with multiple templates, tone customization, and plagiarism checking.",
     image: "/api/placeholder/600/400",
@@ -123,6 +94,7 @@ export const projectsData = [
   {
     id: 6,
     title: "Social Media Analytics",
+    slug: "social-media-analytics",
     description:
       "Comprehensive social media analytics dashboard with sentiment analysis and engagement metrics.",
     image: "/api/placeholder/600/400",

@@ -24,6 +24,7 @@ import {
     Mail
 } from 'lucide-react';
 import { projectsData } from '@/fakedata/projects';
+import { Project, ProjectDetailsModal } from '@/components/Project-details-modal';
 
 
 const categories = [
@@ -36,6 +37,18 @@ const categories = [
 
 export default function ProjectsPage() {
     const [selectedCategory, setSelectedCategory] = useState('all');
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const handleProjectClick = (project: Project) => {
+        setSelectedProject(project)
+        setIsModalOpen(true)
+    }
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false)
+        setSelectedProject(null)
+    }
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -64,7 +77,7 @@ export default function ProjectsPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20">
+        <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20">
             {/* Animated Background */}
             <div className="absolute inset-0 overflow-hidden">
                 <motion.div
@@ -191,7 +204,8 @@ export default function ProjectsPage() {
                                 variants={cardHoverVariants}
                                 initial="initial"
                                 whileHover="hover"
-                                className="h-full"
+                                className="h-full cursor-pointer"
+                                onClick={() => handleProjectClick(project)}
                             >
                                 <Card className="group h-full overflow-hidden border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:shadow-2xl hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300">
                                     {/* Featured Badge */}
@@ -219,7 +233,7 @@ export default function ProjectsPage() {
                                             {/* Overlay Actions */}
                                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50">
                                                 <div className="flex gap-3">
-                                                    <Button size="sm" className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm">
+                                                    <Button size="sm" className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm" >
                                                         <Eye className="w-4 h-4 mr-1" />
                                                         View Details
                                                     </Button>
@@ -362,6 +376,12 @@ export default function ProjectsPage() {
                     </Card>
                 </motion.section>
             </div>
+
+            <ProjectDetailsModal
+                project={selectedProject}
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+            />
         </div>
     );
 }

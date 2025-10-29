@@ -1,13 +1,38 @@
 'use client';
 import { motion } from 'framer-motion';
 import { Badge } from './ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Calendar, Clock, Code, ExternalLink, Eye, Github, Star, Users, Zap } from 'lucide-react';
 import { projectsData } from '@/fakedata/projects';
 
 const Projects = () => {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                duration: 0.5
+            }
+        }
+    };
+
+    const cardHoverVariants = {
+        initial: { scale: 1, y: 0 },
+        hover: { scale: 1.02, y: -5 }
+    };
     return (
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800/50">
             <div>
@@ -28,58 +53,137 @@ const Projects = () => {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {projectsData.map((project, index) => (
+                {/* Projects Card */}
+                <motion.section
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                    {projectsData.map((project) => (
                         <motion.div
                             key={project.id}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            whileHover={{ y: -5 }}
-                            className="group"
+                            variants={itemVariants}
+                            layout
                         >
-                            <Card className="hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden">
-                                <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-6xl">
-                                    {project.image}
-                                </div>
-                                <CardHeader>
-                                    <div className="flex items-start justify-between mb-2">
-                                        <CardTitle className="text-xl text-gray-900 dark:text-white">{project.title}</CardTitle>
-                                        {project.featured && (
-                                            <Badge variant="secondary" className="bg-yellow-100 dark:bg-yellow-500/20 text-yellow-800 dark:text-yellow-300">
+                            <motion.div
+                                variants={cardHoverVariants}
+                                initial="initial"
+                                whileHover="hover"
+                                className="h-full"
+                            >
+                                <Card className="group h-full overflow-hidden border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:shadow-2xl hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300">
+                                    {/* Featured Badge */}
+                                    {project.featured && (
+                                        <div className="absolute top-4 right-4 z-10">
+                                            <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg">
+                                                <Star className="w-3 h-3 mr-1" />
                                                 Featured
                                             </Badge>
-                                        )}
+                                        </div>
+                                    )}
+
+                                    {/* Project Image */}
+                                    <div className="relative overflow-hidden">
+                                        <motion.div
+                                            whileHover={{ scale: 1.1 }}
+                                            transition={{ duration: 0.3 }}
+                                            className="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 relative overflow-hidden"
+                                        >
+                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
+                                            <div className="absolute inset-0 flex items-center justify-center">
+                                                <Code className="w-16 h-16 text-white/80" />
+                                            </div>
+
+                                            {/* Overlay Actions */}
+                                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50">
+                                                <div className="flex gap-3">
+                                                    <Button size="sm" className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm">
+                                                        <Eye className="w-4 h-4 mr-1" />
+                                                        View Details
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </motion.div>
                                     </div>
-                                    <CardDescription className="text-gray-600 dark:text-gray-400">
-                                        {project.description}
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="flex flex-wrap gap-2 mb-4">
-                                        {project.technologies.map((tag, tagIndex) => (
-                                            <Badge key={tagIndex} variant="outline" className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-                                                {tag}
-                                            </Badge>
-                                        ))}
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <Link href={'/'}>
-                                            <Button size="sm" className="flex-1">
-                                                Live Demo
+
+                                    <CardHeader className="pb-3">
+                                        <div className="flex items-start justify-between mb-2">
+                                            <CardTitle className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                                {project.title}
+                                            </CardTitle>
+                                        </div>
+
+                                        <CardDescription className="text-gray-600 dark:text-gray-300 line-clamp-2">
+                                            {project.description}
+                                        </CardDescription>
+                                    </CardHeader>
+
+                                    <CardContent className="pb-4">
+                                        {/* Technologies */}
+                                        <div className="flex flex-wrap gap-1.5 mb-4">
+                                            {project.technologies.map((tech) => (
+                                                <Badge
+                                                    key={tech}
+                                                    variant="secondary"
+                                                    className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800"
+                                                >
+                                                    {tech}
+                                                </Badge>
+                                            ))}
+                                        </div>
+
+                                        {/* Project Meta */}
+                                        <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-400">
+                                            <div className="flex items-center gap-1">
+                                                <Calendar className="w-4 h-4" />
+                                                <span>{project.year}</span>
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <Clock className="w-4 h-4" />
+                                                <span>{project.duration}</span>
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <Users className="w-4 h-4" />
+                                                <span>{project.teamSize}</span>
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <Zap className="w-4 h-4" />
+                                                <span>{project.complexity}</span>
+                                            </div>
+                                        </div>
+                                    </CardContent>
+
+                                    <CardFooter className="pt-0">
+                                        <div className="flex gap-2 w-full">
+                                            <Button
+                                                size="sm"
+                                                variant="outline"
+                                                className="flex-1 border-gray-300 dark:border-gray-600"
+                                                asChild
+                                            >
+                                                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                                                    <Github className="w-4 h-4 mr-2" />
+                                                    Code
+                                                </a>
                                             </Button>
-                                        </Link>
-                                        <Link href={'/'}>
-                                            <Button size="sm" variant="outline" className="flex-1 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300">
-                                                GitHub
+                                            <Button
+                                                size="sm"
+                                                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                                                asChild
+                                            >
+                                                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
+                                                    <ExternalLink className="w-4 h-4 mr-2" />
+                                                    Live Demo
+                                                </a>
                                             </Button>
-                                        </Link>
-                                    </div>
-                                </CardContent>
-                            </Card>
+                                        </div>
+                                    </CardFooter>
+                                </Card>
+                            </motion.div>
                         </motion.div>
                     ))}
-                </div>
+                </motion.section>
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -87,10 +191,12 @@ const Projects = () => {
                     transition={{ duration: 0.6, delay: 0.4 }}
                     className="text-center mt-12"
                 >
-                    <Button size="lg" variant="outline" className="px-8 py-3 cursor-pointer border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300">
-                        View All Projects
-                        <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
+                    <Link href="/all-projects">
+                        <Button size="lg" variant="outline" className="px-8 py-3 cursor-pointer border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
+                            View All Projects
+                            <ArrowRight className="ml-2 w-4 h-4" />
+                        </Button>
+                    </Link>
                 </motion.div>
             </div>
         </section>
