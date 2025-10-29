@@ -262,7 +262,7 @@ const Navbar = () => {
                                     className="px-3 py-2"
                                 >
                                     <motion.button
-                                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-3 rounded-md text-sm font-medium shadow-lg cursor-pointer"
+                                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-3 rounded-md text-sm font-bold shadow-lg cursor-pointer"
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
                                     >

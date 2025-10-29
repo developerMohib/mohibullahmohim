@@ -157,7 +157,7 @@ const Blog = () => {
                                                 </div>
                                             </div>
                                             <CardTitle className={`text-xl md:text-2xl group-hover:text-blue-600 transition-colors ${getTextColor('primary')}`}>
-                                                <Link href={`/blogs/${post.slug}`}>
+                                                <Link href={`/blog-details/${post.slug}`}>
                                                     {post.title}
                                                 </Link>
                                             </CardTitle>
