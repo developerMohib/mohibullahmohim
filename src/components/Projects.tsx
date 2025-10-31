@@ -4,10 +4,15 @@ import { Badge } from './ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { ArrowRight, Calendar, Clock, Code, ExternalLink, Eye, Github, Star, Users, Zap } from 'lucide-react';
+import { ArrowRight, Calendar, Clock, Code, ExternalLink, Eye, Filter, Github, Star, Users, Zap } from 'lucide-react';
 import { projectsData } from '@/fakedata/projects';
+import { useState } from 'react';
+import { Project, ProjectDetailsModal } from './Project-details-modal';
 
 const Projects = () => {
+
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -33,6 +38,20 @@ const Projects = () => {
         initial: { scale: 1, y: 0 },
         hover: { scale: 1.02, y: -5 }
     };
+
+
+
+    const handleProjectClick = (project: Project) => {
+        setSelectedProject(project)
+        setIsModalOpen(true)
+    }
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false)
+        setSelectedProject(null)
+    }
+
+
     return (
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800/50">
             <div>
@@ -53,7 +72,7 @@ const Projects = () => {
                     </p>
                 </motion.div>
 
-                {/* Projects Card */}
+                {/* Projects Grid */}
                 <motion.section
                     variants={containerVariants}
                     initial="hidden"
@@ -70,7 +89,8 @@ const Projects = () => {
                                 variants={cardHoverVariants}
                                 initial="initial"
                                 whileHover="hover"
-                                className="h-full"
+                                className="h-full cursor-pointer"
+                                onClick={() => handleProjectClick(project)}
                             >
                                 <Card className="group h-full overflow-hidden border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:shadow-2xl hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300">
                                     {/* Featured Badge */}
@@ -98,7 +118,7 @@ const Projects = () => {
                                             {/* Overlay Actions */}
                                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50">
                                                 <div className="flex gap-3">
-                                                    <Button size="sm" className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm">
+                                                    <Button size="sm" className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm cursor-pointer">
                                                         <Eye className="w-4 h-4 mr-1" />
                                                         View Details
                                                     </Button>
@@ -185,6 +205,25 @@ const Projects = () => {
                     ))}
                 </motion.section>
 
+                {/* Empty State */}
+                {projectsData?.length === 0 && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-center py-16"
+                    >
+                        <div className="w-24 h-24 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <Filter className="w-12 h-12 text-gray-400" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                            No projects found
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+                            Try adjusting your search or filter criteria to find what you&apos;re looking for.
+                        </p>
+                    </motion.div>
+                )}
+
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -199,6 +238,13 @@ const Projects = () => {
                     </Link>
                 </motion.div>
             </div>
+
+            <ProjectDetailsModal
+                project={selectedProject}
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+            />
+
         </section>
     );
 };
