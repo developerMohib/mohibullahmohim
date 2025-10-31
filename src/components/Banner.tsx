@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
     ArrowRight,
-    Play,
     Star,
     Mail,
     Clock,
@@ -20,7 +19,6 @@ import { CodeStreams } from './animation/CodeStreams';
 import { BinaryRain } from './animation/BinaryRain';
 import { useState } from 'react';
 import { BookForm } from './Bookform';
-import { Dialog, DialogContent, DialogTrigger } from './ui/dialog';
 import VideoPopupButton from './Watchvideo';
 
 const Banner = () => {
