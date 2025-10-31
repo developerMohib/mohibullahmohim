@@ -4,11 +4,20 @@ import { motion } from 'framer-motion';
 import { Button } from './ui/button';
 import { Mail } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { useState } from 'react';
+import { BookForm } from './Bookform';
+import { useRouter } from 'next/navigation';
 const ContactSection = () => {
 
     const { theme } = useTheme();
+    const [isBookFormOpen, setIsBookFormOpen] = useState(false);
+    const openBookForm = () => setIsBookFormOpen(true);
+    const closeBookForm = () => setIsBookFormOpen(false);
+    const router = useRouter();
 
-
+    const allProjectlinkup = () => {
+        router.push('/all-projects');
+    }
     // Text color classes based on theme
     const getTextColor = (type: 'primary' | 'secondary' = 'primary') => {
         if (type === 'primary') {
@@ -45,11 +54,11 @@ const ContactSection = () => {
                         Let&apos;s collaborate to create something extraordinary. Your vision, my expertise - together we can build the future.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                        <Button onClick={openBookForm} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer">
                             <Mail className="w-5 h-5 mr-2" />
                             Start a Project
                         </Button>
-                        <Button
+                        <Button onClick={allProjectlinkup}
                             variant="outline"
                             className={`${theme === 'light'
                                 ? 'border-gray-400 text-gray-700 hover:bg-gray-200'
@@ -61,6 +70,7 @@ const ContactSection = () => {
                     </div>
                 </motion.div>
             </div>
+            <BookForm isOpen={isBookFormOpen} onClose={closeBookForm} />
         </motion.section>
     );
 };

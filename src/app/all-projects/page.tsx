@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { projectsData } from '@/fakedata/projects';
 import { Project, ProjectDetailsModal } from '@/components/Project-details-modal';
+import { BookForm } from '@/components/Bookform';
 
 
 const categories = [
@@ -39,6 +40,9 @@ export default function ProjectsPage() {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedProject, setSelectedProject] = useState<Project | null>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isBookFormOpen, setIsBookFormOpen] = useState(false);
+    const openBookForm = () => setIsBookFormOpen(true);
+    const closeBookForm = () => setIsBookFormOpen(false);
 
     const handleProjectClick = (project: Project) => {
         setSelectedProject(project)
@@ -355,7 +359,7 @@ export default function ProjectsPage() {
                                 Let&apos;s work together to bring your ideas to life with cutting-edge technology and exceptional design.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <Button
+                                <Button onClick={openBookForm}
                                     size="lg"
                                     variant="secondary"
                                     className="bg-white text-blue-600 hover:bg-gray-100"
@@ -363,7 +367,7 @@ export default function ProjectsPage() {
                                     <Mail className="w-5 h-5 mr-2" />
                                     Get In Touch
                                 </Button>
-                                <Button
+                                <Button onClick={() => window.open('https://drive.google.com/file/d/12l9IkEsvO4s7gqAys8Ujs6RSHC8V8ip-/view?usp=drive_link', '_blank', 'noopener,noreferrer')}
                                     size="lg"
                                     variant="outline"
                                     className="border-white text-white hover:bg-white/10"
@@ -382,6 +386,7 @@ export default function ProjectsPage() {
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
             />
+            <BookForm isOpen={isBookFormOpen} onClose={closeBookForm} />
         </div>
     );
 }

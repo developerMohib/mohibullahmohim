@@ -7,9 +7,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, Code, Server, Palette, Database } from "lucide-react";
 import { useTheme } from "next-themes";
+import { BookForm } from "@/components/Bookform";
+import { useState } from "react";
 
 const AboutPage = () => {
   const { theme } = useTheme();
+  const [isBookFormOpen, setIsBookFormOpen] = useState(false);
+  const openBookForm = () => setIsBookFormOpen(true);
+  const closeBookForm = () => setIsBookFormOpen(false);
 
   const services = [
     {
@@ -81,8 +86,8 @@ const AboutPage = () => {
 
   // Card background classes based on theme
   const getCardBackground = () => {
-    return theme === 'light' 
-      ? "bg-white/80 border-gray-200 backdrop-blur-sm hover:bg-white/90" 
+    return theme === 'light'
+      ? "bg-white/80 border-gray-200 backdrop-blur-sm hover:bg-white/90"
       : "bg-gray-800/50 border-gray-700 backdrop-blur-sm hover:bg-gray-800/70";
   };
 
@@ -223,8 +228,8 @@ const AboutPage = () => {
                       <div
                         className={`
                           relative
-                          ${theme === 'light' 
-                            ? 'bg-gradient-to-br from-white to-gray-100 border-gray-300/50 hover:from-gray-100 hover:to-gray-200 hover:border-gray-400/50' 
+                          ${theme === 'light'
+                            ? 'bg-gradient-to-br from-white to-gray-100 border-gray-300/50 hover:from-gray-100 hover:to-gray-200 hover:border-gray-400/50'
                             : 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700/50 hover:from-gray-700 hover:to-gray-800 hover:border-gray-600/50'
                           }
                           p-4 rounded-2xl shadow-lg border
@@ -263,8 +268,8 @@ const AboutPage = () => {
                         text-sm font-medium mt-3 capitalize
                         transition-all duration-300 ease-out
                         group-hover/skill:font-semibold
-                        ${theme === 'light' 
-                          ? 'text-gray-700 group-hover/skill:text-gray-900' 
+                        ${theme === 'light'
+                          ? 'text-gray-700 group-hover/skill:text-gray-900'
                           : 'text-gray-200 group-hover/skill:text-white'
                         }
                       `}>
@@ -285,8 +290,8 @@ const AboutPage = () => {
                           z-20
                           after:content-[''] after:absolute after:top-full after:left-1/2
                           after:-translate-x-1/2 after:border-4 after:border-transparent
-                          ${theme === 'light' 
-                            ? 'after:border-t-white' 
+                          ${theme === 'light'
+                            ? 'after:border-t-white'
                             : 'after:border-t-gray-900'
                           }
                           capitalize
@@ -325,16 +330,16 @@ const AboutPage = () => {
               Let&apos;s collaborate to create something extraordinary. Your vision, my expertise - together we can build the future.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300">
+              <Button onClick={openBookForm} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer">
                 <Mail className="w-5 h-5 mr-2" />
                 Start a Project
               </Button>
-              <Button 
-                variant="outline" 
-                className={`${theme === 'light' 
-                  ? 'border-gray-400 text-gray-700 hover:bg-gray-200' 
+              <Button
+                variant="outline"
+                className={`${theme === 'light'
+                  ? 'border-gray-400 text-gray-700 hover:bg-gray-200'
                   : 'border-gray-600 text-gray-300 hover:bg-gray-800'
-                } px-8 py-3 rounded-xl font-semibold text-lg transition-all duration-300`}
+                  } px-8 py-3 rounded-xl font-semibold text-lg transition-all duration-300`}
               >
                 View My Work
               </Button>
@@ -342,6 +347,7 @@ const AboutPage = () => {
           </motion.div>
         </div>
       </motion.section>
+      <BookForm isOpen={isBookFormOpen} onClose={closeBookForm} />
     </div>
   );
 };
