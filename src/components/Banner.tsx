@@ -20,6 +20,8 @@ import { CodeStreams } from './animation/CodeStreams';
 import { BinaryRain } from './animation/BinaryRain';
 import { useState } from 'react';
 import { BookForm } from './Bookform';
+import { Dialog, DialogContent, DialogTrigger } from './ui/dialog';
+import VideoPopupButton from './Watchvideo';
 
 const Banner = () => {
     const [isBookFormOpen, setIsBookFormOpen] = useState(false);
@@ -296,10 +298,9 @@ const Banner = () => {
                                 Start Your Project
                                 <ArrowRight className="ml-2 w-5 h-5" />
                             </Button>
-                            <Button size="lg" variant="outline" className="px-8 py-4 text-lg border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-400 dark:hover:border-gray-400 rounded-xl transition-all duration-300">
-                                <Play className="mr-2 w-5 h-5" />
-                                Watch Demo
-                            </Button>
+
+                            <VideoPopupButton />
+
                         </div>
 
                         {/* Stats Bar */}
