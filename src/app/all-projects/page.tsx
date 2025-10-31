@@ -233,7 +233,7 @@ export default function ProjectsPage() {
                                             {/* Overlay Actions */}
                                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50">
                                                 <div className="flex gap-3">
-                                                    <Button size="sm" className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm" >
+                                                    <Button size="sm" className="bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm cursor-pointer">
                                                         <Eye className="w-4 h-4 mr-1" />
                                                         View Details
                                                     </Button>
