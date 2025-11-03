@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { testimonials } from '@/fakedata/testimonial';
 import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
-import React, { useState } from 'react';
 import { Badge } from './ui/badge';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent } from './ui/card';
