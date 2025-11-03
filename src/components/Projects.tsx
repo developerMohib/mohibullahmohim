@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Badge } from './ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
@@ -6,7 +7,6 @@ import Link from 'next/link';
 import { Button } from './ui/button';
 import { ArrowRight, Calendar, Clock, Code, ExternalLink, Eye, Filter, Github, Star, Users, Zap } from 'lucide-react';
 import { projectsData } from '@/fakedata/projects';
-import { useState } from 'react';
 import { Project, ProjectDetailsModal } from './Project-details-modal';
 
 const Projects = () => {

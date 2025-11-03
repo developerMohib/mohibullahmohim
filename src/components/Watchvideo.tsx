@@ -12,7 +12,6 @@ export default function VideoPopupButton() {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
 
-
                 <Button size="lg" variant="outline" className="px-8 py-4 text-lg border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:border-gray-400 dark:hover:border-gray-400 rounded-xl transition-all duration-300">
                     <Play className="mr-2 w-5 h-5" />
                     Watch Demo
@@ -28,13 +27,7 @@ export default function VideoPopupButton() {
                 </DialogHeader>
 
                 <div className="aspect-video w-full">
-                    <iframe
-                        className="w-full h-full"
-                        src="https://youtu.be/LQ3677p5NWg?si=CE64Lj-SDbMAf670"
-                        title="Intro Video"
-                        allow="autoplay; encrypted-media"
-                        allowFullScreen
-                    ></iframe>
+                    <iframe className="w-full h-full" width="560" height="315" src="https://www.youtube.com/embed/_MZSwa8cs80?si=UT2FSiEJBFEzpjr3" title="Intro Mohib" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                 </div>
             </DialogContent>
         </Dialog>
