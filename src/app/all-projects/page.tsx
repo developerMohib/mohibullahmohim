@@ -23,9 +23,10 @@ import {
     Eye,
     Mail
 } from 'lucide-react';
-import { projectsData } from '@/fakedata/projects';
-import { Project, ProjectDetailsModal } from '@/components/Project-details-modal';
+import {  ProjectDetailsModal } from '@/components/Project-details-modal';
 import { BookForm } from '@/components/Bookform';
+import useProjects from '@/hook/useProjects';
+import { IProject } from '@/interface/projectsInterface';
 
 
 const categories = [
@@ -38,13 +39,19 @@ const categories = [
 
 export default function ProjectsPage() {
     const [selectedCategory, setSelectedCategory] = useState('all');
-    const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+    const [selectedProject, setSelectedProject] = useState<IProject | null>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isBookFormOpen, setIsBookFormOpen] = useState(false);
+    const { isPending, error, projects, isFetching } = useProjects();
+    
+
+    console.log('Projects in ProjectsPage:', projects);
+
+
     const openBookForm = () => setIsBookFormOpen(true);
     const closeBookForm = () => setIsBookFormOpen(false);
 
-    const handleProjectClick = (project: Project) => {
+    const handleProjectClick = (project: IProject) => {
         setSelectedProject(project)
         setIsModalOpen(true)
     }
@@ -79,6 +86,17 @@ export default function ProjectsPage() {
         initial: { scale: 1, y: 0 },
         hover: { scale: 1.02, y: -5 }
     };
+
+    if (isPending || isFetching) {
+        return (
+            <p className="text-center py-20 text-gray-600 dark:text-gray-400">Loading projects...</p>
+        )
+    }
+    if (error) {
+        return (
+            <p className="text-center py-20 text-red-600 dark:text-red-400">Error loading projects: {error.message}</p>
+        )
+    }
 
     return (
         <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20">
@@ -198,9 +216,9 @@ export default function ProjectsPage() {
                     animate="visible"
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
                 >
-                    {projectsData.map((project) => (
+                    {projects?.map((project: IProject) => (
                         <motion.div
-                            key={project.id}
+                            key={project._id}
                             variants={itemVariants}
                             layout
                         >
@@ -261,7 +279,7 @@ export default function ProjectsPage() {
                                     <CardContent className="pb-4">
                                         {/* Technologies */}
                                         <div className="flex flex-wrap gap-1.5 mb-4">
-                                            {project.technologies.map((tech) => (
+                                            {project.technologies?.map((tech) => (
                                                 <Badge
                                                     key={tech}
                                                     variant="secondary"
@@ -325,7 +343,7 @@ export default function ProjectsPage() {
                 </motion.section>
 
                 {/* Empty State */}
-                {projectsData.length === 0 && (
+                {projects.length === 0 && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}

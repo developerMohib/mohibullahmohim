@@ -18,8 +18,9 @@ import {
   BarChart3,
   MapPin
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import instance from '@/hook/instance';
 
 // Type definitions
 interface AnalyticsData {
@@ -57,10 +58,18 @@ interface LocationData {
   percentage: number;
   trend: 'up' | 'down';
 }
-
+interface VisitorStats {
+  totalVisitors: number;
+  totalVisits: number;
+  country?: string;
+  city?: string;
+  device?: string;
+  browser?: string;
+}
 export default function AnalyticsPage() {
   const [dateRange, setDateRange] = useState('30d');
   const [isLoading, setIsLoading] = useState(false);
+const [stats, setStats] = useState<VisitorStats | null>(null);
 
   // Mock data - replace with actual API data
   const overviewStats = [
@@ -164,6 +173,15 @@ export default function AnalyticsPage() {
   const getTrendIcon = (trend: 'up' | 'down') => {
     return trend === 'up' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />;
   };
+
+
+   useEffect(() => {
+    instance
+      .post("/all/visitor")
+      .then((res) => setStats(res.data))
+      .catch((err) => console.error(err));
+  }, []);
+console.log('Visitor Stats:', stats);
 
   return (
     <div>

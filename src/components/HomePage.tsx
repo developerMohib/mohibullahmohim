@@ -8,10 +8,10 @@ import { CheckCircle2 } from 'lucide-react';
 import { services } from '@/fakedata/service';
 import { myfaqs } from '@/fakedata/faqs';
 import Testimonial from './Testimonial';
-import Projects from './Projects';
 import ContactSection from './ContactSection';
 import { processSteps } from '@/fakedata/process';
 import Banner from './Banner';
+import { ProjectsList } from './Projectcard';
 
 const HomePage = () => {
 
@@ -170,8 +170,7 @@ const HomePage = () => {
             </section>
 
             {/* Projects Section */}
-            <Projects />
-
+            <ProjectsList />
             {/* Testimonials Slider Section */}
             <Testimonial />
 
