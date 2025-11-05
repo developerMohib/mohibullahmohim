@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import instance from './instance';
-
 const useProjects = () => {
     const { isPending, error, data: projects, isFetching } = useQuery({
         queryKey: ['projects'],
@@ -9,10 +8,6 @@ const useProjects = () => {
             return response?.data.data || [];
         },
     });
-
-
-
     return { isPending, error, projects, isFetching };
 };
-
 export default useProjects;

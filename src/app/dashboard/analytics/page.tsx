@@ -18,9 +18,9 @@ import {
   BarChart3,
   MapPin
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
-import instance from '@/hook/instance';
+import useVisitors from '@/hook/useVisitors';
 
 // Type definitions
 interface AnalyticsData {
@@ -58,24 +58,16 @@ interface LocationData {
   percentage: number;
   trend: 'up' | 'down';
 }
-interface VisitorStats {
-  totalVisitors: number;
-  totalVisits: number;
-  country?: string;
-  city?: string;
-  device?: string;
-  browser?: string;
-}
+
 export default function AnalyticsPage() {
   const [dateRange, setDateRange] = useState('30d');
   const [isLoading, setIsLoading] = useState(false);
-const [stats, setStats] = useState<VisitorStats | null>(null);
-
+  const { isPending, error, visitors, isFetching } = useVisitors();
   // Mock data - replace with actual API data
   const overviewStats = [
     {
       title: 'Total Visitors',
-      value: '12,458',
+      value: visitors?.length.toString() || '0' ,
       change: '+12.5%',
       trend: 'up' as const,
       description: 'vs previous period',
@@ -174,14 +166,12 @@ const [stats, setStats] = useState<VisitorStats | null>(null);
     return trend === 'up' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />;
   };
 
-
-   useEffect(() => {
-    instance
-      .post("/all/visitor")
-      .then((res) => setStats(res.data))
-      .catch((err) => console.error(err));
-  }, []);
-console.log('Visitor Stats:', stats);
+  if(isPending || isFetching) {
+    return <div>Loading...</div>;
+  }
+  if(error) {
+    return <div>Error loading data: {error.message}</div>;
+  }
 
   return (
     <div>
@@ -298,7 +288,7 @@ console.log('Visitor Stats:', stats);
                 <div key={device.device} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className={`w-3 h-3 rounded-full ${device.device === 'Desktop' ? 'bg-green-500' :
-                        device.device === 'Mobile' ? 'bg-blue-500' : 'bg-purple-500'
+                      device.device === 'Mobile' ? 'bg-blue-500' : 'bg-purple-500'
                       }`} />
                     <span className="font-medium">{device.device}</span>
                   </div>
@@ -306,7 +296,7 @@ console.log('Visitor Stats:', stats);
                     <div className="w-32 bg-gray-200 rounded-full h-2">
                       <div
                         className={`h-2 rounded-full ${device.device === 'Desktop' ? 'bg-green-500' :
-                            device.device === 'Mobile' ? 'bg-blue-500' : 'bg-purple-500'
+                          device.device === 'Mobile' ? 'bg-blue-500' : 'bg-purple-500'
                           }`}
                         style={{ width: `${device.percentage}%` }}
                       />
