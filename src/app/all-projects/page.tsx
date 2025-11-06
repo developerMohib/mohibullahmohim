@@ -43,10 +43,6 @@ export default function ProjectsPage() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isBookFormOpen, setIsBookFormOpen] = useState(false);
     const { isPending, error, projects, isFetching } = useProjects();
-    
-
-    console.log('Projects in ProjectsPage:', projects);
-
 
     const openBookForm = () => setIsBookFormOpen(true);
     const closeBookForm = () => setIsBookFormOpen(false);
@@ -97,6 +93,8 @@ export default function ProjectsPage() {
             <p className="text-center py-20 text-red-600 dark:text-red-400">Error loading projects: {error.message}</p>
         )
     }
+
+    console.log('Projects in ProjectsPage:', projects);
 
     return (
         <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20">

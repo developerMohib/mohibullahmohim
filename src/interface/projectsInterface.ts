@@ -6,7 +6,7 @@ export interface IProject {
   title?: string;
   
   // Media & Links
-  image: string;
+  image: string[];
   liveLink: string;
   sourceCode: string;
   demoUrl?: string;
@@ -36,7 +36,7 @@ export interface IProject {
   startDate?: string;
   year?: string;
   duration?: string;
-  teamSize?: 'Solo' | '2 People' | '3 People' | '4+ People' | 'Large Team';
+  teamSize?: string;
   complexity?: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
   
   // SEO & Analytics

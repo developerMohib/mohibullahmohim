@@ -297,6 +297,8 @@ const Banner = () => {
                                 <ArrowRight className="ml-2 w-5 h-5" />
                             </Button>
 
+
+                            {/* Here video intro div by component */}
                             <VideoPopupButton />
 
                         </div>

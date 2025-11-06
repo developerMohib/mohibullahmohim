@@ -9,6 +9,9 @@ import { Textarea } from "@/components/ui/textarea"
 
 import { Send, Clock, Phone } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
+import { useState } from "react"
+import instance from "@/hook/instance"
+import { toast } from "sonner"
 
 interface BookFormProps {
     isOpen: boolean
@@ -16,7 +19,7 @@ interface BookFormProps {
 }
 
 export function BookForm({ isOpen, onClose }: BookFormProps) {
-
+    const [loading, setLoading] = useState(false);
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget as HTMLFormElement)
@@ -27,9 +30,27 @@ export function BookForm({ isOpen, onClose }: BookFormProps) {
             budget: formData.get('budget') as string,
             message: formData.get('message') as string
         }
+        
+        try {
+            setLoading(true);
+            const response = await instance.post('/sendMail', {
+                contactdata: data
+            });
+            
+            if (response.data.success === true) {
+                toast.success(response.data.message);
+                setLoading(false);
+            }
 
-        console.log("Form data:", data)
-        onClose() // Close modal after submission
+        } catch (error) {
+            setLoading(false);
+            console.error("Error sending message:", error);
+            toast.error("There was an error sending your message. Please try again later.");
+        } finally {
+            setLoading(false);
+            onClose()
+        }
+
     }
 
     return (
@@ -126,9 +147,9 @@ export function BookForm({ isOpen, onClose }: BookFormProps) {
                         >
                             Cancel
                         </Button>
-                        <Button
+                        <Button disabled={loading}
                             type="submit"
-                            className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                            className={`flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             <Send className="w-4 h-4 mr-2" />
                             Send Message

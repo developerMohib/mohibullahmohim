@@ -135,11 +135,11 @@ const Footer = () => {
                           theme === 'light' 
                             ? 'bg-gray-900 text-white hover:bg-gray-700' 
                             : 'bg-white text-black hover:bg-gray-200'
-                        } rounded-full flex items-center justify-center text-lg transition-colors duration-200`}
+                        } rounded-full flex items-center justify-center text-lg transition-colors duration-200 group-hover:animate-spin`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Icon size={18} />
+                        <Icon className='' size={18} />
                       </motion.a>
 
                       {/* Tooltip */}

@@ -1,25 +1,31 @@
 // components/projects-list.tsx
 'use client'
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import useProjects from "@/hook/useProjects"
 import { IProject } from "@/interface/projectsInterface"
-import { ExternalLink, Github, Users ,ArrowRight} from "lucide-react"
+import { ExternalLink, Github, Users, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import { ProjectDetailsModal } from "./Project-details-modal"
 import { Button } from './ui/button';
 import Link from 'next/link';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
+import Autoplay from "embla-carousel-autoplay"
+import { Card, CardContent } from './ui/card';
+
 
 export function ProjectsList() {
     const { isPending, error, projects, isFetching } = useProjects()
     const [selectedProject, setSelectedProject] = useState<IProject | null>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
-
+    const plugin = useRef(
+        Autoplay({ delay: 1500, stopOnInteraction: true })
+    )
     if (isPending || isFetching) {
         return "Loading..."
     }
-console.log("ProjectsList projects:", projects);
+
     if (error) {
         return (
             <div className="text-center py-12">
@@ -45,7 +51,13 @@ console.log("ProjectsList projects:", projects);
         setSelectedProject(null)
     }
     return (
-        <div className="space-y-12 overflow-hidden">
+        <div className="space-y-12 overflow-hidden bg-accent/20 dark:bg-accent-dark/20 p-6 rounded-2xl border border-gray-200 dark:border-gray-700 backdrop-blur-sm">
+
+            <div className='text-center' >
+                <h1 className='text-4xl py-5 font-bold'>My Latest Project</h1>
+            </div>
+
+
             {projects?.map((project: IProject, index: number) => {
                 const isEven = index % 2 === 0;
 
@@ -54,21 +66,39 @@ console.log("ProjectsList projects:", projects);
                         key={project._id}
                         className="rounded-2xl shadow-md p-6 md:grid grid-cols-2 gap-8 transition-all hover:shadow-xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700"
                     >
-                        {/* Image Section - Left for odd, Right for even */}
-                        <div className={`md:grid-cols-1 mb-6 md:mb-0 ${isEven ? 'md:order-2' : 'md:order-1'}`}>
-                            {project.image ? (
-                                <Image
-                                    src={"https://res.cloudinary.com/dnfjdkspi/image/upload/v1760431026/projects/WhatsApp%20Image%202025-09-12%20at%2010.56.37%20PM%20%281%29-1760431024235.jpg"}
-                                    alt={project.projectName || 'Project Image'}
-                                    className="rounded-xl shadow-md border border-gray-200 dark:border-gray-700 w-full h-auto"
-                                    width={600}
-                                    height={400}
-                                />
-                            ) : (
-                                <div className="w-full h-64 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 flex items-center justify-center">
-                                    <span className="text-white/80">Project Image</span>
-                                </div>
-                            )}
+                        {/* Image Section with Carousel */}
+                        <div className={`mb-6 md:mb-0 ${isEven ? 'md:order-2' : 'md:order-1'}`}>
+                            <Carousel
+                                plugins={[plugin.current]}
+                                className="w-full mx-auto"
+                                onMouseEnter={plugin.current.stop}
+                                onMouseLeave={plugin.current.reset}
+                            >
+                                <CarouselContent>
+                                    {project?.image?.map((imageUrl,index) => (
+                                        <CarouselItem key={index}>
+                                            <div className="p-2">
+                                                <Card className="overflow-hidden border-0 bg-transparent shadow-none">
+                                                    <CardContent className="p-0">
+                                                        <div className="aspect-video relative">
+                                                            <Image
+                                                                src={imageUrl}
+                                                                alt={`${project.projectName || 'Project'} image ${index + 1}`}
+                                                                fill
+                                                                className=" rounded-lg"
+                                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                            />
+                                                        </div>
+                                                    </CardContent>
+                                                </Card>
+                                            </div>
+                                        </CarouselItem>
+                                    ))}
+                                </CarouselContent>
+                                 {/* Carousel Navigation Arrows */}
+                                <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:bg-white dark:hover:bg-gray-700 transition-all" />
+                                <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:bg-white dark:hover:bg-gray-700 transition-all" />
+                            </Carousel>
                         </div>
 
                         {/* Content Section - Right for odd, Left for even */}
@@ -100,11 +130,11 @@ console.log("ProjectsList projects:", projects);
                             {/* Features Section */}
                             <div>
                                 <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Features:</h3>
-                                    <span
-                                        className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0 rounded-md text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
-                                    >
-                                        {project.year }
-                                    </span>
+                                <span
+                                    className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0 rounded-md text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
+                                >
+                                    {project.year}
+                                </span>
                             </div>
 
                             {/* Technologies Stack */}
@@ -161,19 +191,19 @@ console.log("ProjectsList projects:", projects);
                 );
             })}
 
-             <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="text-center mt-12"
-                >
-                    <Link href="/all-projects">
-                        <Button size="lg" variant="outline" className="px-8 py-3 cursor-pointer border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
-                            View All Projects
-                            <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
-                    </Link>
-                </motion.div>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-center mt-12"
+            >
+                <Link href="/all-projects">
+                    <Button size="lg" variant="outline" className="px-8 py-3 cursor-pointer border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
+                        View All Projects
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
+                </Link>
+            </motion.div>
 
 
             <ProjectDetailsModal
