@@ -1,3 +1,4 @@
+"use client"
 import { useState } from 'react';
 import { testimonials } from '@/fakedata/testimonial';
 import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';

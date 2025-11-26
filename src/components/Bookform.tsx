@@ -55,7 +55,7 @@ export function BookForm({ isOpen, onClose }: BookFormProps) {
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="max-h-screen sm:min-h-0 sm:max-w-lg">
+            <DialogContent className="max-h-screen sm:min-h-0 max-w-3xl">
                 <form onSubmit={handleSubmit}>
                     <DialogHeader>
                         <DialogTitle className="flex items-center gap-2 text-2xl">
@@ -92,8 +92,8 @@ export function BookForm({ isOpen, onClose }: BookFormProps) {
                             <Input id="email" name="email" type="email" required />
                         </div>
 
-                        <div className="grid grid-cols-2 gap-2">
-                            <div className="grid-cols-1">
+                        <div className="grid grid-cols-2 gap-2 w-full">
+                            <div className="grid-cols-1 w-full">
                                 <Label htmlFor="projectType" className="mb-2">Project Type</Label>
                                 <Select name="projectType" >
                                     <SelectTrigger>

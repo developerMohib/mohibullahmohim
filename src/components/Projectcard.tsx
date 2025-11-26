@@ -1,35 +1,42 @@
 // components/projects-list.tsx
 'use client'
 
-import { useRef, useState } from 'react';
+import { useRef} from 'react';
 import { motion } from 'framer-motion';
 import useProjects from "@/hook/useProjects"
 import { IProject } from "@/interface/projectsInterface"
-import { ExternalLink, Github, Users, ArrowRight } from "lucide-react"
-import Image from "next/image"
-import { ProjectDetailsModal } from "./Project-details-modal"
+import { ExternalLink, Github, ArrowRight } from "lucide-react"
+import Image from "next/image";
 import { Button } from './ui/button';
 import Link from 'next/link';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
 import Autoplay from "embla-carousel-autoplay"
 import { Card, CardContent } from './ui/card';
-
+import { useRouter } from 'next/navigation';
 
 export function ProjectsList() {
     const { isPending, error, projects, isFetching } = useProjects()
-    const [selectedProject, setSelectedProject] = useState<IProject | null>(null)
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const router = useRouter()
     const plugin = useRef(
         Autoplay({ delay: 1500, stopOnInteraction: true })
     )
     if (isPending || isFetching) {
-        return "Loading..."
+        return "loading..."
     }
 
     if (error) {
         return (
-            <div className="text-center py-12">
-                <p className="text-red-500 dark:text-red-400">Error loading projects: {error.message}</p>
+            <div className="text-center py-12 w-3/5 mx-auto">
+                <div className="no-file-found flex flex-col items-center justify-center py-8 px-4 text-center bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
+                    <svg className="w-12 h-12 dark:text-gray-400 text-gray-700" stroke="currentColor" fill="currentColor" strokeWidth={0} viewBox="0 0 24 24" height="200px" width="200px" xmlns="http://www.w3.org/2000/svg"><g id="File_Off"><g><path d="M4,3.308a.5.5,0,0,0-.7.71l.76.76v14.67a2.5,2.5,0,0,0,2.5,2.5H17.44a2.476,2.476,0,0,0,2.28-1.51l.28.28c.45.45,1.16-.26.7-.71Zm14.92,16.33a1.492,1.492,0,0,1-1.48,1.31H6.56a1.5,1.5,0,0,1-1.5-1.5V5.778Z" /><path d="M13.38,3.088v2.92a2.5,2.5,0,0,0,2.5,2.5h3.07l-.01,6.7a.5.5,0,0,0,1,0V8.538a2.057,2.057,0,0,0-.75-1.47c-1.3-1.26-2.59-2.53-3.89-3.8a3.924,3.924,0,0,0-1.41-1.13,6.523,6.523,0,0,0-1.71-.06H6.81a.5.5,0,0,0,0,1Zm4.83,4.42H15.88a1.5,1.5,0,0,1-1.5-1.5V3.768Z" /></g></g></svg>
+                    <h3 className="text-xl font-medium mt-4 text-red-500 dark:text-red-400">Error loading projects: {error.message}</h3>
+                    <p className="text-gray-500 dark:text-gray-400 mt-2">
+                        These project you are looking for could not be loaded.
+                    </p>
+                </div>
+
+
+
             </div>
         )
     }
@@ -41,15 +48,11 @@ export function ProjectsList() {
             </div>
         )
     }
+    
     const handleProjectClick = (project: IProject): void => {
-        setSelectedProject(project)
-        setIsModalOpen(true)
+        router.push(`/all-projects/${project.slug}`)        
     }
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false)
-        setSelectedProject(null)
-    }
     return (
         <div className="space-y-12 overflow-hidden bg-accent/20 dark:bg-accent-dark/20 p-6 rounded-2xl border border-gray-200 dark:border-gray-700 backdrop-blur-sm">
 
@@ -75,7 +78,7 @@ export function ProjectsList() {
                                 onMouseLeave={plugin.current.reset}
                             >
                                 <CarouselContent>
-                                    {project?.image?.map((imageUrl,index) => (
+                                    {project?.image?.map((imageUrl, index) => (
                                         <CarouselItem key={index}>
                                             <div className="p-2">
                                                 <Card className="overflow-hidden border-0 bg-transparent shadow-none">
@@ -95,7 +98,7 @@ export function ProjectsList() {
                                         </CarouselItem>
                                     ))}
                                 </CarouselContent>
-                                 {/* Carousel Navigation Arrows */}
+                                {/* Carousel Navigation Arrows */}
                                 <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:bg-white dark:hover:bg-gray-700 transition-all" />
                                 <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:bg-white dark:hover:bg-gray-700 transition-all" />
                             </Carousel>
@@ -183,7 +186,7 @@ export function ProjectsList() {
                                     onClick={() => handleProjectClick(project)}
                                     className="flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 transition shadow-lg hover:shadow-xl"
                                 >
-                                    <Users className="w-4 h-4" /> Details
+                                     <ExternalLink className="w-4 h-4" /> View Details
                                 </button>
                             </div>
                         </div>
@@ -203,14 +206,7 @@ export function ProjectsList() {
                         <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                 </Link>
-            </motion.div>
-
-
-            <ProjectDetailsModal
-                project={selectedProject}
-                isOpen={isModalOpen}
-                onClose={handleCloseModal}
-            />
+            </motion.div>           
         </div>
     )
 }

@@ -12,10 +12,11 @@ import { User } from 'lucide-react';
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
-    const user = true;
+    const user = false;
     const navigation = [
         { name: 'Home', href: '/' },
         { name: 'About', href: '/about' },
+        { name: 'Work', href: '/all-projects' },
         {
             name: 'Solutions',
             component: SolutionsMegaMenu
