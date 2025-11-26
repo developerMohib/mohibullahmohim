@@ -1,18 +1,53 @@
 'use client';
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Badge } from './ui/badge';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
-import Link from 'next/link';
-import { Button } from './ui/button';
-import { ArrowRight, Calendar, Clock, Code, ExternalLink, Eye, Filter, Github, Star, Users, Zap } from 'lucide-react';
-import { projectsData } from '@/fakedata/projects';
-import { Project, ProjectDetailsModal } from './Project-details-modal';
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
-const Projects = () => {
+import {
+    ExternalLink,
+    Github,
+    Filter,
+    ArrowRight,
+    Calendar,
+    Clock,
+    Users,
+    Code,
+    Globe,
+    Smartphone,
+    Zap,
+    Star,
+    Eye,
+    Mail
+} from 'lucide-react';
+import { BookForm } from '@/components/Bookform';
+import useProjects from '@/hook/useProjects';
+import { IProject } from '@/interface/projectsInterface';
+import { useRouter } from 'next/navigation';
 
-    const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-    const [isModalOpen, setIsModalOpen] = useState(false)
+const categories = [
+    { id: 'all', label: 'All Projects', icon: Globe, count: 6 },
+    { id: 'web', label: 'Web Apps', icon: Code, count: 4 },
+    { id: 'mobile', label: 'Mobile Apps', icon: Smartphone, count: 1 },
+    { id: 'ai', label: 'AI/ML', icon: Zap, count: 1 },
+];
+
+
+export default function AllProjects() {
+    const [selectedCategory, setSelectedCategory] = useState('all');
+    const [isBookFormOpen, setIsBookFormOpen] = useState(false);
+    const { isPending, error, projects, isFetching } = useProjects();
+    const router = useRouter()
+    
+    const openBookForm = () => setIsBookFormOpen(true);
+    const closeBookForm = () => setIsBookFormOpen(false);
+
+
+    const handleProjectClick = (project: IProject): void => {
+        router.push(`/all-projects/${project.slug}`)
+    }
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -39,38 +74,127 @@ const Projects = () => {
         hover: { scale: 1.02, y: -5 }
     };
 
-
-
-    const handleProjectClick = (project: Project) => {
-        setSelectedProject(project)
-        setIsModalOpen(true)
+    if (isPending || isFetching) {
+        return (
+            <p className="text-center py-20 text-gray-600 dark:text-gray-400">Loading projects...</p>
+        )
     }
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false)
-        setSelectedProject(null)
+    if (error) {
+        return (
+            <p className="text-center py-20 text-red-600 dark:text-red-400">Error loading projects: {error.message}</p>
+        )
     }
-
 
     return (
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800/50">
-            <div>
+        <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20">
+            {/* Animated Background */}
+            <div className="absolute inset-0 overflow-hidden">
                 <motion.div
+                    className="absolute w-96 h-96 bg-gradient-to-r from-blue-500/10 to-purple-600/10 rounded-full blur-3xl top-20 -left-48"
+                    animate={{
+                        x: [0, 100, 0],
+                        y: [0, 50, 0],
+                        scale: [1, 1.2, 1],
+                    }}
+                    transition={{
+                        duration: 20,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
+                <motion.div
+                    className="absolute w-80 h-80 bg-gradient-to-r from-purple-500/10 to-pink-600/10 rounded-full blur-3xl bottom-20 right-0"
+                    animate={{
+                        x: [0, -80, 0],
+                        y: [0, -60, 0],
+                        scale: [1, 1.1, 1],
+                    }}
+                    transition={{
+                        duration: 25,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 10
+                    }}
+                />
+            </div>
+
+            <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                {/* Header Section */}
+                <motion.section
                     initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
                     className="text-center mb-16"
                 >
-                    <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300">
-                        My Work
-                    </Badge>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-300 mb-4">
-                        Featured <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Projects</span>
-                    </h2>
-                    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                        A showcase of my latest work and innovative solutions
-                    </p>
-                </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.2, duration: 0.5 }}
+                    >
+                        <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300">
+                            Portfolio
+                        </Badge>
+                    </motion.div>
+
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3, duration: 0.5 }}
+                        className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6"
+                    >
+                        My <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Projects</span>
+                    </motion.h1>
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4, duration: 0.5 }}
+                        className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8"
+                    >
+                        A collection of my recent work showcasing modern technologies, innovative solutions,
+                        and attention to detail in every project.
+                    </motion.p>
+
+                </motion.section>
+
+                {/* Filters */}
+                <motion.section
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6, duration: 0.5 }}
+                    className="mb-12"
+                >
+
+                    {/* Category Filters */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.7, duration: 0.5 }}
+                        className="flex flex-wrap gap-3 mt-6 justify-center"
+                    >
+                        {categories.map((category) => {
+                            const Icon = category.icon;
+                            return (
+                                <motion.button
+                                    key={category.id}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => setSelectedCategory(category.id)}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300 ${selectedCategory === category.id
+                                        ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-600/25'
+                                        : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700'
+                                        } backdrop-blur-sm`}
+                                >
+                                    <Icon className="w-4 h-4" />
+                                    <span>{category.label}</span>
+                                    <Badge variant="secondary" className="ml-1 bg-white/20 text-current">
+                                        {category.count}
+                                    </Badge>
+                                </motion.button>
+                            );
+                        })}
+                    </motion.div>
+                </motion.section>
 
                 {/* Projects Grid */}
                 <motion.section
@@ -79,9 +203,9 @@ const Projects = () => {
                     animate="visible"
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
                 >
-                    {projectsData.map((project) => (
+                    {projects?.map((project: IProject) => (
                         <motion.div
-                            key={project.id}
+                            key={project._id}
                             variants={itemVariants}
                             layout
                         >
@@ -142,7 +266,7 @@ const Projects = () => {
                                     <CardContent className="pb-4">
                                         {/* Technologies */}
                                         <div className="flex flex-wrap gap-1.5 mb-4">
-                                            {project.technologies.map((tech) => (
+                                            {project.technologies?.map((tech) => (
                                                 <Badge
                                                     key={tech}
                                                     variant="secondary"
@@ -206,7 +330,7 @@ const Projects = () => {
                 </motion.section>
 
                 {/* Empty State */}
-                {projectsData?.length === 0 && (
+                {projects.length === 0 && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -224,29 +348,44 @@ const Projects = () => {
                     </motion.div>
                 )}
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                {/* CTA Section */}
+                <motion.section
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="text-center mt-12"
+                    transition={{ duration: 0.6 }}
+                    className="text-center mt-20"
                 >
-                    <Link href="/all-projects">
-                        <Button size="lg" variant="outline" className="px-8 py-3 cursor-pointer border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
-                            View All Projects
-                            <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
-                    </Link>
-                </motion.div>
+                    <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 max-w-4xl mx-auto">
+                        <CardContent className="p-12">
+                            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                                Ready to Start Your Project?
+                            </h2>
+                            <p className="text-blue-100 text-xl mb-8 max-w-2xl mx-auto">
+                                Let&apos;s work together to bring your ideas to life with cutting-edge technology and exceptional design.
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <Button onClick={openBookForm}
+                                    size="lg"
+                                    variant="secondary"
+                                    className="bg-white text-blue-600 hover:bg-gray-100"
+                                >
+                                    <Mail className="w-5 h-5 mr-2" />
+                                    Get In Touch
+                                </Button>
+                                <Button onClick={() => window.open('https://drive.google.com/file/d/12l9IkEsvO4s7gqAys8Ujs6RSHC8V8ip-/view?usp=drive_link', '_blank', 'noopener,noreferrer')}
+                                    size="lg"
+                                    variant="outline"
+                                    className="border-white text-white hover:bg-white/10"
+                                >
+                                    View My Resume
+                                    <ArrowRight className="w-5 h-5 ml-2" />
+                                </Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </motion.section>
             </div>
-
-            <ProjectDetailsModal
-                project={selectedProject}
-                isOpen={isModalOpen}
-                onClose={handleCloseModal}
-            />
-
-        </section>
+            <BookForm isOpen={isBookFormOpen} onClose={closeBookForm} />
+        </div>
     );
-};
-
-export default Projects;
+}
