@@ -7,20 +7,16 @@ import { motion, AnimatePresence, Variants } from 'framer-motion';
 import SolutionsMegaMenu from './Megamenu';
 import Logo from './common/Logo';
 import { ModeToggle } from './ThemeController';
+import { User } from 'lucide-react';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
-    // const { theme, systemTheme } = useTheme();
-
-    // Determine current theme for color calculations   
-    // const currentTheme = theme === 'system' ? systemTheme : theme;
-    // const isDark = currentTheme === 'dark';
-
- 
+    const user = false;
     const navigation = [
         { name: 'Home', href: '/' },
         { name: 'About', href: '/about' },
+        { name: 'Work', href: '/all-projects' },
         {
             name: 'Solutions',
             component: SolutionsMegaMenu
@@ -131,8 +127,8 @@ const Navbar = () => {
                                     >
                                         <motion.span
                                             className={`relative z-10 ${isActive(item.href)
-                                                    ? 'text-blue-600 dark:text-blue-400'
-                                                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                                                ? 'text-blue-600 dark:text-blue-400'
+                                                : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
                                                 }`}
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
@@ -154,20 +150,41 @@ const Navbar = () => {
                     </div>
 
                     {/* CTA Button - Desktop */}
+                   
                     <div className="hidden md:flex items-center space-x-4">
-                        <motion.button
-                            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 rounded-md text-sm font-medium shadow-lg cursor-pointer"
-                            whileHover={{
-                                scale: 1.05,
-                                boxShadow: '0 10px 25px -5px rgba(59, 130, 246, 0.4)'
-                            }}
-                            whileTap={{ scale: 0.95 }}
-                            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                        >
-                            <Link href={'/contact'}>Let&apos;s Talk</Link>
-                        </motion.button>
+                        {user ? (
+                            // User is logged in - show user menu or dashboard link
+                            <div className="flex items-center space-x-4">
+                                <motion.button
+                                    className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md text-sm font-medium shadow-lg cursor-pointer"
+                                    whileHover={{
+                                        scale: 1.05,
+                                        boxShadow: '0 10px 25px -5px rgba(34, 197, 94, 0.4)'
+                                    }}
+                                    whileTap={{ scale: 0.95 }}
+                                    transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                                >
+                                    <Link href="/dashboard">Dashboard</Link>
+                                </motion.button>
+                                <User />
+                            </div>
+                        ) : (
+                            // User is not logged in - show "Let's Talk" button
+                            <motion.button
+                                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 rounded-md text-sm font-medium shadow-lg cursor-pointer"
+                                whileHover={{
+                                    scale: 1.05,
+                                    boxShadow: '0 10px 25px -5px rgba(59, 130, 246, 0.4)'
+                                }}
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                            >
+                                <Link href="/contact">Let&apos;s Talk</Link>
+                            </motion.button>
+                        )}
                         <ModeToggle />
                     </div>
+
 
                     {/* Mobile menu button */}
                     <div className="md:hidden flex items-center space-x-2">
@@ -238,8 +255,8 @@ const Navbar = () => {
                                         <Link
                                             href={item.component ? '/solutions' : item.href}
                                             className={`block px-3 py-3 rounded-md text-base font-medium transition-colors duration-200 ${item.href && isActive(item.href)
-                                                    ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-600 dark:border-blue-400'
-                                                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                                                ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-600 dark:border-blue-400'
+                                                : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
                                                 }`}
                                             onClick={() => setIsOpen(false)}
                                         >
