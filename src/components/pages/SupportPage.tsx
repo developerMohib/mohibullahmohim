@@ -31,8 +31,8 @@ const SupportPage = () => {
   };
 
   const getCardStyle = () => {
-    return theme === 'light' 
-      ? 'bg-white border-gray-200 shadow-md hover:shadow-lg' 
+    return theme === 'light'
+      ? 'bg-white border-gray-200 shadow-md hover:shadow-lg'
       : 'bg-gray-800/50 border-gray-700 backdrop-blur-sm hover:bg-gray-800/70';
   };
 
@@ -41,8 +41,8 @@ const SupportPage = () => {
   };
 
   const getInputStyle = () => {
-    return theme === 'light' 
-      ? 'bg-white border-gray-300 text-gray-900 placeholder-gray-500' 
+    return theme === 'light'
+      ? 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
       : 'bg-gray-800 border-gray-600 text-white placeholder-gray-400';
   };
 
@@ -248,11 +248,11 @@ const SupportPage = () => {
     }
   ];
 
- const getCTAStyle = () => {
-        return theme === 'light'
-            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-            : 'bg-gradient-to-r from-blue-700 to-purple-700 text-white';
-    };
+  const getCTAStyle = () => {
+    return theme === 'light'
+      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+      : 'bg-gradient-to-r from-blue-700 to-purple-700 text-white';
+  };
   return (
     <div className={`py-12 ${getBackgroundColor()} min-h-screen`}>
       <div className="px-4 sm:px-6 lg:px-8">
@@ -263,7 +263,7 @@ const SupportPage = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm">
+          <Badge variant="secondary" className="px-3 py-1 text-sm bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300">
             Premium Developer Support
           </Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -287,7 +287,7 @@ const SupportPage = () => {
           <TabsContent value="services" className="space-y-12">
             {supportServices.map((category, categoryIndex) => (
               <motion.div
-                key={category.category}
+                key={category?.category}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: categoryIndex * 0.2 }}
@@ -297,7 +297,7 @@ const SupportPage = () => {
                   <h2 className={`text-2xl md:text-3xl font-bold ${getTextColor('primary')}`}>{category.category}</h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {category.services.map((service) => (
+                  {category?.services.map((service) => (
                     <Card key={service.title} className={`hover:shadow-lg duration-300 rounded-2xl p-6 transition-shadow ${getCardStyle()}`}>
                       <CardHeader>
                         <CardTitle className={`text-lg ${getTextColor('primary')}`}>{service.title}</CardTitle>
@@ -413,7 +413,7 @@ const SupportPage = () => {
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <div className="space-y-2">
                         <Label className={getTextColor('primary')} htmlFor="name">Name</Label>
-                        <Input id="name" placeholder="Your name" required className={getInputStyle()}/>
+                        <Input id="name" placeholder="Your name" required className={getInputStyle()} />
                       </div>
                       <div className="space-y-2">
                         <Label className={getTextColor('primary')} htmlFor="email">Email</Label>
@@ -438,11 +438,10 @@ const SupportPage = () => {
                           required
                         />
                       </div>
-                      <Button type="submit" className={`w-full ${
-                        theme === 'light' 
-                          ? 'bg-blue-600 text-white hover:bg-blue-700' 
-                          : 'bg-white text-black hover:bg-white/70'
-                      } cursor-pointer`} disabled={isSubmitting}>
+                      <Button type="submit" className={`w-full ${theme === 'light'
+                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                        : 'bg-white text-black hover:bg-white/70'
+                        } cursor-pointer`} disabled={isSubmitting}>
                         {isSubmitting ? (
                           <>
                             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
@@ -550,34 +549,6 @@ const SupportPage = () => {
             </div>
           </motion.section>
 
-          {/* FAQ Section */}
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="mb-16"
-          >
-            <h2 className={`text-3xl font-bold text-center md:mt-20 my-12 ${getTextColor('primary')}`}>
-              Frequently Asked Questions
-            </h2>
-            <Card className={`max-w-4xl mx-auto ${getCardStyle()}`}>
-              <CardContent>
-                <Accordion type="single" collapsible className="w-full">
-                  {faqs.map((faq, index) => (
-                    <AccordionItem key={index} value={`item-${index}`}>
-                      <AccordionTrigger className={`text-left ${getTextColor('primary')}`}>
-                        {faq.question}
-                      </AccordionTrigger>
-                      <AccordionContent className={getTextColor('secondary')}>
-                        {faq.answer}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </CardContent>
-            </Card>
-          </motion.section>
-
           {/* Emergency Support CTA */}
           <motion.section
             initial={{ opacity: 0, scale: 0.95 }}
@@ -616,6 +587,53 @@ const SupportPage = () => {
               </motion.div>
             </div>
           </motion.section>
+
+          {/* FAQ Section */}
+
+          <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
+            <div className="max-w-4xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
+              >
+                <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300">
+                  FAQ
+                </Badge>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-300 mb-4">
+                  Frequently Asked <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Questions</span>
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                  Get answers to common questions about my services and process
+                </p>
+              </motion.div>
+
+              <Accordion type="single" collapsible className="w-full space-y-4">
+                {faqs.map((faq, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                  >
+                    <AccordionItem value={`item-${index}`} className="border-t border-gray-200 dark:border-gray-700 rounded-lg px-6 hover:border-gray-300 dark:hover:border-gray-600 transition-colors bg-white dark:bg-gray-800">
+                      <AccordionTrigger className="text-lg font-semibold hover:no-underline py-6 text-gray-900 dark:text-gray-300">
+                        {faq.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-gray-600 dark:text-gray-400 text-lg pb-6">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </motion.div>
+                ))}
+              </Accordion>
+            </div>
+          </section>
+
+
+
+
         </div>
       </div>
     </div>

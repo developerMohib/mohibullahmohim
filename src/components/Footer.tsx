@@ -206,7 +206,7 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className={`border-t ${borderColor}`}>
         <div className="max-w-7xl mx-auto px-4 py-6 flex justify-between text-sm">
-          <span className={textSecondary}>© {getCurrentYear()} Mohibullah Mohim</span>
+          <span className={textSecondary}>© {getCurrentYear()} Developed By Mohibullah Mohim</span>
 
           <div className="flex space-x-6">
             <a className={`${textSecondary} ${hoverText}`} href="/sitemap">
