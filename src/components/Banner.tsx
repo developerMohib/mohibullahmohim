@@ -3,15 +3,15 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
-    ArrowRight, Star, Mail, Clock, Users, Award, Download, Code, MapPin
+     Star, Mail, Clock, Users, Award, Download, Code, MapPin
 } from 'lucide-react';
 import { useState, useMemo, useCallback } from 'react';
 import { FloatingParticles } from './animation/FloatingParticles';
 import { CodeStreams } from './animation/CodeStreams';
 import { BinaryRain } from './animation/BinaryRain';
 import { BookForm } from './Bookform';
-import VideoPopupButton from './Watchvideo';
 import { containerVariants, itemVariants, movingOrbs } from '@/lib/utils';
+import { Orb } from './animation/AnimatedBackground';
 
 type Stat = {
     number: string;
@@ -52,26 +52,9 @@ const HeroSection = () => {
     );
 };
 
-// Extracted Orb component for better performance
-const Orb = ({ orb }: { orb: any }) => (
-    <motion.div
-        className={`absolute ${orb.size} bg-gradient-to-r ${orb.color} rounded-full blur-3xl`}
-        animate={{
-            x: [`${orb.startX}vw`, `${orb.endX}vw`],
-            y: [`${orb.startY}vh`, `${orb.endY}vh`],
-        }}
-        transition={{
-            duration: orb.duration,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut"
-        }}
-    />
-);
 
 // Hero Content (Left side with profile)
 const HeroContent = ({
-    stats,
     openBookForm,
     memoizedOrbs
 }: {
@@ -256,7 +239,6 @@ const HeroBanner = ({
             >
                 <BannerHeader />
                 <BannerDescription />
-                <BannerActions openBookForm={openBookForm} />
                 <StatsGrid stats={stats} />
             </motion.div>
         </div>
@@ -295,19 +277,7 @@ const BannerDescription = () => (
     </p>
 );
 
-const BannerActions = ({ openBookForm }: { openBookForm: () => void }) => (
-    <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-        <Button
-            onClick={openBookForm}
-            size="lg"
-            className="px-8 py-4 text-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-        >
-            Start Your Project
-            <ArrowRight className="ml-2 w-5 h-5" />
-        </Button>
-        <VideoPopupButton />
-    </div>
-);
+
 
 const StatsGrid = ({ stats }: { stats: Stat[] }) => (
     <motion.div

@@ -1,13 +1,13 @@
 'use client';
-
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import SolutionsMegaMenu from './Megamenu';
 import Logo from './common/Logo';
 import { ModeToggle } from './ThemeController';
 import { User } from 'lucide-react';
+import { iconVariants, menuItemVariants, mobileMenuVariants, navVariants, pathVariants } from './animation/NavbarAnimation';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +16,7 @@ const Navbar = () => {
     const navigation = [
         { name: 'Home', href: '/' },
         { name: 'About', href: '/about' },
-        { name: 'Work', href: '/all-projects' },
+        { name: 'Projects', href: '/all-projects' },
         {
             name: 'Solutions',
             component: SolutionsMegaMenu
@@ -26,65 +26,6 @@ const Navbar = () => {
     ];
 
     const isActive = (path: string) => pathname === path;
-
-    // Animation variants with proper TypeScript types
-    const navVariants: Variants = {
-        hidden: { y: -100, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: {
-                type: 'spring',
-                stiffness: 100,
-                damping: 20,
-            }
-        }
-    };
-
-    const mobileMenuVariants: Variants = {
-        closed: {
-            opacity: 0,
-            height: 0,
-            transition: {
-                duration: 0.3,
-                ease: "easeInOut"
-            }
-        },
-        open: {
-            opacity: 1,
-            height: "auto",
-            transition: {
-                duration: 0.3,
-                ease: "easeInOut"
-            }
-        }
-    };
-
-    const menuItemVariants: Variants = {
-        closed: {
-            x: -50,
-            opacity: 0
-        },
-        open: (i: number) => ({
-            x: 0,
-            opacity: 1,
-            transition: {
-                delay: i * 0.1,
-                duration: 0.3,
-                ease: "easeOut"
-            }
-        })
-    };
-
-    const iconVariants: Variants = {
-        closed: { rotate: 0 },
-        open: { rotate: 180 }
-    };
-
-    const pathVariants: Variants = {
-        closed: { pathLength: 0 },
-        open: { pathLength: 1 }
-    };
 
     return (
         <motion.nav
