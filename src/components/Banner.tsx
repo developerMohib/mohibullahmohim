@@ -59,7 +59,7 @@ export default function HeroSection() {
                             <Button onClick={openBookForm} className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-6 rounded-xl font-semibold shadow-lg">
                                 <Mail className="w-5 h-5 mr-2" /> Get In Touch
                             </Button>
-                            <Button variant="outline" onClick={() => window.open('YOUR_URL', '_blank')} className="px-8 py-6 rounded-xl font-semibold border-gray-300 dark:border-gray-600">
+                            <Button variant="outline" onClick={() => window.open('https://drive.google.com/file/d/1Pxsl94hutSkC16r3M-i-Tua_JP8J03OX/view?usp=drive_link', '_blank' ,'noopener,noreferrer')} className="px-8 py-6 rounded-xl font-semibold border-gray-300 dark:border-gray-600">
                                 <Download className="w-5 h-5 mr-2" />View Resume
                             </Button>
                         </div>

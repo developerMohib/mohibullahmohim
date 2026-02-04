@@ -39,7 +39,7 @@ export default function AllProjects() {
     const [isBookFormOpen, setIsBookFormOpen] = useState(false);
     const { isPending, error, projects, isFetching } = useProjects();
     const router = useRouter()
-    
+
     const openBookForm = () => setIsBookFormOpen(true);
     const closeBookForm = () => setIsBookFormOpen(false);
 
@@ -372,7 +372,7 @@ export default function AllProjects() {
                                     <Mail className="w-5 h-5 mr-2" />
                                     Get In Touch
                                 </Button>
-                                <Button onClick={() => window.open('https://drive.google.com/file/d/12l9IkEsvO4s7gqAys8Ujs6RSHC8V8ip-/view?usp=drive_link', '_blank', 'noopener,noreferrer')}
+                                <Button onClick={() => window.open('https://drive.google.com/file/d/1Pxsl94hutSkC16r3M-i-Tua_JP8J03OX/view?usp=drive_link', '_blank', 'noopener,noreferrer')}
                                     size="lg"
                                     variant="outline"
                                     className="border-white text-white hover:bg-white/10"
