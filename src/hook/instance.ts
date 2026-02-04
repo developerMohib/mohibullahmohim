@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
-// https://appmohibullahmohim.vercel.app/api
+// http://localhost:4000/api
 const instance: AxiosInstance = axios.create({
-    baseURL: 'http://localhost:4000/api',
+    baseURL: 'https://appmohibullahmohim.vercel.app/api',
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
