@@ -10,6 +10,7 @@ import { Search, Calendar, Clock, ArrowRight, BookOpen, Code, Database, Zap, Shi
 import Link from 'next/link';
 import { blogPosts } from '@/fakedata/blogs';
 import { useTheme } from 'next-themes';
+import Image from 'next/image';
 
 const BlogPages = () => {
     const [activeCategory, setActiveCategory] = useState('all');
@@ -29,25 +30,25 @@ const BlogPages = () => {
     };
 
     const getCardStyle = () => {
-        return theme === 'light' 
-            ? 'bg-white border-gray-200 shadow-md hover:shadow-lg' 
+        return theme === 'light'
+            ? 'bg-white border-gray-200 shadow-md hover:shadow-lg'
             : 'bg-gray-800/50 border-gray-700 backdrop-blur-sm hover:bg-gray-800/70';
     };
 
     const getInputStyle = () => {
-        return theme === 'light' 
-            ? 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500' 
+        return theme === 'light'
+            ? 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500'
             : 'bg-gray-800 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500';
     };
 
     const getCategoryButtonStyle = (isActive: boolean) => {
         if (isActive) {
-            return theme === 'light' 
-                ? 'bg-blue-50 text-blue-700 border border-blue-200' 
+            return theme === 'light'
+                ? 'bg-blue-50 text-blue-700 border border-blue-200'
                 : 'bg-blue-500/20 text-blue-300 border border-blue-500/30';
         }
-        return theme === 'light' 
-            ? 'hover:bg-gray-50 text-gray-600' 
+        return theme === 'light'
+            ? 'hover:bg-gray-50 text-gray-600'
             : 'hover:bg-gray-700/50 text-gray-400';
     };
 
@@ -94,7 +95,7 @@ const BlogPages = () => {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <Badge variant="secondary" className="mb-4 px-4 py-1 text-sm">
+                    <Badge variant="secondary" className="px-3 py-1 text-sm bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300">
                         Developer Insights
                     </Badge>
                     <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -157,9 +158,16 @@ const BlogPages = () => {
                                                 </div>
                                             </div>
                                             <CardTitle className={`text-xl md:text-2xl group-hover:text-blue-600 transition-colors ${getTextColor('primary')}`}>
-                                                <Link href={`/blog-details/${post.slug}`}>
-                                                    {post.title}
-                                                </Link>
+
+
+                                                <div className="flex justify-between gap-4">
+                                                    <Image width={450} height={450} src={"https://res.cloudinary.com/dnfjdkspi/image/upload/v1760474094/IMG-20250221-WA0012_2_losrc9.jpg"} alt={post.title} className="w-full h-48 object-cover rounded-lg" />
+                                                   
+                                                    <Link href={`/blog-details/${post.slug}`}>
+                                                        {post.title}
+                                                    </Link>
+
+                                                </div>
                                             </CardTitle>
                                             <CardDescription className={`text-base mt-2 ${getTextColor('secondary')}`}>
                                                 {post.excerpt}
@@ -247,6 +255,7 @@ const BlogPages = () => {
                                         transition={{ delay: index * 0.1, duration: 0.5 }}
                                     >
                                         <Card className={`hover:shadow-lg transition-all duration-300 group cursor-pointer h-full ${getCardStyle()}`}>
+                                            <Image width={450} height={450} src={"https://res.cloudinary.com/dnfjdkspi/image/upload/v1760474094/IMG-20250221-WA0012_2_losrc9.jpg"} alt={post.title} className="w-full h-48 object-cover rounded-lg" />
                                             <CardHeader className="pb-4">
                                                 <div className="flex items-center justify-between mb-3">
                                                     <Badge variant="secondary" className="flex items-center gap-1">

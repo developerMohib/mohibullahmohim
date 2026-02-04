@@ -46,3 +46,21 @@ export function AnimatedBackground() {
     </div>
   )
 }
+
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const Orb = ({ orb } :{orb: any}) => (
+    <motion.div
+        className={`absolute ${orb.size} bg-gradient-to-r ${orb.color} rounded-full blur-3xl`}
+        animate={{
+            x: [`${orb.startX}vw`, `${orb.endX}vw`],
+            y: [`${orb.startY}vh`, `${orb.endY}vh`],
+        }}
+        transition={{
+            duration: orb.duration,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut"
+        }}
+    />
+);

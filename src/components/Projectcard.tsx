@@ -16,6 +16,9 @@ import { useRouter } from 'next/navigation';
 
 export function ProjectsList() {
     const { isPending, error, projects, isFetching } = useProjects()
+    console.log("Projects List:", projects);
+
+    
     const router = useRouter()
     const plugin = useRef(
         Autoplay({ delay: 1500, stopOnInteraction: true })
