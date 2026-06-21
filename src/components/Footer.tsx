@@ -4,14 +4,12 @@ import React, { useState, useEffect } from "react";
 import { Facebook, Github, Linkedin, Twitter, Instagram } from "lucide-react";
 import { motion } from "framer-motion";
 import Logo from "./common/Logo";
-import { useTheme } from "next-themes";
 import AppLoader from "./AppLoader";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const { theme } = useTheme();
 
   useEffect(() => {
     setIsMounted(true);
@@ -25,16 +23,13 @@ const Footer = () => {
   }
 
   // ✔️ Theme-safe helper classes (only run after mount)
-  const borderColor = theme === "light" ? "border-gray-200" : "border-gray-800";
-  const backgroundColor = theme === "light" ? "bg-white" : "bg-gray-900";
-  const textPrimary = theme === "light" ? "text-gray-900" : "text-gray-300";
-  const textSecondary = theme === "light" ? "text-gray-600" : "text-gray-400";
-  const hoverText = theme === "light" ? "hover:text-gray-900" : "hover:text-white";
-  const inputBg = theme === "light" ? "bg-gray-50 border-gray-300" : "bg-gray-900 border-gray-700";
-  const tooltipBg =
-    theme === "light"
-      ? "bg-white text-gray-900 border-gray-200"
-      : "bg-gray-800 text-white border-gray-700";
+  const borderColor = "border-gray-800";
+  const backgroundColor = "bg-gray-900";
+  const textPrimary =  "text-gray-300";
+  const textSecondary = "text-gray-400";
+  const hoverText = "hover:text-white";
+  const inputBg =  "bg-gray-900 border-gray-700";
+  const tooltipBg = "bg-gray-800 text-white border-gray-700";
 
   const getCurrentYear = () => new Date().getFullYear();
 
@@ -94,10 +89,7 @@ const Footer = () => {
                     <a
                       href={item.href}
                       target="_blank"
-                      className={`w-10 h-10 ${
-                        theme === "light"
-                          ? "bg-gray-900 text-white hover:bg-gray-700"
-                          : "bg-white text-black hover:bg-gray-200"
+                      className={`w-10 h-10 "bg-white text-black hover:bg-gray-200"
                       } rounded-full flex items-center justify-center transition`}
                     >
                       <Icon size={18} />
@@ -116,7 +108,7 @@ const Footer = () => {
                       <div
                         className={`
                           absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2
-                          ${theme === "light" ? "bg-white" : "bg-gray-800"} rotate-45
+                          ${"bg-gray-800"} rotate-45
                         `}
                       />
                     </div>
@@ -183,18 +175,13 @@ const Footer = () => {
                 value={email}
                 required
                 onChange={(e) => setEmail(e.target.value)}
-                className={`w-full px-4 py-3 rounded-lg border ${inputBg} ${
-                  theme === "light" ? "text-gray-900" : "text-white"
-                }`}
+                className={`w-full px-4 py-3 rounded-lg border ${inputBg} "text-white"`}
               />
 
               <button
                 type="submit"
-                className={`w-full mt-3 py-3 rounded-lg font-semibold ${
-                  theme === "light"
-                    ? "bg-gray-900 text-white hover:bg-gray-700"
-                    : "bg-white text-black hover:bg-gray-200"
-                }`}
+                className={`w-full mt-3 py-3 rounded-lg font-semibold $"bg-white text-black hover:bg-gray-200"
+                `}
               >
                 Subscribe →
               </button>

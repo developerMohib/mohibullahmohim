@@ -3,13 +3,11 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail } from 'lucide-react';
-import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import { Button } from './ui/button';
 import { BookForm } from './Bookform';
 
 const ContactSection = () => {
-  const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isBookFormOpen, setIsBookFormOpen] = useState(false);
   const router = useRouter();
@@ -30,12 +28,9 @@ const ContactSection = () => {
   const allProjectlinkup = () => router.push('/all-projects');
 
   // theme-safe classes AFTER mounted
-  const textPrimary = theme === 'light' ? 'text-gray-900' : 'text-white';
-  const textSecondary = theme === 'light' ? 'text-gray-600' : 'text-gray-400';
-  const buttonOutline =
-    theme === 'light'
-      ? 'border-gray-400 text-gray-700 hover:bg-gray-200'
-      : 'border-gray-600 text-gray-300 hover:bg-gray-800';
+  const textPrimary = 'text-white';
+  const textSecondary =  'text-gray-400';
+  const buttonOutline = 'border-gray-600 text-gray-300 hover:bg-gray-800';
 
   return (
     <motion.section
