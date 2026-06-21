@@ -1,14 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { lato, rubik, saira } from "@/font";
-import QueryProvider from "@/provider/QueryProvider";
-import Navbar from "@/components/Navbar";
-import AppLoader from "@/components/AppLoader";
-import BackToTop from "@/components/BackToTop";
-import { FloatingParticles } from "@/components/animation/FloatingParticles";
-import { ThemeProvider } from "next-themes";
-import { ModalProvider } from "@/provider/ModalProvider";
-import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Mohibullah Mohim | Full Stack Developer",
@@ -58,23 +50,7 @@ export default function RootLayout({
       <body
         className={`${lato.variable} ${rubik.variable} ${saira.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AppLoader />
-          <Navbar />
-          <QueryProvider>
-            <ModalProvider>
-              <main>{children}</main>
-              <Toaster />
-              <FloatingParticles />
-            </ModalProvider>
-          </QueryProvider>
-          <BackToTop />
-        </ThemeProvider>
+        <main>{children}</main>
       </body>
     </html>
   );

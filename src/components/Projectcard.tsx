@@ -137,7 +137,7 @@ export function ProjectsList() {
                             <div>
                                 <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Features:</h3>
                                 <span
-                                    className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0 rounded-md text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
+                                    className="px-3 py-1 bg-linear-to-r from-blue-500 to-purple-500 text-white border-0 rounded-md text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
                                 >
                                     {project.year}
                                 </span>
@@ -148,7 +148,7 @@ export function ProjectsList() {
                                 {project.technologies?.map((tech, idx) => (
                                     <span
                                         key={idx}
-                                        className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white border-0 rounded-md text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
+                                        className="px-3 py-1 bg-linear-to-r from-blue-500 to-purple-500 text-white border-0 rounded-md text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
                                     >
                                         {tech}
                                     </span>
@@ -180,14 +180,14 @@ export function ProjectsList() {
                                         href={project.demoUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transition shadow-lg hover:shadow-xl"
+                                        className="flex items-center gap-2 px-4 py-2 rounded-md bg-linear-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transition shadow-lg hover:shadow-xl"
                                     >
                                         <ExternalLink className="w-4 h-4" /> Live Demo
                                     </a>
                                 )}
                                 <button
                                     onClick={() => handleProjectClick(project)}
-                                    className="flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 transition shadow-lg hover:shadow-xl"
+                                    className="flex items-center gap-2 px-4 py-2 rounded-md bg-linear-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 transition shadow-lg hover:shadow-xl"
                                 >
                                      <ExternalLink className="w-4 h-4" /> View Details
                                 </button>
@@ -203,7 +203,7 @@ export function ProjectsList() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="text-center mt-12"
             >
-                <Link href="/all-projects">
+                <Link href="/projects">
                     <Button size="lg" variant="outline" className="px-8 py-3 cursor-pointer border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300">
                         View All Projects
                         <ArrowRight className="ml-2 w-4 h-4" />
