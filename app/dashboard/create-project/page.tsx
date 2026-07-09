@@ -11,12 +11,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   setLoading(true);
 
   const formEl = e.currentTarget;
-
-  // FormData automatically includes all input fields,
-  // including the file input.
-  const formData = new FormData(formEl);
-
-  // Convert technologies to JSON/string if your backend expects an array
+  const formData = new FormData(formEl)
   const technologies = (
     formData.get("technologies") as string
   )
