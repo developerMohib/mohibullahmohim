@@ -16,7 +16,6 @@ const Page = async ({
     );
 
     const project = await res.json();
-    console.log("porject", project)
     return (
         <section className="px-4 py-12">
             {/* Title */}
@@ -26,16 +25,14 @@ const Page = async ({
 
             {/* Images */}
             <div className="grid md:grid-cols-2 gap-6 mb-10">
-                {project.image?.map((img: string, i: number) => (
-                    <Image
-                        key={i}
-                        src={img}
+               <Image
+                       
+                        src={project.image}
                         alt={project.title}
                         width={500}
                         height={300}
                         className="image object-cover rounded"
                     />
-                ))}
             </div>
 
             {/* Description */}

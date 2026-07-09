@@ -8,7 +8,6 @@ export default function GoHashLinkToHome() {
   useEffect(() => {
     if (window?.location?.hash) {
       const id = window?.location?.hash.replace("#", "/");
-      console.log('id',id)
       const el = document.getElementById(id);
 
       if (el) {

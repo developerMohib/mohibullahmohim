@@ -21,11 +21,9 @@ export default function ContactSection() {
             email: (form.elements.namedItem("email") as HTMLInputElement).value,
             message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
         };
-        console.log('form data', formData)
 
         try {
             const res = await axiosInstance.post("/contact", formData);
-            console.log(' res c', res)
             if (res.status === 200 || res.data.success === true) {
                 setSuccessMessage(res.data.message);
                 form.reset();

@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 
 const Page = () => {
-    const router = useRouter();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -26,7 +24,7 @@ const Page = () => {
         setError("");
         try {
             const res = await api.post('/login', { email, password })
-            console.log(res)
+            // console.log(res)
             if (res.data.success===true) {
                 setMessage(res.data.message)
             }
