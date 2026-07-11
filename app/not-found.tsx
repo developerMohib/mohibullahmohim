@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const NotFound = () => {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-50 to-slate-200 dark:from-slate-900 dark:to-slate-950 px-4">
+        <div className="min-h-screen flex items-center justify-center px-4">
             <div className="text-center space-y-6">
                 {/* Animated 404 */}
                 <h1 className="text-[8rem] md:text-[10rem] font-extrabold leading-none bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-bounce">
@@ -11,11 +11,11 @@ const NotFound = () => {
                 </h1>
 
                 {/* Floating subtitle */}
-                <p className="text-xl md:text-2xl font-semibold text-slate-700 dark:text-slate-200 animate-pulse">
+                <p className="text-xl md:text-2xl font-semibold text-slate-700 animate-pulse">
                     Oops! Page not found.
                 </p>
 
-                <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+                <p className="text-slate-500 max-w-md mx-auto">
                     The page you&apos;re looking for doesn&apos;t exist or has been moved.
                 </p>
 
