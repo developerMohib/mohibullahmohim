@@ -2,41 +2,36 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import axiosInstance from "@/components/hooks/axiosInstance";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const Page = () => {
-
+    const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [message, setMessage]=useState("")
-    const api = axios.create({
-        baseURL: process.env.NEXT_PUBLIC_BACKEND_API,
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-    
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setError("");
         try {
-            const res = await api.post('/login', { email, password })
-            // console.log(res)
-            if (res.data.success===true) {
-                setMessage(res.data.message)
+            const res = await axiosInstance.post('/login', { email, password })
+            if (res.data.success === true) {
+                Swal.fire({
+                    icon: "success",
+                    title: res.data.message,
+                });
+                router.push('/dashboard')
             }
-
-            // store token
-            // localStorage.setItem("token", data.access_token);
-
-            // router.push("/dashboard");
         } catch (err: unknown) {
-            // if(err.message ===string){}
-            // setError(err.message);
-            console.log('er',err)
+
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.message || "An error occurred");
+            }
         } finally {
             setLoading(false);
         }
@@ -53,9 +48,6 @@ const Page = () => {
                     Sign In
                 </h1>
 
-                {message && (
-                    <p className="text-green-500 text-sm mb-4">{message}</p>
-                )}
                 {error && (
                     <p className="text-red-500 text-sm mb-4">{error}</p>
                 )}
@@ -64,6 +56,7 @@ const Page = () => {
                     <input
                         type="email"
                         placeholder="Email"
+                        required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-full border rounded-lg px-4 py-3"

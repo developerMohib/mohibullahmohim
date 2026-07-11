@@ -3,13 +3,11 @@ import { FormEvent, useState } from "react";
 import axios from "axios";
 import axiosInstance from "../hooks/axiosInstance";
 import HeadingText from "../common/HeadingText";
-
-// Axios instance তৈরি করুন (optional but better)
+import Swal from "sweetalert2";
 
 export default function ContactSection() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [successMessage, setSuccessMessage] = useState("");
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,11 +23,13 @@ export default function ContactSection() {
         try {
             const res = await axiosInstance.post("/contact", formData);
             if (res.status === 200 || res.data.success === true) {
-                setSuccessMessage(res.data.message);
+                    Swal.fire({
+                      icon: "success",
+                      title: res.data.message,
+                      timer: 1500,
+                      showConfirmButton: false,
+                    });
                 form.reset();
-                setTimeout(() => {
-                    setSuccessMessage("")
-                }, 1500)
             }
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -56,13 +56,12 @@ export default function ContactSection() {
                                 width="100%"
                                 height="100%"
                                 className="absolute inset-0"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28911.550461359584!2d91.38333297438518!3d25.069893628722102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3750daf49ba21823%3A0x3180c8d4ddeb5b9b!2sSunamganj!5e0!3m2!1sen!2sbd!4v1724336359905!5m2!1sen!2sbd"
+                                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7303.274037454271!2d90.41438490480023!3d23.760320041572385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1783599268490!5m2!1sen!2sbd"
                                 loading="lazy"
                                 style={{
                                     filter: "grayscale(1) contrast(1.1) opacity(0.6)",
                                 }}
                             />
-
                             <div className="absolute bottom-6 left-6 right-6 bg-white rounded-xl shadow-lg p-6">
                                 <div className="grid sm:grid-cols-2 gap-6">
                                     <div>
@@ -70,7 +69,7 @@ export default function ContactSection() {
                                             Address
                                         </h3>
                                         <p className="mt-2 text-slate-800">
-                                            SP Bangla, Sunamganj, Bangladesh
+                                            Rampura, Bangladesh
                                         </p>
                                     </div>
 
@@ -120,11 +119,6 @@ export default function ContactSection() {
                             {error && (
                                 <div className="p-3 rounded-lg bg-red-100 text-red-600">
                                     {error}
-                                </div>
-                            )}
-                            {successMessage && (
-                                <div className="p-3 rounded-lg bg-red-100 text-red-600">
-                                    {successMessage}
                                 </div>
                             )}
 

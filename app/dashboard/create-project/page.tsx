@@ -1,6 +1,7 @@
 "use client";
 
 import axiosInstance from "@/components/hooks/axiosInstance";
+import axios from "axios";
 import { useState } from "react";
 import Swal from 'sweetalert2'
 
@@ -41,7 +42,12 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
     formEl.reset();
   } catch (error) {
-    console.log(error);
+    if(axios.isAxiosError(error)){
+      Swal.fire({
+        icon: "error",
+        title: error.response?.data?.message || "Project creation failed",
+      });
+    }
 
     Swal.fire({
       icon: "error",
