@@ -1,12 +1,18 @@
 "use client"
+import { useAuth } from '@/providerContext/AuthProvider';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { logoutUser } from '../hooks/getCurrentUser';
 
 const DashboardSidebar = () => {
     const router = useRouter()
-    const handleLogOut = async () => {
-        router.push('/')
-    }
+    const { setUser } = useAuth();
+
+    const handleLogout = async () => {
+        await logoutUser();
+        setUser(null);
+        router.push("/");
+    };
     return (
         <aside className="w-64 text-balance shadow-md p-5 h-screen sticky top-0">
             <h2 className="text-xl font-bold mb-6">
@@ -35,7 +41,7 @@ const DashboardSidebar = () => {
                     Create Project
                 </Link>
             </nav>
-            <button onClick={handleLogOut}>Log Out</button>
+            <button onClick={handleLogout}>Log Out</button>
         </aside>
     );
 };

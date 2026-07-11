@@ -23,7 +23,7 @@ export default function Navbar() {
             href="/"
             className="text-2xl font-bold text-slate-800 tracking-tight"
           >
-            <Image width={150} height={150} src={"/devMohib.png"} alt="Logo" />
+            <Image loading="eager" width={150} height={150} src={"/devMohib.png"} alt="Logo" />
           </Link>
 
           {/* Desktop Menu */}
