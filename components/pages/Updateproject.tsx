@@ -218,7 +218,7 @@ export default function UpdateProjectForm({
             id="image"
             name="image"
             rows={3}
-            defaultValue={project.image?.join(", ") || ""}
+            defaultValue={project.image}
             className="w-full border p-3 rounded-lg"
         />
     </div>
