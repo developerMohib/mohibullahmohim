@@ -66,7 +66,7 @@ const page = async () => {
                                     </a>
 
                                     <a
-                                        href={project.githubUrl}
+                                        href={project.githubFrontendUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex-1 text-center px-4 py-2 rounded-lg bg-black text-white"

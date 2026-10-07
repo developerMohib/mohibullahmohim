@@ -11,8 +11,8 @@ interface Project {
     description: string;
     challenges: string;
     liveLink: string;
-    githubUrl: string;
-    demoUrl: string;
+    githubFrontendUrl: string;
+    githubBackendUrl: string;
     category: string;
     status: string;
     featured: boolean;
@@ -42,8 +42,8 @@ export default function UpdateProjectForm({
             description: form.get("description"),
             challenges: form.get("challenges"),
             liveLink: form.get("liveLink"),
-            githubUrl: form.get("githubUrl"),
-            demoUrl: form.get("demoUrl"),
+            githubFrontendUrl: form.get("githubFrontendUrl"),
+            githubBackendUrl: form.get("githubBackendUrl"),
             category: form.get("category"),
             status: form.get("status"),
             featured: form.get("featured") === "on",
@@ -174,25 +174,25 @@ export default function UpdateProjectForm({
                 </div>
 
                 <div>
-                    <label htmlFor="githubUrl" className="block mb-1 font-medium">
-                        GitHub URL
+                    <label htmlFor="githubFrontendUrl" className="block mb-1 font-medium">
+                        GitHub Frontend URL
                     </label>
                     <input
-                        id="githubUrl"
-                        name="githubUrl"
-                        defaultValue={project.githubUrl}
+                        id="githubFrontendUrl"
+                        name="githubFrontendUrl"
+                        defaultValue={project.githubFrontendUrl}
                         className="w-full border p-3 rounded-lg"
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="demoUrl" className="block mb-1 font-medium">
-                        Demo URL
+                    <label htmlFor="githubBackendUrl" className="block mb-1 font-medium">
+                        GitHub Backend URL
                     </label>
                     <input
-                        id="demoUrl"
-                        name="demoUrl"
-                        defaultValue={project.demoUrl}
+                        id="githubBackendUrl"
+                        name="githubBackendUrl"
+                        defaultValue={project.githubBackendUrl}
                         className="w-full border p-3 rounded-lg"
                     />
                 </div>

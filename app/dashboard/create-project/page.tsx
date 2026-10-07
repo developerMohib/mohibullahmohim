@@ -108,10 +108,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         <input name="liveLink" placeholder="Live Link"
           className="w-full border p-3 rounded-lg" />
 
-        <input name="githubUrl" placeholder="GitHub URL"
+        <input name="githubFrontendUrl" placeholder="GitHub Frontend URL"
           className="w-full border p-3 rounded-lg" />
 
-        <input name="demoUrl" placeholder="Demo URL"
+        <input name="githubBackendUrl" placeholder="GitHub Backend URL"
           className="w-full border p-3 rounded-lg" />
 
 

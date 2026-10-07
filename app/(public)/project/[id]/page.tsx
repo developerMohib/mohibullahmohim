@@ -109,9 +109,9 @@ const Page = async ({
                     </Link>
                 )}
 
-                {project.githubUrl && (
+                {project.githubFrontendUrl && (
                     <Link
-                        href={project.githubUrl}
+                        href={project.githubFrontendUrl}
                         target="_blank"
                         className="px-6 py-3 rounded-lg border border-slate-300 hover:bg-slate-100 transition"
                     >

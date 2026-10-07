@@ -15,7 +15,8 @@ export interface IProject {
 
   challenges: string[];
 
-  githubUrl: string;
+  githubFrontendUrl: string;
+  githubBackendUrl: string;
   liveLink: string;
   complexity: string;
 
