@@ -9,7 +9,7 @@ interface Project {
     title: string;
     slug: string;
     description: string;
-    challenge: string;
+    challenges: string;
     liveLink: string;
     githubUrl: string;
     demoUrl: string;
@@ -40,7 +40,7 @@ export default function UpdateProjectForm({
             title: form.get("title"),
             slug: form.get("slug"),
             description: form.get("description"),
-            challenge: form.get("challenge"),
+            challenges: form.get("challenges"),
             liveLink: form.get("liveLink"),
             githubUrl: form.get("githubUrl"),
             demoUrl: form.get("demoUrl"),
@@ -125,13 +125,13 @@ export default function UpdateProjectForm({
                 </div>
 
                 <div>
-                    <label htmlFor="challenge" className="block mb-1 font-medium">
-                        Challenge
+                    <label htmlFor="challenges" className="block mb-1 font-medium">
+                        Challenges
                     </label>
                     <textarea
-                        id="challenge"
-                        name="challenge"
-                        defaultValue={project.challenge}
+                        id="challenges"
+                        name="challenges"
+                        defaultValue={project.challenges}
                         rows={4}
                         className="w-full border p-3 rounded-lg"
                     />
