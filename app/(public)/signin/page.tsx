@@ -9,6 +9,7 @@ import axios from "axios";
 
 const Page = () => {
     const router = useRouter();
+    const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -63,12 +64,24 @@ const Page = () => {
                     />
 
                     <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="w-full border rounded-lg px-4 py-3"
                     />
+
+                    <div className="flex items-center justify-between">
+                        <label className="flex items-center">
+                            <input
+                                type="checkbox"
+                                checked={showPassword}
+                                onChange={(e) => setShowPassword(e.target.checked)}
+                                className="mr-2"
+                            />
+                            <span className="text-sm">Show Password</span>
+                        </label>
+                    </div>
 
                     <button
                         type="submit"
