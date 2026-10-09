@@ -1,7 +1,7 @@
-import { IProject } from "@/sources/projects.types";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { IProject } from "../../../../sources/projects.types";
 
 interface PageProps {
   params: Promise<{ id: string }>;

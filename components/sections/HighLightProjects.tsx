@@ -1,14 +1,14 @@
-import { IProject } from '@/sources/projects.types';
 import Image from 'next/image';
 import Link from 'next/link';
 import HeadingText from '../common/HeadingText';
 import { BsGithub } from 'react-icons/bs';
 import { FiExternalLink } from 'react-icons/fi';
+import { IProject } from '../../sources/projects.types';
 
 const HighLightProjects = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/project/all`);
   const { data: projects }: { data: IProject[] } = await res.json();
-  console.log(projects, "projects");
+  
   return (
     <section id="projects" className="md:pt-18 pt-12 px-4">
       <HeadingText
@@ -26,7 +26,7 @@ const HighLightProjects = async () => {
           return (
             <div
               key={project._id}
-              className={`bg-[#f0f4f8a4] rounded-3xl p-6 md:p-8 flex flex-col gap-8 items-stretch border border-slate-200/60 shadow-sm ${isOdd ? "md:flex-row" : "md:flex-row-reverse"
+              className={`bg-[#dadcdfee] rounded-3xl p-6 md:p-8 flex flex-col gap-8 items-stretch border border-slate-200/60 shadow-sm ${isOdd ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
             >
               {/* Image */}
