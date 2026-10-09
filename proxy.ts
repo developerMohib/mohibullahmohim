@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 const protectedRoutes = ["/dashboard", "/create-project", "/projects"];
 const authRoutes = ["/signin"];
 
-export function middleware(request: NextRequest) {
+// 'middleware' এর বদলে 'proxy' নাম ব্যবহার করতে হবে
+export function proxy(request: NextRequest) {
   const token = request.cookies.get("access_token")?.value;
   const { pathname } = request.nextUrl;
 
