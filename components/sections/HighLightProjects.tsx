@@ -26,7 +26,7 @@ const HighLightProjects = async () => {
           return (
             <div
               key={project._id}
-              className={`bg-[#f0f4f8a4] rounded-3xl p-6 md:p-8 flex flex-col gap-8 items-stretch border border-slate-200/60 shadow-sm ${isOdd ? "md:flex-row" : "md:flex-row-reverse"
+              className={`bg-[#dadcdfee] rounded-3xl p-6 md:p-8 flex flex-col gap-8 items-stretch border border-slate-200/60 shadow-sm ${isOdd ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
             >
               {/* Image */}
