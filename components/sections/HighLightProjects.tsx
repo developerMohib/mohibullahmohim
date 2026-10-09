@@ -1,9 +1,9 @@
-import { IProject } from '@/sources/projects.types';
 import Image from 'next/image';
 import Link from 'next/link';
 import HeadingText from '../common/HeadingText';
 import { BsGithub } from 'react-icons/bs';
 import { FiExternalLink } from 'react-icons/fi';
+import { IProject } from '../../sources/projects.types';
 
 const HighLightProjects = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/project/all`);

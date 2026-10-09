@@ -1,6 +1,6 @@
-import { IProject } from '@/sources/projects.types';
 import Image from 'next/image';
 import Link from 'next/link';
+import { IProject } from '../../../sources/projects.types';
 
 // Helper component for clean conditional icon/button links
 const ExternalButton = ({
