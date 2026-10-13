@@ -42,9 +42,9 @@ export default function ChatWidget() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-18 right-6 bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-full shadow-lg transition-all"
+        className="fixed bottom-18 right-6 bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-full shadow-lg transition-all z-50"
       >
-        💬 Ask About Mohibullah
+        💬 Ask About Mohibulah
       </button>
     );
   }
