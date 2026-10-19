@@ -40,6 +40,13 @@ const DashboardSidebar = () => {
                 >
                     Create Project
                 </Link>
+
+                <Link
+                    href="/dashboard/chatbot"
+                    className="p-2 rounded transition"
+                >
+                    Chatbot
+                </Link>
             </nav>
             <button onClick={handleLogout}>Log Out</button>
         </aside>
