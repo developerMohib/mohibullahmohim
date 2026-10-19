@@ -8,7 +8,6 @@ import { FiExternalLink } from 'react-icons/fi';
 const HighLightProjects = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/project/all`);
   const { data: projects }: { data: IProject[] } = await res.json();
-  console.log(projects, "projects");
   return (
     <section id="projects" className="md:pt-18 pt-12 px-4">
       <HeadingText
