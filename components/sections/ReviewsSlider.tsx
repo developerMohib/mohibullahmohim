@@ -6,7 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { IReviews } from "@/sources/reviews.types";
 
-const ReviewsSlider = ({ reviews }: { reviews: IReviews [] }) => {
+const ReviewsSlider = ({ reviews }: { reviews: IReviews[] }) => {
     const [emblaRef, emblaApi] = useEmblaCarousel(
         {
             loop: true,
