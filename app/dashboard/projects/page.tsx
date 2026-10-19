@@ -37,6 +37,7 @@ const ProjectManagementPage = () => {
 
     fetchProjects();
   }, []);
+
   const handleDelete = async (id: string, title: string) => {
     const result = await Swal.fire({
       title: "Are you sure?",
