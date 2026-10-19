@@ -54,7 +54,7 @@ export default function ChatWidget() {
       {/* Header */}
       <div className="p-3 bg-blue-600 text-white rounded-t-xl flex justify-between items-center">
         <span className="font-medium">Ask Mohim&apos;s AI</span>
-        <button 
+        <button
           onClick={() => setOpen(false)}
           className="text-white hover:text-gray-200 text-sm font-bold px-2"
         >
@@ -67,11 +67,10 @@ export default function ChatWidget() {
         {messages.map((m, i) => (
           <div key={i} className={m.role === "user" ? "text-right" : "text-left"}>
             <span
-              className={`inline-block px-3 py-2 rounded-lg text-sm max-w-[85%] wrap-break-word ${
-                m.role === "user"
+              className={`inline-block px-3 py-2 rounded-lg text-sm max-w-[85%] wrap-break-word ${m.role === "user"
                   ? "bg-blue-600 text-white"
                   : "bg-gray-100 text-gray-800"
-              }`}
+                }`}
             >
               {m.content}
             </span>
