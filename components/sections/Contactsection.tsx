@@ -2,8 +2,8 @@
 import { FormEvent, useState } from "react";
 import axios from "axios";
 import axiosInstance from "../hooks/axiosInstance";
-import HeadingText from "../common/HeadingText";
 import Swal from "sweetalert2";
+import HeadingText from "../common/HeadingText";
 
 export default function ContactSection() {
     const [loading, setLoading] = useState(false);
