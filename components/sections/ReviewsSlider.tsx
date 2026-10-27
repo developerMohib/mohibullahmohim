@@ -1,6 +1,6 @@
 "use client";
 
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -24,7 +24,7 @@ const ReviewsSlider = ({ reviews }: { reviews: IReviews[] }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [snaps, setSnaps] = useState<number[]>([]);
 
-useEffect(() => {
+    useEffect(() => {
         if (!emblaApi) return;
 
         // ১. ইনিশিয়াল স্টেট সেটআপ (Asynchronous) - যাতে cascading render warning না আসে
@@ -107,11 +107,10 @@ useEffect(() => {
                         aria-label={`Go to slide ${i + 1}`}
                         aria-current={i === selectedIndex ? "true" : undefined}
                         onClick={() => emblaApi?.scrollTo(i)}
-                        className={`h-1.5 rounded-full transition-all duration-300 ${
-                            i === selectedIndex
+                        className={`h-1.5 rounded-full transition-all duration-300 ${i === selectedIndex
                                 ? "w-6 bg-blue-500" // Active dot (লম্বা হবে)
                                 : "w-2 bg-slate-300 hover:bg-slate-400" // Inactive dot
-                        }`}
+                            }`}
                     />
                 ))}
             </div>
