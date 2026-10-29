@@ -1,0 +1,3 @@
+
+2. gpt text from database and edit
+3. reviews slider

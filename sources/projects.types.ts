@@ -40,4 +40,5 @@ export interface IProject {
   featured: boolean;
   createdAt: string;
   updatedAt: string;
+  videoUrl?: string
 }
