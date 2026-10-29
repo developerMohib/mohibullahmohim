@@ -3,6 +3,7 @@
 import axiosInstance from "@/components/hooks/axiosInstance";
 import { PROJECT_CATEGORIES, PROJECT_ROLES, PROJECT_STATUSES } from "@/sources/projects.types";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
@@ -41,6 +42,7 @@ function getErrorMessage(error: unknown): string {
 export default function CreateProjectPage() {
   const [loading, setLoading] = useState(false);
   const [highlights, setHighlights] = useState<string[]>([""]);
+  const router = useRouter()
 
   const updateHighlight = (i: number, value: string) =>
     setHighlights((prev) => prev.map((h, idx) => (idx === i ? value : h)));
@@ -58,7 +60,6 @@ export default function CreateProjectPage() {
     const formEl = e.currentTarget;
     const formData = new FormData(formEl);
 
-    // technologies: comma separated -> JSON string[]
     const technologies = ((formData.get("technologies") as string) || "")
       .split(",")
       .map((t) => t.trim())
@@ -71,35 +72,45 @@ export default function CreateProjectPage() {
       });
       return;
     }
+
     formData.set("technologies", JSON.stringify(technologies));
 
-    // highlights -> JSON string[]
     const cleanHighlights = highlights.map((h) => h.trim()).filter(Boolean);
     formData.set("highlights", JSON.stringify(cleanHighlights));
 
-    // featured: checkbox -> "true" | "false"
     formData.set("featured", String(formData.get("featured") === "on"));
 
-    // don't send empty optional fields ("" breaks HttpUrl / enums)
+    const file = formData.get("coverImages") as File | null;
+
+    if (!file || file.size === 0) {
+      Swal.fire({ icon: "warning", title: "Cover image is required" });
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      Swal.fire({ icon: "warning", title: "Image must be under 5MB" });
+      return;
+    }
+
     for (const key of optionalFields) {
       const value = formData.get(key);
       if (typeof value === "string" && !value.trim()) formData.delete(key);
     }
 
     setLoading(true);
+
     try {
-      // no manual Content-Type: the browser adds the multipart boundary
       const res = await axiosInstance.post("/project/creation", formData);
 
       Swal.fire({
         icon: "success",
-        title: res.data.message,
+        title: res.data.message || "Project created",
         timer: 1500,
         showConfirmButton: false,
       });
 
-      formEl.reset();
-      setHighlights([""]);
+      router.push("/dashboard/projects");
+      router.refresh();
     } catch (error: unknown) {
       Swal.fire({
         icon: "error",

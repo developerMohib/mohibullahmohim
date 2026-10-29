@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import HeadingText from '../common/HeadingText';
 import { BsGithub } from 'react-icons/bs';
-import { FiExternalLink } from 'react-icons/fi';
+import { FiExternalLink, FiEye } from 'react-icons/fi';
 import { IProject } from '../../sources/projects.types';
+import HeadingText from '../common/HeadingText';
 
 const HighLightProjects = async () => {
   let projects: IProject[] = [];
@@ -181,6 +181,18 @@ const HighLightProjects = async () => {
                       >
                         <FiExternalLink className="w-4 h-4" />
                         Live
+                      </Link>
+                    )}
+
+                    {project.liveLink && (
+                      <Link
+                        href={project.liveLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-md text-sm font-semibold transition-colors"
+                      >
+                        <FiEye className="w-4 h-4" />
+                        1 minute view
                       </Link>
                     )}
                   </div>

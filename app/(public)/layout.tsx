@@ -1,5 +1,5 @@
-import BottmToTop from "@/components/common/BottomToTop";
-import WhatsAppButton from "@/components/common/WhatsApp";
+
+import WhatsAppButton from "@/components/common/WhatsAppButton";
 import FooterSection from "@/components/sections/FooterSection";
 import Navbar from "@/components/sections/Navbar";
 
@@ -13,7 +13,6 @@ const publicLayout = ({
             <Navbar />
             <div>{children}</div>
             <FooterSection />
-            <BottmToTop />
             <WhatsAppButton />
         </main>
     );
