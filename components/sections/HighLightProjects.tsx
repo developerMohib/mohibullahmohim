@@ -4,23 +4,16 @@ import { BsGithub } from 'react-icons/bs';
 import { FiExternalLink, FiEye } from 'react-icons/fi';
 import { IProject } from '../../sources/projects.types';
 import HeadingText from '../common/HeadingText';
+import { safeFetch } from '../utils/api';
 
 const HighLightProjects = async () => {
-  let projects: IProject[] = [];
+  // ২. safeFetch ব্যবহার করে ডেটা আনা (এটি undefined URL এরর আটকাবে)
+  const { data: projects, error } = await safeFetch<IProject[]>('/project/all', {
+    cache: 'no-store',
+  });
 
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/project/all`, {
-      cache: 'no-store', // Prevents caching failed states
-    });
-
-    if (res.ok) {
-      const json = await res.json();
-      projects = json.data || [];
-    }
-  } catch (error) {
-    // Gracefully catch ECONNREFUSED or network errors when the backend is down
-    console.error("Backend server connection failed:", error);
-  }
+  // ৩. ডেটা সবসময় একটি অ্যারে কিনা তা নিশ্চিত করা, যাতে .slice() বা .map() এরর না করে
+  const safeProjects = Array.isArray(projects) ? projects : [];
 
   return (
     <section id="projects" className="md:pt-18 pt-12 px-4">
@@ -33,8 +26,9 @@ const HighLightProjects = async () => {
       />
 
       <div className="grid grid-cols-1 gap-8 mt-5 md:mt-10">
-        {projects && projects.length > 0 ? (
-          projects.slice(0, 4).map((project: IProject, index: number) => {
+        {/* ৪. কন্ডিশনাল রেন্ডারিং: যদি ডেটা থাকে এবং এরর না থাকে */}
+        {safeProjects.length > 0 && !error ? (
+          safeProjects.slice(0, 4).map((project: IProject, index: number) => {
             const isOdd = index % 2 === 1; // odd => image left, even => image right
 
             return (
@@ -184,6 +178,8 @@ const HighLightProjects = async () => {
                       </Link>
                     )}
 
+                    {/* Note: You had two identical links for liveLink here. 
+                        I kept the "1 minute view" but you might want to check if both are needed. */}
                     {project.liveLink && (
                       <Link
                         href={project.liveLink}
@@ -201,9 +197,16 @@ const HighLightProjects = async () => {
             );
           })
         ) : (
+          // ৫. ফলব্যাক UI (যখন ডেটা নেই বা এরর হয়)
           <div className="text-center py-12 bg-slate-50 rounded-3xl border border-slate-200 text-slate-600">
-            <p className="text-base font-medium">Projects are temporarily unavailable.</p>
-            <p className="text-sm text-slate-400 mt-1">Please ensure your backend server is active and running.</p>
+            <p className="text-base font-medium">
+              {error ? "Failed to connect to the backend." : "Projects are temporarily unavailable."}
+            </p>
+            <p className="text-sm text-slate-400 mt-1">
+              {error 
+                ? "Please check your NEXT_PUBLIC_BACKEND_API in the .env file." 
+                : "Please ensure your backend server is active and running."}
+            </p>
           </div>
         )}
       </div>
@@ -214,7 +217,7 @@ const HighLightProjects = async () => {
           href="/projects"
           className="px-6 py-2.5 border border-slate-300 rounded-xl hover:bg-slate-100 transition text-sm font-medium"
         >
-          View All
+          View All Projects
         </Link>
       </div>
     </section>
