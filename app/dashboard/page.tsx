@@ -1,16 +1,18 @@
+import { safeFetch } from '@/components/utils/api';
+import { IProject } from '@/sources/projects.types';
 import { IReviews } from '@/sources/reviews.types';
-import React from 'react';
 
 const page = async () => {
-  const resProjects = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_API}/project/all`,
-    {
-      cache: "no-store",
-    }
-  );
-  const project = await resProjects.json();
-  const resReviews = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/reviews`);
-  const reviews: { data: IReviews[] } = await resReviews.json();
+  const { data: projects, error: projectError } = await safeFetch<IProject[]>('/project/all', {
+    cache: "no-store",
+  });
+
+  // ৩. রিভিউ ডেটা সেফলি ফেচ করা
+  const { data: reviews, error: reviewsError } = await safeFetch<IReviews[]>('/reviews');
+
+  // ৪. ডেটা না থাকলে বা এরর থাকলে ০ দেখাবে, যাতে বিল্ড ক্র্যাশ না করে
+  const projectCount = Array.isArray(projects) ? projects.length : 0;
+  const reviewCount = Array.isArray(reviews) ? reviews.length : 0;
 
   return (
     <div className="p-6">
@@ -23,6 +25,13 @@ const page = async () => {
         <p className="mt-2 text-slate-600">
           Welcome back, Mohibullah 👋
         </p>
+
+        {/* অপশনাল: যদি ব্যাকএন্ড কানেকশনে সমস্যা থাকে, তাহলে একটি ছোট সতর্কবার্তা দেখাবে */}
+        {(projectError || reviewsError) && (
+          <div className="mt-3 rounded-md bg-red-50 p-3 text-sm text-red-700 border border-red-200">
+            ⚠️ Warning: Could not fetch live data. Please check your <code>NEXT_PUBLIC_BACKEND_API</code> in .env file.
+          </div>
+        )}
       </div>
 
       {/* Stats */}
@@ -33,7 +42,7 @@ const page = async () => {
           </h3>
 
           <p className="mt-3 text-4xl font-bold text-slate-800">
-            {project?.data?.length || 0}
+            {projectCount}
           </p>
 
           <p className="mt-2 text-sm text-green-600">
@@ -47,7 +56,7 @@ const page = async () => {
           </h3>
 
           <p className="mt-3 text-4xl font-bold text-slate-800">
-            {reviews?.data?.length || 0}
+            {reviewCount}
           </p>
 
           <p className="mt-2 text-sm text-blue-600">
