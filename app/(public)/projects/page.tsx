@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { IProject } from '../../../sources/projects.types';
 import ProjectCard from '@/components/sections/ProjectCardForPage';
+import { safeFetch } from '@/components/utils/api';
 
 export const metadata: Metadata = {
   title: 'Featured Engineering Projects | Portfolio',
@@ -18,31 +19,20 @@ export const metadata: Metadata = {
 };
 
 const ProjectsPage = async () => {
-  let projects: IProject[] = [];
-  let hasError = false;
+    const { data: projects, error } = await safeFetch<IProject[]>('/project/all', {
+    next: { revalidate: 60 },
+  });
 
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/project/all`, {
-      next: { revalidate: 60 },
-    });
-    
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    
-    const json = await res.json();
-    projects = json?.data || [];
-  } catch (error) {
-    console.error('Failed to fetch projects:', error);
-    hasError = true;
-  }
-
-  if (hasError || projects.length === 0) {
+  if (error || !projects || projects.length === 0) {
     return (
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
         <h1 className="text-2xl font-bold text-zinc-900">
-          {hasError ? 'Failed to load projects' : 'No projects found'}
+          {error ? 'Failed to load projects' : 'No projects found'}
         </h1>
         <p className="mt-2 text-zinc-600">
-          {hasError ? 'Please try again later or check the backend connection.' : 'Check back soon for upcoming engineering work!'}
+          {error 
+            ? `System Message: ${error} (Please check backend connection or .env)` 
+            : 'Check back soon for upcoming engineering work!'}
         </p>
       </main>
     );

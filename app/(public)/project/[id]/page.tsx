@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { IProject } from "../../../../sources/projects.types";
 import ProjectVideoPlayer from "@/components/common/Videomodal";
+import { safeFetch } from "@/components/utils/api";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -12,54 +13,42 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
 
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/project/${id}`, {
-      next: { revalidate: 3600 },
-    });
-
-    if (!res.ok) return { title: "Project Not Found" };
-
-    const project: IProject = await res.json();
-
-    return {
-      title: `${project.title} | Engineering Portfolio`,
-      description: project.tagline || project.description?.slice(0, 160),
-      openGraph: {
-        title: project.title,
-        description: project.tagline || "",
-        type: "article",
-        publishedTime: project.createdAt?.toString(),
-        images: project.coverImages
-          ? [{ url: project.coverImages, width: 1200, height: 630, alt: project.title }]
-          : [],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: project.title,
-        description: project.tagline || "",
-        images: project.coverImages ? [project.coverImages] : [],
-      },
-    };
-  } catch {
-    return { title: "Project Details" };
+  const { data: project, error } = await safeFetch<IProject>(`/project/${id}`, {
+    next: { revalidate: 3600 },
+  });
+  if (error || !project) {
+    return { title: "Project Not Found | Engineering Portfolio" };
   }
+
+  return {
+    title: `${project.title} | Engineering Portfolio`,
+    description: project.tagline || project.description?.slice(0, 160),
+    openGraph: {
+      title: project.title,
+      description: project.tagline || "",
+      type: "article",
+      publishedTime: project.createdAt?.toString(),
+      images: project.coverImages
+        ? [{ url: project.coverImages, width: 1200, height: 630, alt: project.title }]
+        : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.tagline || "",
+      images: project.coverImages ? [project.coverImages] : [],
+    },
+  };
 }
 
 const Page = async ({ params }: PageProps) => {
   const { id } = await params;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/project/${id}`, {
+  const { data: project, error } = await safeFetch<IProject>(`/project/${id}`, {
     next: { revalidate: 3600 },
-    cache: "force-cache",
   });
 
-  if (!res.ok || !res.ok) {
-    notFound();
-  }
-
-  const project: IProject = await res.json();
-
-  if (!project?._id) {
+  if (error || !project || !project._id) {
     notFound();
   }
 
@@ -89,10 +78,9 @@ const Page = async ({ params }: PageProps) => {
               {project.category}
             </span>
           )}
-          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-            project.status === "Completed" ? "bg-emerald-100 text-emerald-800" :
-            project.status === "In Progress" ? "bg-amber-100 text-amber-800" : "bg-slate-100 text-slate-700"
-          }`}>
+          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${project.status === "Completed" ? "bg-emerald-100 text-emerald-800" :
+              project.status === "In Progress" ? "bg-amber-100 text-amber-800" : "bg-slate-100 text-slate-700"
+            }`}>
             {project.status}
           </span>
           {project.featured && (
@@ -200,12 +188,10 @@ const Page = async ({ params }: PageProps) => {
 
           {/* Action Links */}
           <div className="flex flex-col gap-3">
-            
-            {/* ✅ এখানে নতুন Client Component ব্যবহার করা হলো */}
             {project.videoUrl && (
-              <ProjectVideoPlayer 
-                videoUrl={project.videoUrl} 
-                title={`${project.title} - Overview`} 
+              <ProjectVideoPlayer
+                videoUrl={project.videoUrl}
+                title={`${project.title} - Overview`}
               />
             )}
 
