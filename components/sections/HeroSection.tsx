@@ -121,13 +121,11 @@ export default function HeroSection() {
                   </button>
 
                   <div className="aspect-video overflow-hidden rounded-xl">
-                    <iframe
-                      src="https://www.youtube.com/embed/yn6c4RYQECs?si=TcDC56zj5XYuxuch"
-                      title="Intro Video"
+                    
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/0g4hykds850?si=eidGPao1w22Arrk8" title="Intro Video"
                       className="w-full h-full"
                       allow="autoplay; encrypted-media; picture-in-picture"
-                      allowFullScreen
-                    />
+                      allowFullScreen referrerPolicy="strict-origin-when-cross-origin"></iframe>
                   </div>
                 </div>
               </div>
