@@ -2,7 +2,7 @@
 import { FormEvent, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import axiosInstance from "../hooks/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance";
 import HeadingText from "../common/HeadingText";
 
 export default function ContactSection() {

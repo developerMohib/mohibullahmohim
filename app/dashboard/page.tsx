@@ -1,6 +1,6 @@
-import { safeFetch } from '@/components/utils/api';
-import { IProject } from '@/sources/projects.types';
-import { IReviews } from '@/sources/reviews.types';
+import { safeFetch } from '@/lib/api';
+import { IProject } from '@/types/projects';
+import { IReviews } from '@/types/reviews';
 
 const page = async () => {
   const { data: projects, error: projectError } = await safeFetch<IProject[]>('/project/all', {

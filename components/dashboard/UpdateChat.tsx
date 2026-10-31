@@ -1,10 +1,10 @@
 "use client";
 
-import { PortfolioConfig, Project } from "@/sources/charbotconfig";
+import { PortfolioConfig, Project } from "@/types/chatbot";
 import React, { useEffect, useState } from "react";
-import { getApiErrorMessage, getPortfolioConfig, updatePortfolioConfig } from "../hooks/chatbotconfig";
-import Section from "../utils/Section";
-import FormField from "../sections/FormField";
+import { getApiErrorMessage, getPortfolioConfig, updatePortfolioConfig } from "@/lib/chatbot";
+import Section from "../common/Section";
+import FormField from "../common/FormField";
 
 type StatusType = "success" | "error" | "";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import axiosInstance from "../hooks/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance";
 
 type Message = { role: "user" | "assistant"; content: string };
 

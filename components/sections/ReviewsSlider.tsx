@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { IReviews } from "@/sources/reviews.types";
+import { IReviews } from "@/types/reviews";
 
 const ReviewsSlider = ({ reviews }: { reviews: IReviews[] }) => {
     const [emblaRef, emblaApi] = useEmblaCarousel(

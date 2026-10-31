@@ -1,7 +1,7 @@
 "use client";
 
-import axiosInstance from "@/components/hooks/axiosInstance";
-import { PROJECT_CATEGORIES, PROJECT_ROLES, PROJECT_STATUSES } from "@/sources/projects.types";
+import axiosInstance from "@/lib/axiosInstance";
+import { PROJECT_CATEGORIES, PROJECT_ROLES, PROJECT_STATUSES } from "@/types/projects";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

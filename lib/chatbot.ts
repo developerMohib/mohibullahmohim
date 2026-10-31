@@ -1,4 +1,4 @@
-import { ApiErrorResponse, PortfolioConfig } from "@/sources/charbotconfig";
+import { ApiErrorResponse, PortfolioConfig } from "@/types/chatbot";
 import axiosInstance from "./axiosInstance";
 import axios from "axios";
 

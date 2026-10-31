@@ -1,4 +1,4 @@
-import DashboardSidebar from '@/components/sections/DashboardSidebar';
+import DashboardSidebar from '@/components/dashboard/DashboardSidebar';
 import React from 'react';
 
 const layout = ({
