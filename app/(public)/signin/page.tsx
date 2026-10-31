@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Loader2 } from "lucide-react"; // আইকনের জন্য
-import axiosInstance from "@/components/hooks/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance";
 import axios from "axios";
 import Swal from "sweetalert2";
 

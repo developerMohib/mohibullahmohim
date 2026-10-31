@@ -23,13 +23,20 @@ export default function Navbar() {
             href="/"
             className="text-2xl font-bold text-slate-800 tracking-tight"
           >
-            <Image loading="eager" width={150} height={150} src={"/devMohib.png"} alt="Logo" />
+            <Image
+              loading="eager"
+              width={150}
+              height={150}
+              src="/devMohib.png"
+              alt="Logo"
+              className="w-38 h-auto"
+            />
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => {
-             
+
               return (
                 <Link
                   key={item.label}
@@ -54,9 +61,8 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ${
-          isOpen ? "max-h-80 border-t border-slate-200" : "max-h-0"
-        }`}
+        className={`md:hidden overflow-hidden transition-all duration-300 ${isOpen ? "max-h-80 border-t border-slate-200" : "max-h-0"
+          }`}
       >
         <div className="bg-white px-4 py-4 flex flex-col">
           {navItems.map((item) => (

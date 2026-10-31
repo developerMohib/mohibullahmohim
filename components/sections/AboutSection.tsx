@@ -12,7 +12,7 @@ const stacks = [
   { name: "PostgresQL" },
   { name: "Typescript" },
 ]
-const AboutSeciton = () => {
+const AboutSection = () => {
     return (
         <section id="about" className="md:pt-18 pt-12">
             <HeadingText
@@ -104,4 +104,4 @@ const AboutSeciton = () => {
     );
 };
 
-export default AboutSeciton;
+export default AboutSection;

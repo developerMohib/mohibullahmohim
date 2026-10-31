@@ -1,4 +1,4 @@
-import CreateProjectPage from '@/components/pages/Createproject';
+import CreateProjectPage from '@/components/dashboard/CreateProjectForm';
 
 const page = () => {
   return (
