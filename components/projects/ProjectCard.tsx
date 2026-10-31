@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IProject } from '@/sources/projects.types';
+import { IProject } from '@/types/projects';
 
 const ExternalButton = ({
   href,

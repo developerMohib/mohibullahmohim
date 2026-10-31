@@ -2,11 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { BsGithub } from 'react-icons/bs';
 import { FiExternalLink, FiEye } from 'react-icons/fi';
-import { IProject } from '../../sources/projects.types';
+import { IProject } from '@/types/projects';
 import HeadingText from '../common/HeadingText';
-import { safeFetch } from '../utils/api';
+import { safeFetch } from '@/lib/api';
 
-const HighLightProjects = async () => {
+const HighlightProjects = async () => {
   // ২. safeFetch ব্যবহার করে ডেটা আনা (এটি undefined URL এরর আটকাবে)
   const { data: projects, error } = await safeFetch<IProject[]>('/project/all', {
     cache: 'no-store',
@@ -224,4 +224,4 @@ const HighLightProjects = async () => {
   );
 };
 
-export default HighLightProjects;
+export default HighlightProjects;

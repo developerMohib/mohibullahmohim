@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { IProject } from "../../../../sources/projects.types";
-import ProjectVideoPlayer from "@/components/common/Videomodal";
-import { safeFetch } from "@/components/utils/api";
+import { IProject } from "@/types/projects";
+import ProjectVideoPlayer from "@/components/common/ProjectVideoModal";
+import { safeFetch } from "@/lib/api";
 
 interface PageProps {
   params: Promise<{ id: string }>;

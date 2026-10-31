@@ -1,7 +1,7 @@
 "use client";
 
-import axiosInstance from "@/components/hooks/axiosInstance";
-import { IProject } from "@/sources/projects.types";
+import axiosInstance from "@/lib/axiosInstance";
+import { IProject } from "@/types/projects";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";

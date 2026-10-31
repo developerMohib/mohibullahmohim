@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import { IProject } from '../../../sources/projects.types';
-import ProjectCard from '@/components/sections/ProjectCardForPage';
-import { safeFetch } from '@/components/utils/api';
+import { IProject } from '@/types/projects';
+import ProjectCard from '@/components/projects/ProjectCard';
+import { safeFetch } from '@/lib/api';
 
 export const metadata: Metadata = {
   title: 'Featured Engineering Projects | Portfolio',

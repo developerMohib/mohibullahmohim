@@ -1,8 +1,8 @@
 "use client"
-import { useAuth } from '@/providerContext/AuthProvider';
+import { useAuth } from '@/providers/AuthProvider';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { logoutUser } from '../hooks/getCurrentUser';
+import { logoutUser } from '@/lib/auth';
 
 const DashboardSidebar = () => {
     const router = useRouter()

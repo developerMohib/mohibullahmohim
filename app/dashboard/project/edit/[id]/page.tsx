@@ -1,6 +1,6 @@
-import UpdateProjectForm from "@/components/pages/Updateproject";
-import { safeFetch } from "@/components/utils/api";
-import { IProject } from "@/sources/projects.types"; // আপনার টাইপ ডেফিনেশন অনুযায়ী
+import UpdateProjectForm from "@/components/dashboard/UpdateProjectForm";
+import { safeFetch } from "@/lib/api";
+import { IProject } from "@/types/projects"; // আপনার টাইপ ডেফিনেশন অনুযায়ী
 
 const Page = async ({
     params,

@@ -1,6 +1,6 @@
 "use client";
 
-import { getCurrentUser } from "@/components/hooks/getCurrentUser";
+import { getCurrentUser } from "@/lib/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type User = { email: string } | null;

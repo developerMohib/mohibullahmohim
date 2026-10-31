@@ -1,4 +1,4 @@
-import UpdateChat from '@/components/pages/UpdateChat';
+import UpdateChat from '@/components/dashboard/UpdateChat';
 import React from 'react';
 
 const page = () => {
