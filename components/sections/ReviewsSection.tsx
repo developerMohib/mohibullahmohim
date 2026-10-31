@@ -4,13 +4,10 @@ import ReviewsSlider from './ReviewsSlider';
 import { safeFetch } from '../utils/api';
 
 const ReviewsSection = async () => {
-    // ২. safeFetch ব্যবহার করে রিভিউ ডেটা আনা
     const { data: reviews, error } = await safeFetch<IReviews[]>('/reviews');
 
-    // ৩. ডেটা সবসময় একটি অ্যারে কিনা তা নিশ্চিত করা (Fallback to empty array)
-    // এতে ReviewsSlider কম্পোনেন্টে undefined পাস হয়ে ক্র্যাশ করবে না
     const finalReviews = Array.isArray(reviews) ? reviews : [];
-
+console.log('review',reviews)
     return (
         <section className="md:pt-14 pt-10">
             <HeadingText 
