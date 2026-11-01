@@ -6,15 +6,22 @@ import HighlightProjects from '@/components/sections/ProjectHighlights';
 import ProcessSection from '@/components/sections/ProcessSection';
 import SkillsSection from '@/components/sections/SkillsSection';
 import ReviewsSection from '@/components/sections/ReviewsSection'
+import { safeFetch } from '@/lib/api';
+import { IProject } from '@/types/projects';
 
 const page = async () => {
+  const { data: projects, error } = await safeFetch<IProject[]>('/project/all', {
+    cache: 'no-store',
+  });
+  
+  const safeProjects = Array.isArray(projects) ? projects : [];
 
   return (
     <main className='max-w-7xl mx-auto overflow-hidden px-2'>
       <HeroSection />
       <AboutSection />
       <SkillsSection />
-      <HighlightProjects />
+      <HighlightProjects safeProjects={safeProjects} error={error} />
       <ProcessSection />
       <ReviewsSection />
       <ContactSection />

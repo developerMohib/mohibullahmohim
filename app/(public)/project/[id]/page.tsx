@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { IProject } from "@/types/projects";
-import ProjectVideoPlayer from "@/components/common/ProjectVideoModal";
+
 import { safeFetch } from "@/lib/api";
 
 interface PageProps {
@@ -188,13 +188,7 @@ const Page = async ({ params }: PageProps) => {
 
           {/* Action Links */}
           <div className="flex flex-col gap-3">
-            {project.videoUrl && (
-              <ProjectVideoPlayer
-                videoUrl={project.videoUrl}
-                title={`${project.title} - Overview`}
-              />
-            )}
-
+            
             {project.liveLink && (
               <Link href={project.liveLink} target="_blank" rel="noopener noreferrer" className="w-full text-center px-6 py-3 rounded-lg bg-red-500 text-white font-medium hover:bg-red-600 transition shadow-sm">
                 🌐 View Live Project

@@ -1,19 +1,21 @@
+"use client";
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { BsGithub } from 'react-icons/bs';
-import { FiExternalLink, FiEye } from 'react-icons/fi';
+import { FiExternalLink, FiPlay } from 'react-icons/fi';
 import { IProject } from '@/types/projects';
 import HeadingText from '../common/HeadingText';
-import { safeFetch } from '@/lib/api';
+import VideoModal from '../common/ProjectVideoModal';
 
-const HighlightProjects = async () => {
-  // ২. safeFetch ব্যবহার করে ডেটা আনা (এটি undefined URL এরর আটকাবে)
-  const { data: projects, error } = await safeFetch<IProject[]>('/project/all', {
-    cache: 'no-store',
-  });
+interface HighlightProjectsProps {
+  safeProjects: IProject[];
+  error: string | null;
+}
 
-  // ৩. ডেটা সবসময় একটি অ্যারে কিনা তা নিশ্চিত করা, যাতে .slice() বা .map() এরর না করে
-  const safeProjects = Array.isArray(projects) ? projects : [];
+const HighlightProjects = ({ safeProjects, error }: HighlightProjectsProps) => {
+  const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
 
   return (
     <section id="projects" className="md:pt-18 pt-12 px-4">
@@ -26,17 +28,15 @@ const HighlightProjects = async () => {
       />
 
       <div className="grid grid-cols-1 gap-8 mt-5 md:mt-10">
-        {/* ৪. কন্ডিশনাল রেন্ডারিং: যদি ডেটা থাকে এবং এরর না থাকে */}
-        {safeProjects.length > 0 && !error ? (
+        {safeProjects?.length > 0 && !error ? (
           safeProjects.slice(0, 4).map((project: IProject, index: number) => {
-            const isOdd = index % 2 === 1; // odd => image left, even => image right
+            const isOdd = index % 2 === 1;
 
             return (
               <div
                 key={project._id}
-                className={`bg-[#dadcdfee] rounded-3xl p-6 md:p-8 flex flex-col gap-8 items-stretch border border-slate-200/60 shadow-sm ${
-                  isOdd ? "md:flex-row" : "md:flex-row-reverse"
-                }`}
+                className={`bg-[#dadcdfee] rounded-3xl p-6 md:p-8 flex flex-col gap-8 items-stretch border border-slate-200/60 shadow-sm ${isOdd ? "md:flex-row" : "md:flex-row-reverse"
+                  }`}
               >
                 {/* Image */}
                 <div className="w-full md:w-3/7 shrink-0">
@@ -91,13 +91,12 @@ const HighlightProjects = async () => {
                         </span>
                       )}
                       <span
-                        className={`px-3 py-1 rounded-md font-medium text-xs border ${
-                          project.status === "Completed"
+                        className={`px-3 py-1 rounded-md font-medium text-xs border ${project.status === "Completed"
                             ? "bg-green-50 text-green-700 border-green-200"
                             : project.status === "In Progress"
-                            ? "bg-blue-50 text-blue-700 border-blue-200"
-                            : "bg-slate-100 text-slate-600 border-slate-200"
-                        }`}
+                              ? "bg-blue-50 text-blue-700 border-blue-200"
+                              : "bg-slate-100 text-slate-600 border-slate-200"
+                          }`}
                       >
                         {project.status}
                       </span>
@@ -178,18 +177,15 @@ const HighlightProjects = async () => {
                       </Link>
                     )}
 
-                    {/* Note: You had two identical links for liveLink here. 
-                        I kept the "1 minute view" but you might want to check if both are needed. */}
-                    {project.liveLink && (
-                      <Link
-                        href={project.liveLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    {/* ✅ 1-Minute View Button*/}
+                    {project.oneMinuteExplainLink && (
+                      <button
+                        onClick={() => setActiveVideo({ url: project.oneMinuteExplainLink!, title: project.title })}
                         className="flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-md text-sm font-semibold transition-colors"
                       >
-                        <FiEye className="w-4 h-4" />
-                        1 minute view
-                      </Link>
+                        <FiPlay className="w-4 h-4" />
+                        1 Min Overview
+                      </button>
                     )}
                   </div>
                 </div>
@@ -197,19 +193,28 @@ const HighlightProjects = async () => {
             );
           })
         ) : (
-          // ৫. ফলব্যাক UI (যখন ডেটা নেই বা এরর হয়)
           <div className="text-center py-12 bg-slate-50 rounded-3xl border border-slate-200 text-slate-600">
             <p className="text-base font-medium">
               {error ? "Failed to connect to the backend." : "Projects are temporarily unavailable."}
             </p>
             <p className="text-sm text-slate-400 mt-1">
-              {error 
-                ? "Please check your NEXT_PUBLIC_BACKEND_API in the .env file." 
+              {error
+                ? "Please check your NEXT_PUBLIC_BACKEND_API in the .env file."
                 : "Please ensure your backend server is active and running."}
             </p>
           </div>
         )}
       </div>
+
+      {activeVideo && (
+        <VideoModal
+          isOpen={!!activeVideo}
+          onClose={() => setActiveVideo(null)}
+          videoUrl={activeVideo.url}
+          title={activeVideo.title}
+          subtitle="1 Minute Overview"
+        />
+      )}
 
       {/* View All */}
       <div className="my-10 flex justify-center items-center">
