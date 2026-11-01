@@ -1,6 +1,6 @@
 "use client";
 
-import axiosInstance from "@/lib/axiosInstance";
+import { api } from "@/lib/api";
 import { IProject } from "@/types/projects";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,7 +15,7 @@ const ProjectManagementPage = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await axiosInstance.get("/project/all");
+        const res = await api.get("/project/all");
         if (res.status === 200) {
           setProjects(res.data.data || []);
         }
@@ -55,7 +55,7 @@ const ProjectManagementPage = () => {
 
     try {
       setDeletingId(id);
-      await axiosInstance.delete(`/project/delete/${id}`);
+      await api.delete(`/project/delete/${id}`);
 
       // Optimistically remove from state
       setProjects((prev) => prev.filter((project) => project._id !== id));

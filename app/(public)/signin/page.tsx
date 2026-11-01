@@ -3,10 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, Loader2 } from "lucide-react"; // আইকনের জন্য
-import axiosInstance from "@/lib/axiosInstance";
+import { Eye, EyeOff, Loader2 } from "lucide-react"; 
 import axios from "axios";
 import Swal from "sweetalert2";
+import { api } from "@/lib/api";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -26,7 +26,7 @@ export default function LoginPage() {
         const trimmedEmail = email.trim();
 
         try {
-            const res = await axiosInstance.post('/login', { 
+            const res = await api.post('/login', { 
                 email: trimmedEmail, 
                 password 
             });

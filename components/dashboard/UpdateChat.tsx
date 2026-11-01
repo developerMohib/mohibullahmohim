@@ -3,7 +3,6 @@
 import { PortfolioConfig, Project } from "@/types/chatbot";
 import React, { useEffect, useState } from "react";
 import { getApiErrorMessage, getPortfolioConfig, updatePortfolioConfig } from "@/lib/chatbot";
-import Section from "../common/Section";
 import FormField from "../common/FormField";
 
 type StatusType = "success" | "error" | "";
@@ -31,37 +30,37 @@ export default function UpdateChat() {
   const [saving, setSaving] = useState<boolean>(false);
   const [status, setStatus] = useState<StatusMessage>(initialStatus);
 
-useEffect(() => {
-  let cancelled = false;
+  useEffect(() => {
+    let cancelled = false;
 
-  const loadConfig = async () => {
-    try {
-      const data = await getPortfolioConfig();
+    const loadConfig = async () => {
+      try {
+        const data = await getPortfolioConfig();
 
-      if (cancelled) return;
+        if (cancelled) return;
 
-      setConfig(data);
-      setStatus(initialStatus);
-    } catch (error: unknown) {
-      if (cancelled) return;
+        setConfig(data);
+        setStatus(initialStatus);
+      } catch (error: unknown) {
+        if (cancelled) return;
 
-      setStatus({
-        text: getApiErrorMessage(error),
-        type: "error",
-      });
-    } finally {
-      if (!cancelled) {
-        setLoading(false);
+        setStatus({
+          text: getApiErrorMessage(error),
+          type: "error",
+        });
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
-    }
-  };
+    };
 
-  void loadConfig();
+    void loadConfig();
 
-  return () => {
-    cancelled = true;
-  };
-}, []);
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const updateAbout = (key: keyof PortfolioConfig["about"], value: string) => {
     setConfig((current) =>
@@ -202,7 +201,7 @@ useEffect(() => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-900 text-slate-100 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center">
         <div className="text-xl font-medium animate-pulse">
           Loading Portfolio AI Configuration...
         </div>
@@ -212,7 +211,7 @@ useEffect(() => {
 
   if (!config) {
     return (
-      <div className="min-h-screen bg-slate-900 text-slate-100 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center">
         <div className="text-lg text-rose-400">
           Unable to load portfolio configuration.
         </div>
@@ -223,6 +222,7 @@ useEffect(() => {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto bg-slate-900 border border-slate-800 rounded-xl p-6 sm:p-8 shadow-2xl">
+        {/* Main Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-800 pb-6 mb-8 gap-4">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold text-sky-400">
@@ -249,8 +249,13 @@ useEffect(() => {
           </div>
         )}
 
-        <form onSubmit={handleSave} className="space-y-8">
-          <Section title="About Profile">
+        <form onSubmit={handleSave} className="space-y-10">
+          
+          {/* 1. About Profile Section */}
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold text-slate-200 border-b border-slate-800 pb-2 mb-4">
+              About Profile
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <FormField
                 label="Name"
@@ -280,9 +285,13 @@ useEffect(() => {
                 />
               </div>
             </div>
-          </Section>
+          </div>
 
-          <Section title="Tech Stack (Comma Separated)">
+          {/* 2. Tech Stack Section */}
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold text-slate-200 border-b border-slate-800 pb-2 mb-4">
+              Tech Stack (Comma Separated)
+            </h2>
             <div className="space-y-4">
               {(
                 Object.keys(config.tech_stack) as Array<
@@ -297,9 +306,13 @@ useEffect(() => {
                 />
               ))}
             </div>
-          </Section>
+          </div>
 
-          <Section title="Specializations (One per line)">
+          {/* 3. Specializations Section */}
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold text-slate-200 border-b border-slate-800 pb-2 mb-4">
+              Specializations (One per line)
+            </h2>
             <FormField
               label="Specializations"
               textarea
@@ -307,25 +320,28 @@ useEffect(() => {
               value={fromList(config.specializations, "\n")}
               onChange={(value) => updateStringArray("specializations", value)}
             />
-          </Section>
+          </div>
 
-          <Section
-            title="Projects"
-            action={
+          {/* 4. Projects Section (With Action Button) */}
+          <div className="space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-2 mb-4">
+              <h2 className="text-lg font-semibold text-slate-200">
+                Projects
+              </h2>
               <button
                 type="button"
                 onClick={addProject}
-                className="px-3 py-1 bg-sky-600 hover:bg-sky-500 text-white rounded text-xs font-medium transition"
+                className="px-3 py-1.5 bg-sky-600 hover:bg-sky-500 text-white rounded-md text-xs font-medium transition self-start sm:self-auto"
               >
                 + Add Project
               </button>
-            }
-          >
+            </div>
+            
             <div className="space-y-6">
               {config.projects.map((project, index) => (
                 <div
                   key={`${project.id}-${index}`}
-                  className="bg-slate-900 p-4 rounded-lg border border-slate-800 space-y-3"
+                  className="bg-slate-950/50 p-4 rounded-lg border border-slate-800 space-y-3"
                 >
                   <div className="flex justify-between items-center">
                     <span className="text-xs font-bold text-sky-400">
@@ -335,7 +351,7 @@ useEffect(() => {
                     <button
                       type="button"
                       onClick={() => removeProject(index)}
-                      className="text-xs text-rose-400 hover:text-rose-300 transition"
+                      className="text-xs text-rose-400 hover:text-rose-300 transition px-2 py-1 rounded hover:bg-rose-950/30"
                     >
                       Delete
                     </button>
@@ -368,9 +384,13 @@ useEffect(() => {
                 </div>
               ))}
             </div>
-          </Section>
+          </div>
 
-          <Section title="Contact & Profiles">
+          {/* 5. Contact & Profiles Section */}
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold text-slate-200 border-b border-slate-800 pb-2 mb-4">
+              Contact & Profiles
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <FormField
                 label="Email"
@@ -394,9 +414,13 @@ useEffect(() => {
                 onChange={(value) => updateContact("leetcode", value)}
               />
             </div>
-          </Section>
+          </div>
 
-          <Section title="AI Instructions & Rules (One per line)">
+          {/* 6. AI Instructions & Rules Section */}
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold text-slate-200 border-b border-slate-800 pb-2 mb-4">
+              AI Instructions & Rules (One per line)
+            </h2>
             <FormField
               label="AI Rules"
               textarea
@@ -404,9 +428,10 @@ useEffect(() => {
               value={fromList(config.rules, "\n")}
               onChange={(value) => updateStringArray("rules", value)}
             />
-          </Section>
+          </div>
 
-          <div className="pt-4 border-t border-slate-800 gap-4">
+          {/* Footer / Save Section */}
+          <div className="pt-6 border-t border-slate-800 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
             <div className="w-full sm:w-auto flex-1">
               <FormField
                 label="Admin Secret Key"
@@ -421,7 +446,7 @@ useEffect(() => {
             <button
               type="submit"
               disabled={saving}
-              className="w-full sm:w-auto px-6 py-2.5 bg-sky-500 hover:bg-sky-400 disabled:bg-slate-700 text-slate-950 font-bold rounded-lg text-sm transition shadow-lg shadow-sky-500/20"
+              className="w-full sm:w-auto px-6 py-2.5 bg-sky-500 hover:bg-sky-400 disabled:bg-slate-700 disabled:text-slate-400 text-slate-950 font-bold rounded-lg text-sm transition shadow-lg shadow-sky-500/20 mt-6 sm:mt-0"
             >
               {saving ? "Saving Changes..." : "Save to Database"}
             </button>
