@@ -1,8 +1,8 @@
 import axios from "axios";
-import axiosInstance from "./axiosInstance";
+import { api } from "./api";
 export async function getCurrentUser() {
     try {
-        const { data } = await axiosInstance.get("/login/me");
+        const { data } = await api.get("/login/me");
         return data.user;
     } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -14,7 +14,7 @@ export async function getCurrentUser() {
 
 export async function logoutUser() {
     try {
-        const { data } = await axiosInstance.post("/login/logout");
+        const { data } = await api.post("/login/logout");
         return data;
     } catch (error) {
         if (axios.isAxiosError(error)) {

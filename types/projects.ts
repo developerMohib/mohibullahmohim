@@ -29,6 +29,7 @@ export interface IProject {
   coverImages?: string | null;
   technologies: string[];
   liveLink?: string | null;
+  oneMinuteExplainLink?: string | null;
   githubFrontendUrl?: string | null;
   githubBackendUrl?: string | null;
   role?: ProjectRole | null;
@@ -40,5 +41,4 @@ export interface IProject {
   featured: boolean;
   createdAt: string;
   updatedAt: string;
-  videoUrl?: string
 }

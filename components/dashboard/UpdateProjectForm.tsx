@@ -1,6 +1,6 @@
 "use client";
 
-import axiosInstance from "@/lib/axiosInstance";
+import { api } from "@/lib/api";
 import { IProject } from "@/types/projects";
 import { useState } from "react";
 import Swal from "sweetalert2";
@@ -29,7 +29,6 @@ export default function UpdateProjectForm({ project }: { project: IProject }) {
                 ?.split(",")
                 .map((t) => t.trim())
                 .filter(Boolean),
-            // image ফিল্ডটি যদি coverImages হয়, তবে ব্যাকএন্ডে পাঠানোর সময় নাম মিলিয়ে নেবেন
             image: (form.get("image") as string)
                 ?.split(",")
                 .map((img) => img.trim())
@@ -37,7 +36,7 @@ export default function UpdateProjectForm({ project }: { project: IProject }) {
         };
 
         try {
-            const res = await axiosInstance.put(`/project/${project._id}`, data);
+            const res = await api.put(`/project/${project._id}`, data);
 
             if (res.status === 200) {
                 Swal.fire({
@@ -60,8 +59,7 @@ export default function UpdateProjectForm({ project }: { project: IProject }) {
         <div className="max-w-4xl mx-auto p-6">
             <h1 className="text-3xl font-bold mb-6">Update Project</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
-                
-                {/* ✅ সব defaultValue এর শেষে ?? "" যোগ করা হয়েছে */}
+
                 <div>
                     <label htmlFor="title" className="block mb-1 font-medium">Title</label>
                     <input
@@ -98,7 +96,7 @@ export default function UpdateProjectForm({ project }: { project: IProject }) {
                     <textarea
                         id="challenges"
                         name="challenges"
-                        defaultValue={project.challenge ?? ""} 
+                        defaultValue={project.challenge ?? ""}
                         rows={4}
                         className="w-full border p-3 rounded-lg"
                     />
@@ -170,7 +168,7 @@ export default function UpdateProjectForm({ project }: { project: IProject }) {
                         id="image"
                         name="image"
                         rows={3}
-                        defaultValue={project.coverImages ?? ""} 
+                        defaultValue={project.coverImages ?? ""}
                         className="w-full border p-3 rounded-lg"
                     />
                 </div>
