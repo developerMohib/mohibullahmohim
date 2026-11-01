@@ -13,7 +13,7 @@ const MAX_HIGHLIGHTS = 5;
 const optionalFields = [
   "role",
   "category",
-  "liveLink",
+  "liveLink", "oneMinuteExplainLink",
   "githubFrontendUrl",
   "githubBackendUrl",
   "description",
@@ -101,16 +101,24 @@ export default function CreateProjectPage() {
 
     try {
       const res = await axiosInstance.post("/project/creation", formData);
-
-      Swal.fire({
-        icon: "success",
-        title: res.data.message || "Project created",
-        timer: 1500,
-        showConfirmButton: false,
-      });
-
-      router.push("/dashboard/projects");
-      router.refresh();
+      if (!res.data.success) {
+        Swal.fire({
+          icon: "error",
+          title: "Failed to create project",
+          text: res.data.message || "An error occurred",
+        });
+        return;
+      }
+      if (res.data.success) {
+        Swal.fire({
+          icon: "success",
+          title: res.data.message || "Project created",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        router.push("/dashboard/projects");
+        router.refresh();
+      }
     } catch (error: unknown) {
       Swal.fire({
         icon: "error",
@@ -219,16 +227,32 @@ export default function CreateProjectPage() {
           />
         </div>
 
-        <div>
-          <label htmlFor="liveLink" className={labelCls}>Live Link</label>
-          <input
-            id="liveLink"
-            name="liveLink"
-            type="url"
-            placeholder="https://..."
-            className={inputCls}
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label htmlFor="liveLink" className={labelCls}>Live Link</label>
+            <input
+              id="liveLink"
+              name="liveLink"
+              type="url"
+              placeholder="https://..."
+              className={inputCls}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="oneMinuteExplainLink" className={labelCls}>1-Minute Explanation Link</label>
+            <input
+              id="oneMinuteExplainLink"
+              name="oneMinuteExplainLink"
+              type="url"
+              placeholder="https://..."
+              className={inputCls}
+            />
+          </div>
         </div>
+
+
+
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
