@@ -1,6 +1,5 @@
 "use client";
-
-import axiosInstance from "@/lib/axiosInstance";
+import { api } from "@/lib/api";
 import { PROJECT_CATEGORIES, PROJECT_ROLES, PROJECT_STATUSES } from "@/types/projects";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -100,7 +99,7 @@ export default function CreateProjectPage() {
     setLoading(true);
 
     try {
-      const res = await axiosInstance.post("/project/creation", formData);
+      const res = await api.post("/project/creation", formData);
       if (!res.data.success) {
         Swal.fire({
           icon: "error",

@@ -1,7 +1,7 @@
 "use client";
 
+import { api } from "@/lib/api";
 import { useState } from "react";
-import axiosInstance from "@/lib/axiosInstance";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -22,7 +22,7 @@ export default function ChatWidget() {
     setLoading(true);
 
     try {
-      const res = await axiosInstance.post("/chat/ai", {
+      const res = await api.post("/chat/ai", {
         message: userMsg.content,
         history: messages, // Sending previous chat history
       });

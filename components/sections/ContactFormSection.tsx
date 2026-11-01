@@ -2,8 +2,8 @@
 import { FormEvent, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import axiosInstance from "@/lib/axiosInstance";
 import HeadingText from "../common/HeadingText";
+import { api } from "@/lib/api";
 
 export default function ContactSection() {
     const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ export default function ContactSection() {
         };
 
         try {
-            const res = await axiosInstance.post("/contact", formData);
+            const res = await api.post("/contact", formData);
             if (res.status === 200 || res.data.success === true) {
                     Swal.fire({
                       icon: "success",
