@@ -53,7 +53,7 @@ const ReviewsSlider = ({ reviews }: { reviews: IReviews[] }) => {
             emblaApi.off("select", handleSelect);
             emblaApi.off("reInit", handleReInit);
         };
-    }, [emblaApi]); // onSelect কে ডিপেন্ডেন্সি থেকে সরানো হয়েছে কারণ এটা এখন ইফেক্টের ভেতরেই
+    }, [emblaApi]);
 
     if (!reviews.length) return null;
 
@@ -64,7 +64,6 @@ const ReviewsSlider = ({ reviews }: { reviews: IReviews[] }) => {
                     {reviews?.map((item) => (
                         <div
                             key={item._id}
-                            // px-3 এবং md:px-4 দেওয়া হয়েছে যাতে বক্সগুলোর মাঝে সুন্দর গ্যাপ থাকে
                             className="flex-[0_0_100%] min-w-0 px-3 md:px-4 lg:flex-[0_0_50%]"
                         >
                             {/* Card / Box Design */}
@@ -108,8 +107,8 @@ const ReviewsSlider = ({ reviews }: { reviews: IReviews[] }) => {
                         aria-current={i === selectedIndex ? "true" : undefined}
                         onClick={() => emblaApi?.scrollTo(i)}
                         className={`h-1.5 rounded-full transition-all duration-300 ${i === selectedIndex
-                                ? "w-6 bg-blue-500" // Active dot (লম্বা হবে)
-                                : "w-2 bg-slate-300 hover:bg-slate-400" // Inactive dot
+                            ? "w-6 bg-blue-500"
+                            : "w-2 bg-slate-300 hover:bg-slate-400" // Inactive dot
                             }`}
                     />
                 ))}

@@ -1,9 +1,9 @@
 import { ApiErrorResponse, PortfolioConfig } from "@/types/chatbot";
-import axiosInstance from "./axiosInstance";
 import axios from "axios";
+import { api } from "./api";
 
 export const getPortfolioConfig = async (): Promise<PortfolioConfig> => {
-  const { data } = await axiosInstance.get<{ data?: PortfolioConfig } | PortfolioConfig>(
+  const { data } = await api.get<{ data?: PortfolioConfig } | PortfolioConfig>(
     "/chat/data"
   );
 
@@ -14,7 +14,7 @@ export const updatePortfolioConfig = async (
   config: PortfolioConfig,
   adminKey: string
 ): Promise<void> => {
-  await axiosInstance.patch("/chat/update/data", config, {
+  await api.patch("/chat/update/data", config, {
     headers: {
       "X-Admin-Key": adminKey,
     },

@@ -1,10 +1,11 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
-export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000",
+export const api :AxiosInstance= axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://app-mohibullahmohim.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 

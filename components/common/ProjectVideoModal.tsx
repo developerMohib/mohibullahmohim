@@ -1,84 +1,114 @@
-// components/ProjectVideoPlayer.tsx
 "use client";
 
-import { useState, useEffect } from "react";
-import { Play, X } from "lucide-react";
+import { useEffect } from "react";
 
-interface ProjectVideoPlayerProps {
+type VideoModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
   videoUrl: string;
   title: string;
-}
+  subtitle?: string;
+};
 
-export default function ProjectVideoPlayer({ videoUrl, title }: ProjectVideoPlayerProps) {
-  const [isOpen, setIsOpen] = useState(false);
+const getEmbedUrl = (url: string) => {
+  const ytRegex =
+    /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
 
-  // ESC বাটনে মোডাল বন্ধ করা এবং ব্যাকগ্রাউন্ড স্ক্রল লক করা
+  const match = url.match(ytRegex);
+  if (match) {
+    return `https://www.youtube.com/embed/${match[1]}?autoplay=1`;
+  }
+
+  return url;
+};
+
+const isYouTubeUrl = (url: string) => {
+  return getEmbedUrl(url).includes('youtube.com/embed');
+};
+
+export default function VideoModal({
+  isOpen,
+  onClose,
+  videoUrl,
+  title,
+  subtitle = '1 Minute Overview',
+}: VideoModalProps) {
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsOpen(false);
+    if (!isOpen) return;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
     };
 
-    if (isOpen) {
-      window.addEventListener("keydown", handleEsc);
-      document.body.style.overflow = "hidden"; // স্ক্রল বন্ধ
-    }
+    document.addEventListener('keydown', handleEscape);
+    document.body.style.overflow = 'hidden';
 
     return () => {
-      window.removeEventListener("keydown", handleEsc);
-      document.body.style.overflow = "unset"; // স্ক্রল চালু
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = '';
     };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
-  if (!videoUrl) return null;
-
-  // YouTube লিংকে autoplay যোগ করা
-  const embedUrl = videoUrl.includes("autoplay")
-    ? videoUrl
-    : `${videoUrl}${videoUrl.includes("?") ? "&" : "?"}autoplay=1`;
+  if (!isOpen || !videoUrl) return null;
 
   return (
-    <>
-      {/* ১. ট্রিগার বাটন (সার্ভার কম্পোনেন্ট থেকে এটি দেখা যাবে) */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition shadow-sm"
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-3xl bg-zinc-900 rounded-2xl overflow-hidden shadow-2xl border border-zinc-800 animate-in zoom-in-95 duration-200"
+        onClick={(event) => event.stopPropagation()}
       >
-        <Play className="w-4 h-4 fill-current" />
-        Watch 1-Min Overview
-      </button>
-
-      {/* ২. মোডাল (শুধু isOpen true হলে রেন্ডার হবে) */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm animate-in fade-in duration-200"
-          onClick={() => setIsOpen(false)}
+        <button
+          onClick={onClose}
+          aria-label="Close video"
+          className="absolute top-3 right-3 z-10 p-2 bg-black/60 hover:bg-black/80 text-white rounded-full transition-colors backdrop-blur-md"
         >
-          <div
-            className="relative w-full max-w-4xl animate-in zoom-in-95 duration-200"
-            onClick={(e) => e.stopPropagation()} // ভিডিওতে ক্লিক করলে বন্ধ হবে না
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
-            {/* Close Button */}
-            <button
-              onClick={() => setIsOpen(false)}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors focus:outline-none"
-              aria-label="Close video"
-            >
-              <X size={32} />
-            </button>
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
 
-            {/* Video Player */}
-            <div className="aspect-video overflow-hidden rounded-xl bg-black shadow-2xl border border-white/10">
-              <iframe
-                src={embedUrl}
-                title={title}
-                className="w-full h-full"
-                allow="autoplay; encrypted-media; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
+        <div className="aspect-video w-full bg-black">
+          {isYouTubeUrl(videoUrl) ? (
+            <iframe
+              src={getEmbedUrl(videoUrl)}
+              title={`${title} video`}
+              className="w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ) : (
+            <video
+              src={videoUrl}
+              controls
+              autoPlay
+              className="w-full h-full"
+            />
+          )}
         </div>
-      )}
-    </>
+
+        <div className="p-4 bg-zinc-900 border-t border-zinc-800 flex items-center justify-between">
+          <h3 className="text-base font-semibold text-white">
+            {title}{' '}
+            <span className="text-indigo-400 text-sm font-normal">
+              - {subtitle}
+            </span>
+          </h3>
+        </div>
+      </div>
+    </div>
   );
 }
